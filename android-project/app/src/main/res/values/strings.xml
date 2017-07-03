@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">android-project</string>
+    <string name="word">Word</string>
 </resources>
