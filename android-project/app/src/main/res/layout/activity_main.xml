@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="oceantreasur.es.android_project.MainActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/test1"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:text="Play"
+            android:textSize="45dp"
+            android:background="@drawable/button_bg_round"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
