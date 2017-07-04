@@ -8,10 +8,10 @@ import retrofit2.http.Path;
 
 public interface ConnectionClient {
 
-    @GET("next_word")
-    Call<NextWordResponse> getNextWord();
+//    @GET("next_word")
+//    Call<NextWordResponse> getNextWord();
 
-    @POST("check_answer/{word_id}")
-    Call<CheckAnswerResponse> checkAnswer(@Path("word_id") int id, @Body CheckAnswerRequest body);
+//    @POST("check_answer/{word_id}")
+//    Call<CheckAnswerResponse> checkAnswer(@Path("word_id") int id, @Body CheckAnswerRequest body);
 
 }
