@@ -1,0 +1,31 @@
+package oceantreasur.es.android_project;
+
+/**
+ * Created by Student on 7/4/2017.
+ */
+
+public class Progress {
+    private int current;
+    private int max;
+
+    Progress (int  current, int max) {
+        this.current = current;
+        this.max = max;
+    }
+
+    public int getCurrent() {
+        return current;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+}
