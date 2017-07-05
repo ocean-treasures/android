@@ -41,10 +41,12 @@
                 android:paddingRight="5sp">
                 <ImageButton
                     android:id="@+id/button1"
+                    android:onClick="onClick"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <ImageButton
                     android:id="@+id/button2"
+                    android:onClick="onClick"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </TableRow>
@@ -58,11 +60,13 @@
 
                 <ImageButton
                     android:id="@+id/button3"
+                    android:onClick="onClick"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
                 <ImageButton
                     android:id="@+id/button4"
+                    android:onClick="onClick"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </TableRow>
