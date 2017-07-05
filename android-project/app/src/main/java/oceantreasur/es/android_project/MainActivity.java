@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+
+import java.io.Console;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton testButton;
     private ImageView testImageView;
 
-    private static final String BASE_URL = "www.example.com";
+    private static final String BASE_URL = "https://swapi.co/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,26 +57,28 @@ public class MainActivity extends AppCompatActivity {
                 .into(testButton);
 
 
-//        Retrofit.Builder builder = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create());
-//
-//        Retrofit retrofit = builder.build();
-//
-//        CustomClient client = retrofit.create(CustomClient.class);
-//        Call<CustomPOJO> call = client.function("functionName");
-//
-//        call.enqueue(new Callback<CustomPOJO>() {
-//            @Override
-//            public void onResponse(Call<CustomPOJO> call, Response<CustomPOJO> response) {
-//                CustomPOJO response = response.body();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CustomPOJO> call, Throwable t) {
-//
-//            }
-//        });
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create());
+
+        Retrofit retrofit = builder.build();
+
+        CustomClient client = retrofit.create(CustomClient.class);
+        Call<CustomPOJO> call = client.getPerson(1);
+
+        call.enqueue(new Callback<CustomPOJO>() {
+            @Override
+            public void onResponse(Call<CustomPOJO> call, Response<CustomPOJO> response) {
+                CustomPOJO person = response.body();
+
+                Log.d("pkm", person.toString());
+            }
+
+            @Override
+            public void onFailure(Call<CustomPOJO> call, Throwable t) {
+                Log.d("pkm", "ERROR");
+            }
+        });
 
     }
 

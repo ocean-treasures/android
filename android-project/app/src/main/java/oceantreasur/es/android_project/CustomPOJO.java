@@ -242,25 +242,79 @@ public class CustomPOJO implements Parcelable
     }
 
     @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CustomPOJO that = (CustomPOJO) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (height != null ? !height.equals(that.height) : that.height != null) return false;
+        if (mass != null ? !mass.equals(that.mass) : that.mass != null) return false;
+        if (hairColor != null ? !hairColor.equals(that.hairColor) : that.hairColor != null)
+            return false;
+        if (skinColor != null ? !skinColor.equals(that.skinColor) : that.skinColor != null)
+            return false;
+        if (eyeColor != null ? !eyeColor.equals(that.eyeColor) : that.eyeColor != null)
+            return false;
+        if (birthYear != null ? !birthYear.equals(that.birthYear) : that.birthYear != null)
+            return false;
+        if (gender != null ? !gender.equals(that.gender) : that.gender != null) return false;
+        if (homeworld != null ? !homeworld.equals(that.homeworld) : that.homeworld != null)
+            return false;
+        if (films != null ? !films.equals(that.films) : that.films != null) return false;
+        if (species != null ? !species.equals(that.species) : that.species != null) return false;
+        if (vehicles != null ? !vehicles.equals(that.vehicles) : that.vehicles != null)
+            return false;
+        if (starships != null ? !starships.equals(that.starships) : that.starships != null)
+            return false;
+        if (created != null ? !created.equals(that.created) : that.created != null) return false;
+        if (edited != null ? !edited.equals(that.edited) : that.edited != null) return false;
+        return url != null ? url.equals(that.url) : that.url == null;
+
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(name).append(height).append(mass).append(hairColor).append(skinColor).append(eyeColor).append(birthYear).append(gender).append(homeworld).append(films).append(species).append(vehicles).append(starships).append(created).append(edited).append(url).toHashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (height != null ? height.hashCode() : 0);
+        result = 31 * result + (mass != null ? mass.hashCode() : 0);
+        result = 31 * result + (hairColor != null ? hairColor.hashCode() : 0);
+        result = 31 * result + (skinColor != null ? skinColor.hashCode() : 0);
+        result = 31 * result + (eyeColor != null ? eyeColor.hashCode() : 0);
+        result = 31 * result + (birthYear != null ? birthYear.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (homeworld != null ? homeworld.hashCode() : 0);
+        result = 31 * result + (films != null ? films.hashCode() : 0);
+        result = 31 * result + (species != null ? species.hashCode() : 0);
+        result = 31 * result + (vehicles != null ? vehicles.hashCode() : 0);
+        result = 31 * result + (starships != null ? starships.hashCode() : 0);
+        result = 31 * result + (created != null ? created.hashCode() : 0);
+        result = 31 * result + (edited != null ? edited.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        return result;
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-        if ((other instanceof CustomPOJO) == false) {
-            return false;
-        }
-        CustomPOJO rhs = ((CustomPOJO) other);
-        return new EqualsBuilder().append(name, rhs.name).append(height, rhs.height).append(mass, rhs.mass).append(hairColor, rhs.hairColor).append(skinColor, rhs.skinColor).append(eyeColor, rhs.eyeColor).append(birthYear, rhs.birthYear).append(gender, rhs.gender).append(homeworld, rhs.homeworld).append(films, rhs.films).append(species, rhs.species).append(vehicles, rhs.vehicles).append(starships, rhs.starships).append(created, rhs.created).append(edited, rhs.edited).append(url, rhs.url).isEquals();
+    public String toString() {
+        return "CustomPOJO{" +
+                "name='" + name + '\'' +
+                ", height='" + height + '\'' +
+                ", mass='" + mass + '\'' +
+                ", hairColor='" + hairColor + '\'' +
+                ", skinColor='" + skinColor + '\'' +
+                ", eyeColor='" + eyeColor + '\'' +
+                ", birthYear='" + birthYear + '\'' +
+                ", gender='" + gender + '\'' +
+                ", homeworld='" + homeworld + '\'' +
+                ", films=" + films +
+                ", species=" + species +
+                ", vehicles=" + vehicles +
+                ", starships=" + starships +
+                ", created='" + created + '\'' +
+                ", edited='" + edited + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 
     public void writeToParcel(Parcel dest, int flags) {
