@@ -6,10 +6,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private Typeface playButtonTypeFace;
     private Button playButton;
+    private ImageButton testButton;
+    private ImageView testImageView;
+
+    private static final String BASE_URL = "www.example.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,16 +31,54 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.playButton = (Button) findViewById(R.id.test1);
+        this.testButton = (ImageButton) findViewById(R.id.testButton);
+        this.testImageView = (ImageView) findViewById(R.id.testImageView);
         this.playButtonTypeFace = Typeface.createFromAsset(getAssets(), "fonts/CoolCrayon.ttf");
 
         playButton.setTypeface(playButtonTypeFace);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
+                startGame();
             }
         });
 
+        Glide.with(this)
+                .load(R.drawable.chest)
+                .into(testImageView);
+
+        Glide.with(this)
+                .load(R.drawable.chest)
+                .into(testButton);
+
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create());
+
+        Retrofit retrofit = builder.build();
+
+        CustomClient response = retrofit.create(CustomClient.class);
+        Call<CustomPOJO> call = response.function("functionName");
+
+        call.enqueue(new Callback<CustomPOJO>() {
+            @Override
+            public void onResponse(Call<CustomPOJO> call, Response<CustomPOJO> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<CustomPOJO> call, Throwable t) {
+
+            }
+        });
+
+        // TODO - call.enqueue
+
+    }
+
+    void startGame() {
+        Intent intent = new Intent(MainActivity.this, GameActivity.class);
+        startActivity(intent);
     }
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.percent.PercentRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.infinote.differentthinking.infinote.views.drawing.DrawingFragment"
+        android:animateLayoutChanges="true">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            app:layout_widthPercent="80%"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:progressDrawable="@drawable/customprogressbar"/>
+
+        <ImageButton
+            app:layout_widthPercent="45%"
+            app:layout_heightPercent="35%"
+            android:layout_alignTop="@id/progressBar"
+            app:layout_marginTopPercent="5%"
+            app:layout_marginLeftPercent="5%"
+            android:id="@+id/image1"/>
+
+        <ImageButton
+            android:id="@+id/image2"
+            app:layout_widthPercent="45%"
+            app:layout_heightPercent="35%"
+            app:layout_marginTopPercent="5%"
+            app:layout_marginRightPercent="5%"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/progressBar"/>
+
+        <ImageButton
+            app:layout_widthPercent="45%"
+            app:layout_heightPercent="35%"
+            app:layout_marginTopPercent="35%"
+            app:layout_marginLeftPercent="5%"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@id/image1"/>
+
+        <ImageButton
+            app:layout_widthPercent="45%"
+            app:layout_heightPercent="35%"
+            app:layout_marginTopPercent="35%"
+            app:layout_marginRightPercent="5%"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/image2"/>
+
+    </android.support.percent.PercentRelativeLayout>
+
+        <TextView
+            android:id="@+id/text_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/word"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textColorHighlight="@android:color/primary_text_dark"
+            android:textSize="50sp"
+            android:gravity="center" />
+</LinearLayout>
