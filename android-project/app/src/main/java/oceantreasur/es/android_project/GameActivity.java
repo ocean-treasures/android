@@ -1,11 +1,13 @@
 package oceantreasur.es.android_project;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -16,6 +18,8 @@ public class GameActivity extends AppCompatActivity {
     private ImageButton topRight;
     private ImageButton bottomLeft;
     private ImageButton bottomRight;
+    private Typeface wordTypeFace;
+    private TextView word;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +27,11 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        this.word = (TextView) findViewById(R.id.tv_word);
         this.progressBar.setMax(PROGRESS_MAX);
+        this.wordTypeFace = Typeface.createFromAsset(getAssets(), "fonts/CoolCrayon.ttf");
+
+        this.word.setTypeface(wordTypeFace);
 
         this.topLeft = (ImageButton) findViewById(R.id.button1);
         this.topRight = (ImageButton) findViewById(R.id.button2);
@@ -44,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
     private void ChooseNextActivity(boolean choice) {
         if(choice) {
             Intent intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
-            intent.putExtra("url", )
+         //   intent.putExtra("url", );
         }
     }
 }
