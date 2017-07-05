@@ -1,9 +1,5 @@
 package oceantreasur.es.android_project;
 
-/**
- * Created by Student on 7/4/2017.
- */
-
 public class Progress {
     private int current;
     private int max;
@@ -27,5 +23,13 @@ public class Progress {
 
     public void setMax(int max) {
         this.max = max;
+    }
+
+    @Override
+    public String toString() {
+        return "Progress{" +
+                "current=" + current +
+                ", max=" + max +
+                '}';
     }
 }

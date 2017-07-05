@@ -1,9 +1,5 @@
 package oceantreasur.es.android_project;
 
-/**
- * Created by Student on 7/4/2017.
- */
-
 public class WordDetails {
     private String word;
     private int id;
@@ -27,6 +23,14 @@ public class WordDetails {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "WordDetails{" +
+                "word='" + word + '\'' +
+                ", id=" + id +
+                '}';
     }
 }
 

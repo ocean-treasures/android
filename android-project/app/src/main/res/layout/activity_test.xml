@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <android.support.percent.PercentRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context="com.infinote.differentthinking.infinote.views.drawing.DrawingFragment"
@@ -19,85 +21,83 @@
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
             android:progressDrawable="@drawable/customprogressbar"/>
 
     </android.support.percent.PercentRelativeLayout>
-    
-    <android.support.constraint.ConstraintLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
         android:layout_weight="1"
-        >
+        android:layout_marginTop="10dp">
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#FF0000"
-            app:layout_constraintDimensionRatio="1:1">
-
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:paddingTop="5sp"
-                android:paddingLeft="5sp"
-                android:paddingRight="5sp">
-                <ImageButton
-                    android:id="@+id/button1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-                <ImageButton
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </TableRow>
-        </TableLayout>
-        <ImageButton
-            android:layout_alignTop="@id/progressBar"
-            android:id="@+id/image1"
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            tools:layout_editor_absoluteY="100dp"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <ImageButton
-            android:id="@+id/image2"
-            android:layout_alignTop="@id/progressBar"
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            tools:layout_editor_absoluteY="100dp"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <ImageButton
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@id/image1"
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            tools:layout_editor_absoluteY="100dp"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <ImageButton
-            app:layout_widthPercent="45%"
-            app:layout_heightPercent="35%"
-            app:layout_marginTopPercent="35%"
-            app:layout_marginRightPercent="5%"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/image2"
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            tools:layout_editor_absoluteY="100dp"
-            tools:layout_editor_absoluteX="0dp" />
-    </android.support.constraint.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/text_id"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/word"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textColorHighlight="@android:color/primary_text_dark"
-            android:textSize="50sp"
-            android:gravity="center" />
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_1"
+                android:onClick="onClick"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#FF0000"
+                android:layout_weight="1"
+                android:layout_marginRight="2.5dp"
+                android:layout_marginLeft="5dp"/>
+            <ImageView
+                android:id="@+id/iv_2"
+                android:onClick="onClick"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#00FF00"
+                android:layout_weight="1"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_3"
+                android:onClick="onClick"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#0000FF"
+                android:layout_weight="1"
+                android:layout_marginRight="2.5dp"
+                android:layout_marginLeft="5dp"/>
+
+            <ImageView
+                android:id="@+id/iv_4"
+                android:onClick="onClick"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#FFFF00"
+                android:layout_weight="1"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/word"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textColorHighlight="@android:color/primary_text_dark"
+        android:textSize="50sp"
+        android:gravity="center" />
 </LinearLayout>

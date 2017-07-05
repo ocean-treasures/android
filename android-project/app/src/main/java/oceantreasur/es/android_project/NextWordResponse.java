@@ -1,15 +1,15 @@
 package oceantreasur.es.android_project;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Student on 7/4/2017.
- */
+import java.lang.reflect.Array;
+import java.util.List;
 
 public class NextWordResponse {
     private Progress progress;
     private WordDetails word;
-    private List<Picture> pics = null;
+    @SerializedName("pictures")
+    private Picture[] pictures = null;
 
     public Progress getProgress() {
         return progress;
@@ -27,11 +27,20 @@ public class NextWordResponse {
         this.word = word;
     }
 
-    public List<Picture> getPics() {
-        return pics;
+    public Picture[] getPictures() {
+        return pictures;
+    }
+    
+    public void setPictures(Picture[] pictures) {
+        this.pictures = pictures;
     }
 
-    public void setPics(List<Picture> pics) {
-        this.pics = pics;
+    @Override
+    public String toString() {
+        return "NextWordResponse{" +
+                "progress=" + progress +
+                ", word=" + word +
+                ", pictures=" + pictures +
+                '}';
     }
 }
