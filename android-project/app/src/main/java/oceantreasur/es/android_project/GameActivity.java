@@ -46,7 +46,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-            v.getId();
+        Intent intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
+        startActivity(intent);
     }
 
     private void ChooseNextActivity(boolean choice) {

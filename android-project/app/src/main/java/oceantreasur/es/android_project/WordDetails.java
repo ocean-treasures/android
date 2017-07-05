@@ -1,8 +1,6 @@
 package oceantreasur.es.android_project;
 
-/**
- * Created by Student on 7/4/2017.
- */
+import com.google.gson.annotations.SerializedName;
 
 public class WordDetails {
     private String word;
