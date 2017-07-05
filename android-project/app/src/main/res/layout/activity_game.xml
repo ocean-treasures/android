@@ -42,11 +42,13 @@
                 <ImageButton
                     android:id="@+id/button1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
                 <ImageButton
                     android:id="@+id/button2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
             </TableRow>
             <TableRow
                 android:id="@+id/tableRow2"
@@ -59,17 +61,19 @@
                 <ImageButton
                     android:id="@+id/button3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
 
                 <ImageButton
                     android:id="@+id/button4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
             </TableRow>
         </TableLayout>
 
         <TextView
-            android:id="@+id/text_id"
+            android:id="@+id/tv_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/word"

@@ -45,35 +45,35 @@ public class MainActivity extends AppCompatActivity {
 
         Glide.with(this)
                 .load(R.drawable.chest)
+                .fitCenter()
                 .into(testImageView);
 
         Glide.with(this)
                 .load(R.drawable.chest)
+                .fitCenter()
                 .into(testButton);
 
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create());
-
-        Retrofit retrofit = builder.build();
-
-        CustomClient response = retrofit.create(CustomClient.class);
-        Call<CustomPOJO> call = response.function("functionName");
-
-        call.enqueue(new Callback<CustomPOJO>() {
-            @Override
-            public void onResponse(Call<CustomPOJO> call, Response<CustomPOJO> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<CustomPOJO> call, Throwable t) {
-
-            }
-        });
-
-        // TODO - call.enqueue
+//        Retrofit.Builder builder = new Retrofit.Builder()
+//                .baseUrl(BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create());
+//
+//        Retrofit retrofit = builder.build();
+//
+//        CustomClient client = retrofit.create(CustomClient.class);
+//        Call<CustomPOJO> call = client.function("functionName");
+//
+//        call.enqueue(new Callback<CustomPOJO>() {
+//            @Override
+//            public void onResponse(Call<CustomPOJO> call, Response<CustomPOJO> response) {
+//                CustomPOJO response = response.body();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CustomPOJO> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 
