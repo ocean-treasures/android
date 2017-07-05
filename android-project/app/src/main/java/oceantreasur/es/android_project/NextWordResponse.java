@@ -2,9 +2,6 @@ package oceantreasur.es.android_project;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.Array;
-import java.util.List;
-
 public class NextWordResponse {
     private Progress progress;
     private WordDetails word;
