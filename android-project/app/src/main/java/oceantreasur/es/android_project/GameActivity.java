@@ -2,16 +2,19 @@ package oceantreasur.es.android_project;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,23 +59,25 @@ public class GameActivity extends AppCompatActivity {
             public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
                 NextWordResponse nextWord = response.body();
 
+                ArrayList<Integer> positions = getRandomPositionsForPics();
+
                 Glide.with(OceanTreasuresApplication.getStaticContext())
-                        .load(nextWord.getPictures()[0].getResolvedUrl())
+                        .load(nextWord.getPictures()[positions.get(0)].getResolvedUrl())
                         .fitCenter()
                         .into(topLeft);
 
                 Glide.with(OceanTreasuresApplication.getStaticContext())
-                        .load(nextWord.getPictures()[1].getResolvedUrl())
+                        .load(nextWord.getPictures()[positions.get(1)].getResolvedUrl())
                         .fitCenter()
                         .into(topRight);
 
                 Glide.with(OceanTreasuresApplication.getStaticContext())
-                        .load(nextWord.getPictures()[2].getResolvedUrl())
+                        .load(nextWord.getPictures()[positions.get(2)].getResolvedUrl())
                         .fitCenter()
                         .into(bottomLeft);
 
                 Glide.with(OceanTreasuresApplication.getStaticContext())
-                        .load(nextWord.getPictures()[3].getResolvedUrl())
+                        .load(nextWord.getPictures()[positions.get(3)].getResolvedUrl())
                         .fitCenter()
                         .into(bottomRight);
 
@@ -98,6 +103,20 @@ public class GameActivity extends AppCompatActivity {
             Intent intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
          //   intent.putExtra("url", );
         }
+    }
+
+    private static ArrayList<Integer> getRandomPositionsForPics() {
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        Random randomGenerator = new Random();
+
+        while (numbers.size() < OceanTreasuresConstants.NUM_OF_PICS) {
+
+            int random = randomGenerator .nextInt(OceanTreasuresConstants.NUM_OF_PICS);
+            if (!numbers.contains(random)) {
+                numbers.add(random);
+            }
+        }
+        return numbers;
     }
 }
 
