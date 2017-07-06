@@ -3,7 +3,6 @@ package oceantreasur.es.android_project;
 import android.content.Intent;
 import android.graphics.Typeface;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -105,14 +104,18 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        Intent intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
-        startActivity(intent);
+      //  boolean choice = false;
+
     }
 
     private void ChooseNextActivity(boolean choice) {
         if(choice) {
             Intent intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
-         //   intent.putExtra("url", );
+            startActivity(intent);
+        }
+        if(!choice) {
+            Intent intent = new Intent(GameActivity.this, WrongAnswerActivity.class);
+            startActivity(intent);
         }
     }
 

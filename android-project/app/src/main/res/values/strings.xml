@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">android-project</string>
     <string name="word">Word</string>
-    <string name = "correctWordHeading">Correct answer!</string>
+    <string name="correctWordHeading">Correct answer!</string>
 </resources>
