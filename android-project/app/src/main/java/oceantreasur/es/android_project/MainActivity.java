@@ -26,24 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 startGame();
             }
         });
-
-//        CustomClient client = retrofit.create(CustomClient.class);
-//        Call<CustomPOJO> call = client.getPerson(1);
-//
-//        call.enqueue(new Callback<CustomPOJO>() {
-//            @Override
-//            public void onResponse(Call<CustomPOJO> call, Response<CustomPOJO> response) {
-//                CustomPOJO person = response.body();
-//
-//                Log.d("pkm", person.toString());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CustomPOJO> call, Throwable t) {
-//                Log.d("pkm", "ERROR");
-//            }
-//        });
-
     }
 
     void startGame() {

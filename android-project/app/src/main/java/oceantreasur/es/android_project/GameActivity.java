@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +25,8 @@ import retrofit2.Response;
 public class GameActivity extends AppCompatActivity {
 
     private static final int PROGRESS_MAX = 100;
+    private MyRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
 
     private ProgressBar progressBar;
     private ImageView topLeft;
@@ -37,7 +41,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_test);
 
         this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
         this.word = (TextView) findViewById(R.id.tv_word);
@@ -47,6 +51,17 @@ public class GameActivity extends AppCompatActivity {
         this.bottomRight = (ImageView) findViewById(R.id.iv_4);
 
         getResponse();
+
+        // ------------------RecyclerView----------------------------------------
+
+        recyclerView = (RecyclerView) findViewById(R.id.rv);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, OceanTreasuresConstants.NUM_OF_PICS/2);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new MyRecyclerViewAdapter(this);
+        //adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+
+        //--------------------------------------------------------------------------
     }
 
     public void getResponse() {
@@ -57,8 +72,17 @@ public class GameActivity extends AppCompatActivity {
             public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
                 nextWord = response.body();
 
+                ArrayList<Integer> positions = getRandomPositionsForPics();
+                ArrayList<String> urlData = new ArrayList<String>();
+
+                for(int i = 0; i < OceanTreasuresConstants.NUM_OF_PICS; i++) {
+                    urlData.add(nextWord.getPictures()[positions.get(i)].getResolvedUrl());
+                }
+
+                adapter.setPictures(urlData);
+
                 setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
-                loadImages();
+               // loadImages();
                 loadText();
 
                 Log.d("ZAX", nextWord.toString());

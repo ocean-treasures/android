@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center">
 
     <android.support.percent.PercentRelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,73 +27,18 @@
 
     </android.support.percent.PercentRelativeLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:layout_weight="1"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/iv_1"
-                android:onClick="onClick"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#FF0000"
-                android:layout_weight="1"
-                android:layout_marginRight="2.5dp"
-                android:layout_marginLeft="5dp"/>
-            <ImageView
-                android:id="@+id/iv_2"
-                android:onClick="onClick"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#00FF00"
-                android:layout_weight="1"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="5dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/iv_3"
-                android:onClick="onClick"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#0000FF"
-                android:layout_weight="1"
-                android:layout_marginRight="2.5dp"
-                android:layout_marginLeft="5dp"/>
-
-            <ImageView
-                android:id="@+id/iv_4"
-                android:onClick="onClick"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="#FFFF00"
-                android:layout_weight="1"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="5dp"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-
-    <TextView
+    <oceantreasur.es.android_project.CustomTextView
+        app:typefaceAsset="fonts/CoolCrayon.ttf"
         android:id="@+id/tv_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,5 +46,6 @@
         android:textColor="@android:color/holo_blue_dark"
         android:textColorHighlight="@android:color/primary_text_dark"
         android:textSize="50sp"
+        android:layout_marginBottom="20dp"
         android:gravity="center" />
 </LinearLayout>
