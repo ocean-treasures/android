@@ -1,0 +1,31 @@
+{
+    "progress": {
+        "current": 5,
+        "max": 10
+    },
+    "word": {
+        "id": 19,
+        "word": "blueberry"
+    },
+    "pictures":[
+    {
+        "url": "http://pngimg.com/uploads/coconut/coconut_PNG9159.png",
+        "id": 18,
+		"containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/blueberries/blueberries_PNG74.png",
+         "id": 19,
+		 "containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/kiwi/kiwi_PNG4034.png",
+        "id": 20,
+		"containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/pomegranate/pomegranate_PNG8650.png",
+        "id": 21,
+		"containsFullURL" : true
+    }]
+}

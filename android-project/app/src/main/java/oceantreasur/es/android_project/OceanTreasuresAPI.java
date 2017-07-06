@@ -10,7 +10,7 @@ public interface OceanTreasuresAPI {
     @GET("next_word")
     Call<NextWordResponse> getNextWord();
 
-    @POST("check_answer/{word_id}")
+    @POST("check_answer")
     Call<CheckAnswerResponse> checkAnswer(@Body CheckAnswerRequest body);
 
 }

@@ -1,19 +1,14 @@
 package oceantreasur.es.android_project;
 
 class CheckAnswerResponse {
-    private WordDetails word;
+    private String word;
     private boolean correct;
 
-    CheckAnswerResponse(WordDetails word, boolean correct) {
-        this.word = word;
-        this.correct = correct;
-    }
-
-    public WordDetails getWord() {
+    public String getWord() {
         return word;
     }
 
-    public void setWord(WordDetails word) {
+    public void setWord(String word) {
         this.word = word;
     }
 
@@ -23,5 +18,13 @@ class CheckAnswerResponse {
 
     public void setCorrect(boolean correct) {
         this.correct = correct;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckAnswerResponse{" +
+                "word='" + word + '\'' +
+                ", correct=" + correct +
+                '}';
     }
 }

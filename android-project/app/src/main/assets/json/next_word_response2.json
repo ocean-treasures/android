@@ -1,0 +1,31 @@
+{
+    "progress": {
+        "current": 3,
+        "max": 10
+    },
+    "word": {
+        "id": 6,
+        "word": "avocado"
+    },
+    "pictures":[
+    {
+        "url": "http://pngimg.com/uploads/avocado/avocado_PNG15493.png",
+        "id": 6,
+		"containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/apricot/apricot_PNG12656.png",
+         "id": 7,
+		 "containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/cherry/cherry_PNG3085.png",
+        "id": 8,
+		"containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/grapefruit/grapefruit_PNG15271.png",
+        "id": 9,
+		"containsFullURL" : true
+    }]
+}

@@ -1,0 +1,31 @@
+{
+    "progress": {
+        "current": 4,
+        "max": 10
+    },
+    "word": {
+        "id": 17,
+        "word": "raspberry"
+    },
+    "pictures":[
+    {
+        "url": "http://pngimg.com/uploads/pineapple/pineapple_PNG2756.png",
+        "id": 14,
+		"containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/plum/plum_PNG8677.png",
+         "id": 15,
+		 "containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/melon/melon_PNG14383.png",
+        "id": 16,
+		"containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/raspberry/raspberry_PNG5076.png",
+        "id": 17,
+		"containsFullURL" : true
+    }]
+}

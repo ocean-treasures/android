@@ -1,17 +1,31 @@
 package oceantreasur.es.android_project;
 
+import com.google.gson.annotations.SerializedName;
+
 public class CheckAnswerRequest {
-    private int pic_id;
+    @SerializedName("word_id")
+    private int wordId;
+    @SerializedName("pic_id")
+    private int picId;
 
-    CheckAnswerRequest(int pic_id) {
-        this.pic_id = pic_id;
+    CheckAnswerRequest(int wordId, int picId) {
+        this.wordId = wordId;
+        this.picId = picId;
     }
 
-    public int getPic_id() {
-        return pic_id;
+    public int getWordId() {
+        return wordId;
     }
 
-    public void setPic_id(int pic_id) {
-        this.pic_id = pic_id;
+    public void setWordId(int wordId) {
+        this.wordId = wordId;
+    }
+
+    public int getPicId() {
+        return picId;
+    }
+
+    public void setPicId(int picId) {
+        this.picId = picId;
     }
 }

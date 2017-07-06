@@ -1,0 +1,31 @@
+{
+    "progress": {
+        "current": 4,
+        "max": 10
+    },
+    "word": {
+        "id": 12,
+        "word": "lemon"
+    },
+    "pictures":[
+    {
+        "url": "http://pngimg.com/uploads/strawberry/strawberry_PNG2628.png",
+        "id": 10,
+		"containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/mango/mango_PNG9182.png",
+         "id": 11,
+		 "containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/lemon/lemon_PNG25276.png",
+        "id": 12,
+		"containsFullURL" : true
+    },
+    {
+        "url": "http://pngimg.com/uploads/orange/orange_PNG811.png",
+        "id": 13,
+		"containsFullURL" : true
+    }]
+}
