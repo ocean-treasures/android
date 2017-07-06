@@ -25,7 +25,7 @@ public class MockOceanTreasuresAPI implements OceanTreasuresAPI {
         NextWordResponse nextWordResponse = new NextWordResponse();
         StringBuilder result = new StringBuilder();
         BufferedReader reader = null;
-        AssetManager assetManager = null;
+        AssetManager assetManager;
         InputStreamReader inputStreamReader = null;
 
         try {

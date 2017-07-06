@@ -26,14 +26,13 @@ public class GameActivity extends AppCompatActivity {
     private static final int PROGRESS_MAX = 100;
 
     private ProgressBar progressBar;
+
     private ImageView topLeft;
     private ImageView topRight;
     private ImageView bottomLeft;
     private ImageView bottomRight;
-    private Typeface wordTypeFace;
-    private TextView word;
 
-    NextWordResponse nextWord;
+    private TextView word;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +55,11 @@ public class GameActivity extends AppCompatActivity {
         call.enqueue(new Callback<NextWordResponse>() {
             @Override
             public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
-                nextWord = response.body();
+                NextWordResponse nextWord = response.body();
 
                 setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
-                loadImages();
-                loadText();
+                loadImages(nextWord);
+                loadText(nextWord);
 
                 Log.d("ZAX", nextWord.toString());
             }
@@ -77,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
         progressBar.setProgress(cur * 10);
     }
 
-    public void loadImages() {
+    public void loadImages(NextWordResponse nextWord) {
         ArrayList<Integer> positions = getRandomPositionsForPics();
 
         Glide.with(OceanTreasuresApplication.getStaticContext())
@@ -101,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
                 .into(bottomRight);
     }
 
-    public void loadText() {
+    public void loadText(NextWordResponse nextWord) {
         word.setText(nextWord.getWord().getWord().toString());
     }
 
