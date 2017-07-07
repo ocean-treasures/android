@@ -143,18 +143,26 @@ public class GameActivity extends AppCompatActivity {
 
     private void chooseNextActivity(boolean choice, String word) {
         Intent intent;
+        String msgToDisplay;
+        boolean isCorrect = false;
+
+        intent = new Intent(GameActivity.this, AnswerActivity.class);
 
         if(choice) {
-            intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
+            msgToDisplay = "Correct Answer!";
+            isCorrect = true;
         }
         else {
-            intent = new Intent(GameActivity.this, WrongAnswerActivity.class);
+            msgToDisplay = "Wrong Answer!";
         }
 
+        intent.putExtra("ISCORRECT", isCorrect);
         intent.putExtra("WORD", word);
         intent.putExtra("URL", selectedPictureUrl);
+        intent.putExtra("MSG", msgToDisplay);
 
         startActivity(intent);
+        finish();
     }
 
     private static ArrayList<Integer> getRandomPositionsForPics() {

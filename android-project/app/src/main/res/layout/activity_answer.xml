@@ -34,7 +34,7 @@
             >
 
             <ImageView
-                android:id="@+id/iv_correct"
+                android:id="@+id/iv_pic_to_display"
                 app:layout_widthPercent="85%"
                 app:layout_heightPercent="55%"
                 android:layout_marginTop="45dp"
@@ -54,11 +54,11 @@
         app:layout_marginBottomPercent="8%">
 
         <oceantreasur.es.android_project.CustomTextView
-            android:id="@+id/tv_correct_answer"
+            android:id="@+id/tv_answer_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5sp"
-            android:text="@string/correctWordHeading"
+            android:text= ""
             android:textColor="@android:color/holo_blue_dark"
             android:textColorHighlight="@android:color/primary_text_dark"
             android:textSize="35sp"
@@ -66,7 +66,7 @@
             app:typefaceAsset="fonts/CoolCrayon.ttf"/>
 
         <oceantreasur.es.android_project.CustomTextView
-            android:id="@+id/tv_wordCorrect"
+            android:id="@+id/tv_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/word"
