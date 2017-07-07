@@ -40,7 +40,8 @@ public class Picture {
             return getUrl();
         }
         else {
-            return OceanTreasuresConstants.BASE_URL + getUrl();
+//            return OceanTreasuresConstants.BASE_URL + getUrl();
+            return getUrl();
         }
     }
 
