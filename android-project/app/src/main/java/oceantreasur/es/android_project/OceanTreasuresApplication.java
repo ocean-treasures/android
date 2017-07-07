@@ -36,6 +36,7 @@ public class OceanTreasuresApplication extends Application {
 
     private void createRetrofitInstance() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(interceptor)
