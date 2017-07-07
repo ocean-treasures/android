@@ -85,6 +85,7 @@ public class MockOceanTreasuresAPI implements OceanTreasuresAPI {
 
         checkAnswerResponse.setCorrect(body.getPicId() == body.getWordId());
         checkAnswerResponse.setWord(data.get(body.getPicId()));
+        checkAnswerResponse.setProgress(new Progress(random.nextInt(11), 10));
 
         return delegate.returningResponse(checkAnswerResponse).checkAnswer(body);
     }

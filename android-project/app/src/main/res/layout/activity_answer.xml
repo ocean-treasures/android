@@ -19,7 +19,7 @@
             android:animateLayoutChanges="true">
 
             <ProgressBar
-                android:id="@+id/progressBarCorrect"
+                android:id="@+id/pb_answer"
                 style="?android:attr/progressBarStyleHorizontal"
                 app:layout_widthPercent="80%"
                 android:layout_height="20dp"

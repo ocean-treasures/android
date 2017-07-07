@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
@@ -15,6 +16,7 @@ public class AnswerActivity extends AppCompatActivity {
     private ImageView image;
     private oceantreasur.es.android_project.CustomTextView msgToDisplay;
     private oceantreasur.es.android_project.CustomTextView word;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +26,22 @@ public class AnswerActivity extends AppCompatActivity {
         this.image = (ImageView) findViewById(R.id.iv_pic_to_display);
         this.msgToDisplay = (oceantreasur.es.android_project.CustomTextView) findViewById(R.id.tv_answer_msg);
         this.word = (oceantreasur.es.android_project.CustomTextView) findViewById(R.id.tv_word);
+        this.progressBar = (ProgressBar) findViewById(R.id.pb_answer);
 
-        isCorrect = getIntent().getExtras().getBoolean("ISCORRECT");
-        msgToDisplay.setText(getIntent().getExtras().getString("MSG"));
-        word.setText(getIntent().getExtras().getString("WORD"));
+        Bundle intentData = getIntent().getExtras();
+
+        isCorrect = intentData.getBoolean("IS_CORRECT");
+        word.setText(intentData.getString("WORD"));
+        progressBar.setMax(intentData.getInt("PROGRESS_MAX"));
+        progressBar.setProgress(intentData.getInt("PROGRESS_CUR"));
 
         if(isCorrect) {
             image.setBackgroundColor(Color.GREEN);
+            msgToDisplay.setText("Correct answer!");
         }
         else {
             image.setBackgroundColor(Color.RED);
+            msgToDisplay.setText("Wrong answer!");
         }
 
         Glide.with(this)
@@ -44,8 +52,16 @@ public class AnswerActivity extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AnswerActivity.this, EndGameActivity.class);
+                Intent intent;
+                if (progressBar.getProgress() != progressBar.getMax()) {
+                    intent = new Intent(AnswerActivity.this, GameActivity.class);
+                }
+                else {
+                    intent = new Intent(AnswerActivity.this, EndGameActivity.class);
+                }
+
                 startActivity(intent);
+                finish();
             }
         });
     }

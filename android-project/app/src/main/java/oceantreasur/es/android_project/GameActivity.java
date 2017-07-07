@@ -30,6 +30,8 @@ public class GameActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
 
+    private Progress responseProgress;
+
     private ImageView topLeft;
     private ImageView topRight;
     private ImageView bottomLeft;
@@ -85,6 +87,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CheckAnswerResponse> call, Response<CheckAnswerResponse> response) {
                 CheckAnswerResponse serverResponse = response.body();
+
+                responseProgress = serverResponse.getProgress();
 
                 chooseNextActivity(serverResponse.isCorrect(), serverResponse.getWord());
 
@@ -149,17 +153,14 @@ public class GameActivity extends AppCompatActivity {
         intent = new Intent(GameActivity.this, AnswerActivity.class);
 
         if(choice) {
-            msgToDisplay = "Correct Answer!";
             isCorrect = true;
         }
-        else {
-            msgToDisplay = "Wrong Answer!";
-        }
 
-        intent.putExtra("ISCORRECT", isCorrect);
+        intent.putExtra("IS_CORRECT", isCorrect);
         intent.putExtra("WORD", word);
         intent.putExtra("URL", selectedPictureUrl);
-        intent.putExtra("MSG", msgToDisplay);
+        intent.putExtra("PROGRESS_CUR", responseProgress.getCurrent());
+        intent.putExtra("PROGRESS_MAX", responseProgress.getMax());
 
         startActivity(intent);
         finish();
