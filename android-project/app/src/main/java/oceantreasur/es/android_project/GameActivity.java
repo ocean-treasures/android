@@ -1,11 +1,8 @@
 package oceantreasur.es.android_project;
 
 import android.content.Intent;
-import android.graphics.Typeface;
-
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,11 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import oceantreasur.es.android_project.network.model.CheckAnswerResponse;
+import oceantreasur.es.android_project.network.OceanTreasuresApplication;
+import oceantreasur.es.android_project.network.model.CheckAnswerRequest;
+import oceantreasur.es.android_project.network.model.NextWordResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,31 +105,30 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void loadImages(NextWordResponse nextWord) {
-        ArrayList<Integer> positions = getRandomPositionsForPics();
 
         Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[positions.get(0)].getResolvedUrl())
+                .load(nextWord.getPictures()[0].getResolvedUrl())
                 .fitCenter()
                 .into(topLeft);
-        topLeft.setTag(nextWord.getPictures()[positions.get(0)]);
+        topLeft.setTag(nextWord.getPictures()[0]);
 
         Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[positions.get(1)].getResolvedUrl())
+                .load(nextWord.getPictures()[1].getResolvedUrl())
                 .fitCenter()
                 .into(topRight);
-        topRight.setTag(nextWord.getPictures()[positions.get(1)]);
+        topRight.setTag(nextWord.getPictures()[1]);
 
         Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[positions.get(2)].getResolvedUrl())
+                .load(nextWord.getPictures()[2].getResolvedUrl())
                 .fitCenter()
                 .into(bottomLeft);
-        bottomLeft.setTag(nextWord.getPictures()[positions.get(2)]);
+        bottomLeft.setTag(nextWord.getPictures()[2]);
 
         Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[positions.get(3)].getResolvedUrl())
+                .load(nextWord.getPictures()[3].getResolvedUrl())
                 .fitCenter()
                 .into(bottomRight);
-        bottomRight.setTag(nextWord.getPictures()[positions.get(3)]);
+        bottomRight.setTag(nextWord.getPictures()[3]);
     }
 
     public void loadText(NextWordResponse nextWord) {
@@ -164,20 +160,6 @@ public class GameActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
-    }
-
-    private static ArrayList<Integer> getRandomPositionsForPics() {
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
-        Random randomGenerator = new Random();
-
-        while (numbers.size() < OceanTreasuresConstants.NUM_OF_PICS) {
-
-            int random = randomGenerator .nextInt(OceanTreasuresConstants.NUM_OF_PICS);
-            if (!numbers.contains(random)) {
-                numbers.add(random);
-            }
-        }
-        return numbers;
     }
 }
 

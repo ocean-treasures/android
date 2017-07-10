@@ -1,6 +1,10 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es.android_project.network.model;
 
 import com.google.gson.annotations.SerializedName;
+
+import oceantreasur.es.android_project.Picture;
+import oceantreasur.es.android_project.Progress;
+import oceantreasur.es.android_project.WordDetails;
 
 public class NextWordResponse {
     private Progress progress;

@@ -1,18 +1,20 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es.android_project.network;
 
 import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Random;
 
+import oceantreasur.es.android_project.network.model.CheckAnswerRequest;
+import oceantreasur.es.android_project.network.model.CheckAnswerResponse;
+import oceantreasur.es.android_project.network.model.NextWordResponse;
+import oceantreasur.es.android_project.Progress;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.mock.BehaviorDelegate;

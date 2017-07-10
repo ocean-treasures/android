@@ -53,7 +53,7 @@
         android:layout_alignParentBottom="true"
         app:layout_marginBottomPercent="8%">
 
-        <oceantreasur.es.android_project.CustomTextView
+        <oceantreasur.es.android_project.view.CustomTextView
             android:id="@+id/tv_answer_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             android:gravity="center"
             app:typefaceAsset="fonts/CoolCrayon.ttf"/>
 
-        <oceantreasur.es.android_project.CustomTextView
+        <oceantreasur.es.android_project.view.CustomTextView
             android:id="@+id/tv_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

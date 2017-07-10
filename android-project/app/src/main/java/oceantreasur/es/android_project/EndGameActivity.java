@@ -11,6 +11,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import oceantreasur.es.android_project.network.OceanTreasuresApplication;
+import oceantreasur.es.android_project.view.FontManager;
+
 public class EndGameActivity extends AppCompatActivity {
 
     private ImageView image;

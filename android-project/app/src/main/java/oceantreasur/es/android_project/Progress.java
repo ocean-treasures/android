@@ -4,7 +4,7 @@ public class Progress {
     private int current;
     private int max;
 
-    Progress (int  current, int max) {
+    public Progress (int  current, int max) {
         this.current = current;
         this.max = max;
     }

@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import oceantreasur.es.android_project.view.FontManager;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

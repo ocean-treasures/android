@@ -1,14 +1,10 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es.android_project.network;
 
 import android.app.Application;
 import android.content.Context;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
+import oceantreasur.es.android_project.view.FontManager;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

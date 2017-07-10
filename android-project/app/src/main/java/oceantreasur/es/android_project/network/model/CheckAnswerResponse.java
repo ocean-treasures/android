@@ -1,6 +1,8 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es.android_project.network.model;
 
-class CheckAnswerResponse {
+import oceantreasur.es.android_project.Progress;
+
+public class CheckAnswerResponse {
     private String word;
     private boolean correct;
     private Progress progress;

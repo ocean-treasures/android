@@ -10,12 +10,14 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
+import oceantreasur.es.android_project.view.CustomTextView;
+
 public class AnswerActivity extends AppCompatActivity {
 
     private boolean isCorrect;
     private ImageView image;
-    private oceantreasur.es.android_project.CustomTextView msgToDisplay;
-    private oceantreasur.es.android_project.CustomTextView word;
+    private CustomTextView msgToDisplay;
+    private CustomTextView word;
     private ProgressBar progressBar;
 
     @Override
@@ -24,8 +26,8 @@ public class AnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
 
         this.image = (ImageView) findViewById(R.id.iv_pic_to_display);
-        this.msgToDisplay = (oceantreasur.es.android_project.CustomTextView) findViewById(R.id.tv_answer_msg);
-        this.word = (oceantreasur.es.android_project.CustomTextView) findViewById(R.id.tv_word);
+        this.msgToDisplay = (CustomTextView) findViewById(R.id.tv_answer_msg);
+        this.word = (CustomTextView) findViewById(R.id.tv_word);
         this.progressBar = (ProgressBar) findViewById(R.id.pb_answer);
 
         Bundle intentData = getIntent().getExtras();
