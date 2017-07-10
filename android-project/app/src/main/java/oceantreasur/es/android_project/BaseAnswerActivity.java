@@ -31,9 +31,9 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
         setupActivity();
         loadImage(intentData.getString(EXTRA_URL));
         setupProgress(intentData.getInt(EXTRA_PROGRESS_CUR), intentData.getInt(EXTRA_PROGRESS_MAX));
-        setupAnswerWord(intentData.getString(EXTRA_WORD));
-        setupAnswerMessage(getMessage());
-        setupImageBackgroundColor(getColor());
+        answerWord.setText(intentData.getString(EXTRA_WORD));
+        answerMessage.setText(getMessage());
+        image.setBackgroundColor(ContextCompat.getColor(this, getColor()));
     }
 
     public abstract String getMessage();
@@ -74,18 +74,4 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void setupAnswerMessage(String msg) {
-        answerMessage.setText(msg);
-    }
-
-    public void setupAnswerWord(String word) {
-        answerWord.setText(word);
-    }
-
-    public void setupImageBackgroundColor(int color) {
-        image.setBackgroundColor(ContextCompat.getColor(this, color));
-    }
-
-
 }
