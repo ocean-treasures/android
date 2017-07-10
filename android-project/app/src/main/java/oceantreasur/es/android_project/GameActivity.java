@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,10 +24,12 @@ public class GameActivity extends AppCompatActivity {
 
     private Progress responseProgress;
 
-    private ImageView topLeft;
-    private ImageView topRight;
-    private ImageView bottomLeft;
-    private ImageView bottomRight;
+    private int[] ids = {R.id.iv_1,
+                         R.id.iv_2,
+                         R.id.iv_3,
+                         R.id.iv_4};
+
+    private ImageView[] imageViews = new ImageView[ids.length];
 
     private NextWordResponse nextWord;
 
@@ -41,14 +40,17 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        setupActivity();
+        getResponse();
+    }
+
+    public void setupActivity() {
         this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
         this.word = (TextView) findViewById(R.id.tv_word);
-        this.topLeft = (ImageView) findViewById(R.id.iv_1);
-        this.topRight = (ImageView) findViewById(R.id.iv_2);
-        this.bottomLeft = (ImageView) findViewById(R.id.iv_3);
-        this.bottomRight = (ImageView) findViewById(R.id.iv_4);
 
-        getResponse();
+        for (int i = 0; i < imageViews.length; i++) {
+            imageViews[i] = (ImageView) findViewById(ids[i]);
+        }
     }
 
     public void getResponse() {
@@ -102,31 +104,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void loadImages(NextWordResponse nextWord) {
-        ArrayList<Integer> positions = getRandomPositionsForPics();
+        for (int i = 0; i < imageViews.length; i++) {
+            Glide.with(this)
+                    .load(nextWord.getPictures()[i].getResolvedUrl())
+                    .fitCenter()
+                    .into(imageViews[i]);
 
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[positions.get(0)].getResolvedUrl())
-                .fitCenter()
-                .into(topLeft);
-        topLeft.setTag(nextWord.getPictures()[positions.get(0)]);
-
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[positions.get(1)].getResolvedUrl())
-                .fitCenter()
-                .into(topRight);
-        topRight.setTag(nextWord.getPictures()[positions.get(1)]);
-
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[positions.get(2)].getResolvedUrl())
-                .fitCenter()
-                .into(bottomLeft);
-        bottomLeft.setTag(nextWord.getPictures()[positions.get(2)]);
-
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[positions.get(3)].getResolvedUrl())
-                .fitCenter()
-                .into(bottomRight);
-        bottomRight.setTag(nextWord.getPictures()[positions.get(3)]);
+            imageViews[i].setTag(nextWord.getPictures()[i]);
+        }
     }
 
     public void loadText(NextWordResponse nextWord) {
@@ -141,8 +126,6 @@ public class GameActivity extends AppCompatActivity {
 
     private void chooseNextActivity(boolean choice, String word) {
         Intent intent;
-        String msgToDisplay;
-        boolean isCorrect = false;
 
         if(choice) {
             intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
@@ -158,20 +141,6 @@ public class GameActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
-    }
-
-    private static ArrayList<Integer> getRandomPositionsForPics() {
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
-        Random randomGenerator = new Random();
-
-        while (numbers.size() < OceanTreasuresConstants.NUM_OF_PICS) {
-
-            int random = randomGenerator .nextInt(OceanTreasuresConstants.NUM_OF_PICS);
-            if (!numbers.contains(random)) {
-                numbers.add(random);
-            }
-        }
-        return numbers;
     }
 }
 
