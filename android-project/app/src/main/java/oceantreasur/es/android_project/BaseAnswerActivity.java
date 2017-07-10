@@ -23,11 +23,16 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
 
         Bundle intentData = getIntent().getExtras();
 
+        final String imageUrl = intentData.getString("URL");
+        final String word =     intentData.getString("WORD");
+        final int curProgress = intentData.getInt("PROGRESS_CUR");
+        final int maxProgress = intentData.getInt("PROGRESS_MAX");
+
         setupActivity();
-        loadImage(intentData.getString("URL"));
-        setupProgress(intentData.getInt("PROGRESS_CUR"), intentData.getInt("PROGRESS_MAX"));
+        loadImage(imageUrl);
+        setupProgress(curProgress, maxProgress);
+        setupAnswerWord(word);
         setupAnswerMessage(getMessage());
-        setupAnswerWord(intentData.getString("WORD"));
         setupImageBackgroundColor(getColor());
     }
 
