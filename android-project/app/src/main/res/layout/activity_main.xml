@@ -3,19 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="oceantreasur.es.android_project.oceantreasur.es.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="oceantreasur.es.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
+        <oceantreasur.es.view.CustomButton
             android:id="@+id/test1"
             android:layout_width="300dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
             android:text="Play"
             android:textSize="45dp"
+            app:typefaceButtonAsset="fonts/CoolCrayon.ttf"
             android:background="@drawable/button_bg_round"
             />
 

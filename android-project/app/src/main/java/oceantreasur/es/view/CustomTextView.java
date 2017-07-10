@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import oceantreasur.es.R;
 
-public class CustomTextView extends TextView {
+public class CustomTextView extends android.support.v7.widget.AppCompatTextView {
     public CustomTextView(Context context) {
         this(context, null);
     }
@@ -32,7 +32,6 @@ public class CustomTextView extends TextView {
             if (!(fontAsset == null || fontAsset.length() == 0)) {
                 Typeface tf = FontManager.getInstance().getFont(fontAsset);
                 int style = Typeface.NORMAL;
-                float size = getTextSize();
 
                 if (getTypeface() != null)
                     style = getTypeface().getStyle();
@@ -43,5 +42,7 @@ public class CustomTextView extends TextView {
                     Log.d("FontText", String.format("Could not create a font from asset: %s", fontAsset));
             }
         }
+
+        ta.recycle();
     }
 }

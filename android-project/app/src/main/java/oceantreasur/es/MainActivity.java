@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import oceantreasur.es.R;
+import oceantreasur.es.view.CustomButton;
 import oceantreasur.es.view.FontManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,10 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button playButton = (Button) findViewById(R.id.test1);
-        Typeface playButtonTypeFace = FontManager.getInstance().getFont("fonts/CoolCrayon.ttf");
-
-        playButton.setTypeface(playButtonTypeFace);
+        CustomButton playButton = (CustomButton) findViewById(R.id.test1);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
