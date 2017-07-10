@@ -1,9 +1,7 @@
 package oceantreasur.es.android_project;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,8 +20,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GameActivity extends AppCompatActivity {
-
-    private static final int PROGRESS_MAX = 100;
 
     private String selectedPictureUrl;
 
@@ -54,7 +49,6 @@ public class GameActivity extends AppCompatActivity {
         this.bottomRight = (ImageView) findViewById(R.id.iv_4);
 
         getResponse();
-//        sendRequest();
     }
 
     public void getResponse() {
@@ -103,7 +97,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void setupProgressBar(int cur, int max) {
-        progressBar.setMax(max * 10); // 50
+        progressBar.setMax(max * 10);
         progressBar.setProgress(cur * 10);
     }
 
@@ -150,13 +144,13 @@ public class GameActivity extends AppCompatActivity {
         String msgToDisplay;
         boolean isCorrect = false;
 
-        intent = new Intent(GameActivity.this, AnswerActivity.class);
-
         if(choice) {
-            isCorrect = true;
+            intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
+        }
+        else {
+            intent = new Intent(GameActivity.this, WrongAnswerActivity.class);
         }
 
-        intent.putExtra("IS_CORRECT", isCorrect);
         intent.putExtra("WORD", word);
         intent.putExtra("URL", selectedPictureUrl);
         intent.putExtra("PROGRESS_CUR", responseProgress.getCurrent());

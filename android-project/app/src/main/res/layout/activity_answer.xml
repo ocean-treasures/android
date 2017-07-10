@@ -30,16 +30,14 @@
 
         <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_pic_to_display"
+                android:id="@+id/iv_answer_pic"
                 app:layout_widthPercent="85%"
                 app:layout_heightPercent="55%"
                 android:layout_marginTop="45dp"
-                android:layout_centerInParent="true"
-                android:background="@android:color/holo_red_dark"/>
+                android:layout_centerInParent="true" />
 
         </android.support.percent.PercentRelativeLayout>
 
@@ -66,10 +64,9 @@
             app:typefaceAsset="fonts/CoolCrayon.ttf"/>
 
         <oceantreasur.es.android_project.CustomTextView
-            android:id="@+id/tv_word"
+            android:id="@+id/tv_answer_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/word"
             android:textColor="@android:color/holo_blue_dark"
             android:textColorHighlight="@android:color/primary_text_dark"
             android:textSize="50sp"

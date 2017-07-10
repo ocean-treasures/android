@@ -23,7 +23,9 @@
         <activity
             android:name=".GameActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".AnswerActivity" />
+        <activity android:name=".BaseAnswerActivity" />
+        <activity android:name=".CorrectAnswerActivity" />
+        <activity android:name=".WrongAnswerActivity" />
         <activity android:name=".EndGameActivity"></activity>
     </application>
 
