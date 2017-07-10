@@ -134,10 +134,10 @@ public class GameActivity extends AppCompatActivity {
             intent = new Intent(GameActivity.this, WrongAnswerActivity.class);
         }
 
-        intent.putExtra("WORD", word);
-        intent.putExtra("URL", selectedPictureUrl);
-        intent.putExtra("PROGRESS_CUR", responseProgress.getCurrent());
-        intent.putExtra("PROGRESS_MAX", responseProgress.getMax());
+        intent.putExtra(BaseAnswerActivity.EXTRA_WORD, word);
+        intent.putExtra(BaseAnswerActivity.EXTRA_URL, selectedPictureUrl);
+        intent.putExtra(BaseAnswerActivity.EXTRA_PROGRESS_CUR, responseProgress.getCurrent());
+        intent.putExtra(BaseAnswerActivity.EXTRA_PROGRESS_MAX, responseProgress.getMax());
 
         startActivity(intent);
         finish();

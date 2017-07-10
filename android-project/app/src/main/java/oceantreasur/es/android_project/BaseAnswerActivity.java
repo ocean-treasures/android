@@ -12,6 +12,11 @@ import com.bumptech.glide.Glide;
 
 public abstract class BaseAnswerActivity extends AppCompatActivity {
 
+    public static final String EXTRA_URL = "oceantreasur.es.EXTRA_URL";
+    public static final String EXTRA_WORD = "oceantreasur.es.EXTRA_WORD";
+    public static final String EXTRA_PROGRESS_CUR = "oceantreasur.es.EXTRA_PROGRESS_CUR";
+    public static final String EXTRA_PROGRESS_MAX = "oceantreasur.es.EXTRA_PROGRESS_MAX";
+
     private ImageView image;
     private oceantreasur.es.android_project.CustomTextView answerMessage;
     private oceantreasur.es.android_project.CustomTextView answerWord;
@@ -23,15 +28,10 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
 
         Bundle intentData = getIntent().getExtras();
 
-        final String imageUrl = intentData.getString("URL");
-        final String word =     intentData.getString("WORD");
-        final int curProgress = intentData.getInt("PROGRESS_CUR");
-        final int maxProgress = intentData.getInt("PROGRESS_MAX");
-
         setupActivity();
-        loadImage(imageUrl);
-        setupProgress(curProgress, maxProgress);
-        setupAnswerWord(word);
+        loadImage(intentData.getString(EXTRA_URL));
+        setupProgress(intentData.getInt(EXTRA_PROGRESS_CUR), intentData.getInt(EXTRA_PROGRESS_MAX));
+        setupAnswerWord(intentData.getString(EXTRA_WORD));
         setupAnswerMessage(getMessage());
         setupImageBackgroundColor(getColor());
     }
