@@ -8,6 +8,8 @@ import android.util.Log;
 
 import oceantreasur.es.R;
 
+import static oceantreasur.es.view.FontManager.applyCustomFont;
+
 public class CustomButton extends android.support.v7.widget.AppCompatButton {
 
     public CustomButton(Context context) {
@@ -16,31 +18,20 @@ public class CustomButton extends android.support.v7.widget.AppCompatButton {
 
     public CustomButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomButton);
 
-        applyCustomFont(ta, attrs);
+        manageFont(attrs);
     }
 
     public CustomButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomButton);
 
-        applyCustomFont(ta, attrs);
+        manageFont(attrs);
     }
 
-    public void applyCustomFont(TypedArray ta, AttributeSet attrs) {
+    public void manageFont(AttributeSet attrs) {
 
-        if (ta != null) {
-            String fontAsset = ta.getString(R.styleable.CustomButton_typefaceButtonAsset);
-
-            if (!(fontAsset == null || fontAsset.length() == 0)) {
-                Typeface tf = FontManager.getInstance().getFont(fontAsset);
-
-                if (tf != null)
-                    this.setTypeface(tf);
-                else
-                    Log.d("FontText", String.format("Could not create a font from asset: %s", fontAsset));
-            }
-        }
+            int typefaceAsset = R.styleable.CustomButton_typefaceButtonAsset;
+            int[] elements = R.styleable.CustomButton;
+            applyCustomFont(elements, typefaceAsset, attrs, this);
     }
 }

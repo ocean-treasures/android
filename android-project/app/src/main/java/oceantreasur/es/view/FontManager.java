@@ -1,10 +1,19 @@
 package oceantreasur.es.view;
 
+import android.content.Context;
 import android.content.res.AssetManager;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import oceantreasur.es.R;
+import oceantreasur.es.network.OceanTreasuresApplication;
 
 public class FontManager {
     private static FontManager instance;
@@ -25,6 +34,7 @@ public class FontManager {
     public static FontManager getInstance() {
         return instance;
     }
+
 
     public Typeface getFont(String asset) {
         if (fonts.containsKey(asset))
@@ -64,5 +74,30 @@ public class FontManager {
             asset = String.format("%s.ttf", asset);
 
         return asset;
+    }
+
+    public static void applyCustomFont(int[] elements, int typefaceAssetId, AttributeSet attrs, TextView tv) {
+
+        Context context = OceanTreasuresApplication.getStaticContext();
+
+        TypedArray ta = context.obtainStyledAttributes(attrs, elements);
+
+        if (ta != null) {
+            String fontAsset = ta.getString(typefaceAssetId);
+
+            if (!(fontAsset == null || fontAsset.length() == 0)) {
+                Typeface tf = FontManager.getInstance().getFont(fontAsset);
+                int style = Typeface.NORMAL;
+
+                if (tv.getTypeface() != null)
+                    style = tv.getTypeface().getStyle();
+
+                if (tf != null)
+                    tv.setTypeface(tf, style);
+                else
+                    Log.d("FontText", String.format("Could not create a font from asset: %s", fontAsset));
+            }
+        }
+        ta.recycle();
     }
 }

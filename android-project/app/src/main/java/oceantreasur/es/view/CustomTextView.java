@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import oceantreasur.es.R;
 
+import static oceantreasur.es.view.FontManager.applyCustomFont;
+
 public class CustomTextView extends android.support.v7.widget.AppCompatTextView {
     public CustomTextView(Context context) {
         this(context, null);
@@ -21,28 +23,8 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
     public CustomTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        if (isInEditMode())
-            return;
-
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CustomTextView);
-
-        if (ta != null) {
-            String fontAsset = ta.getString(R.styleable.CustomTextView_typefaceAsset);
-
-            if (!(fontAsset == null || fontAsset.length() == 0)) {
-                Typeface tf = FontManager.getInstance().getFont(fontAsset);
-                int style = Typeface.NORMAL;
-
-                if (getTypeface() != null)
-                    style = getTypeface().getStyle();
-
-                if (tf != null)
-                    setTypeface(tf, style);
-                else
-                    Log.d("FontText", String.format("Could not create a font from asset: %s", fontAsset));
-            }
-        }
-
-        ta.recycle();
+        int typefaceAsset = R.styleable.CustomTextView_typefaceAsset;
+        int[] elements = R.styleable.CustomTextView;
+        applyCustomFont(elements, typefaceAsset, attrs, this);
     }
 }
