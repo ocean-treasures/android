@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project.network;
+package oceantreasur.es.network;
 
 import android.content.res.AssetManager;
 import android.util.Log;
@@ -11,10 +11,10 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Random;
 
-import oceantreasur.es.android_project.network.model.CheckAnswerRequest;
-import oceantreasur.es.android_project.network.model.CheckAnswerResponse;
-import oceantreasur.es.android_project.network.model.NextWordResponse;
-import oceantreasur.es.android_project.Progress;
+import oceantreasur.es.network.model.CheckAnswerRequest;
+import oceantreasur.es.network.model.CheckAnswerResponse;
+import oceantreasur.es.network.model.NextWordResponse;
+import oceantreasur.es.network.model.Progress;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.mock.BehaviorDelegate;

@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project.network.model;
+package oceantreasur.es.network.model;
 
 import com.google.gson.annotations.SerializedName;
 

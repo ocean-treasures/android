@@ -94,7 +94,7 @@
 
 
 
-    <oceantreasur.es.android_project.view.CustomTextView
+    <oceantreasur.es.view.CustomTextView
         android:id="@+id/tv_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

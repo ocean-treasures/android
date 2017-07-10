@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,7 +10,8 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
-import oceantreasur.es.android_project.view.CustomTextView;
+import oceantreasur.es.R;
+import oceantreasur.es.view.CustomTextView;
 
 public class AnswerActivity extends AppCompatActivity {
 

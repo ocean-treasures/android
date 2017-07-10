@@ -1,9 +1,9 @@
-package oceantreasur.es.android_project.network;
+package oceantreasur.es.network;
 
 import android.app.Application;
 import android.content.Context;
 
-import oceantreasur.es.android_project.view.FontManager;
+import oceantreasur.es.view.FontManager;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

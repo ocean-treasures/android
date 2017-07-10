@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project.view;
+package oceantreasur.es.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.TextView;
 
-import oceantreasur.es.android_project.R;
+import oceantreasur.es.R;
 
 public class CustomTextView extends TextView {
     public CustomTextView(Context context) {

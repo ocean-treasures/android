@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es.network.model;
 
 public class Progress {
     private int current;

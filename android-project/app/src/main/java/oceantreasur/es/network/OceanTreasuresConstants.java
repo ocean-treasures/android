@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project.network;
+package oceantreasur.es.network;
 
 public class OceanTreasuresConstants {
     public static final String BASE_URL = "http://swapi.co/api/"; //http://192.168.3.18:8000/game/

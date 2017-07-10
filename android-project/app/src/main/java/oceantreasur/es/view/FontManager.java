@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project.view;
+package oceantreasur.es.view;
 
 import android.content.res.AssetManager;
 import android.graphics.Typeface;

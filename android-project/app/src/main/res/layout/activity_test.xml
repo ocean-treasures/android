@@ -37,7 +37,7 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"/>
 
-    <oceantreasur.es.android_project.view.CustomTextView
+    <oceantreasur.es.view.CustomTextView
         app:typefaceAsset="fonts/CoolCrayon.ttf"
         android:id="@+id/tv_word"
         android:layout_width="match_parent"

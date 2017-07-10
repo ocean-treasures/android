@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="oceantreasur.es.android_project.MainActivity">
+    tools:context="oceantreasur.es.android_project.oceantreasur.es.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

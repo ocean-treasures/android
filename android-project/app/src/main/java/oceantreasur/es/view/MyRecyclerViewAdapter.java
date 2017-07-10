@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project.view;
+package oceantreasur.es.view;
 
 
 import android.content.Context;
@@ -12,8 +12,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import oceantreasur.es.android_project.R;
-import oceantreasur.es.android_project.network.OceanTreasuresApplication;
+import oceantreasur.es.R;
+import oceantreasur.es.network.OceanTreasuresApplication;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 

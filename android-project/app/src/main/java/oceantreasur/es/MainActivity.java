@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -7,7 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import oceantreasur.es.android_project.view.FontManager;
+import oceantreasur.es.R;
+import oceantreasur.es.view.FontManager;
 
 public class MainActivity extends AppCompatActivity {
 

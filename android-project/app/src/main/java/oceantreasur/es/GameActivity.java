@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import oceantreasur.es.android_project.network.model.CheckAnswerResponse;
-import oceantreasur.es.android_project.network.OceanTreasuresApplication;
-import oceantreasur.es.android_project.network.model.CheckAnswerRequest;
-import oceantreasur.es.android_project.network.model.NextWordResponse;
+import oceantreasur.es.network.model.CheckAnswerResponse;
+import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.es.network.model.CheckAnswerRequest;
+import oceantreasur.es.network.model.NextWordResponse;
+import oceantreasur.es.network.model.Picture;
+import oceantreasur.es.network.model.Progress;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,8 +11,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import oceantreasur.es.android_project.network.OceanTreasuresApplication;
-import oceantreasur.es.android_project.view.FontManager;
+import oceantreasur.es.R;
+import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.es.view.FontManager;
 
 public class EndGameActivity extends AppCompatActivity {
 
