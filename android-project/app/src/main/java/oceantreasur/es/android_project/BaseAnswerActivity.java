@@ -22,16 +22,34 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
     private oceantreasur.es.android_project.CustomTextView answerWord;
     private ProgressBar progressBar;
 
+    public boolean checkExtras() {
+        if     (getIntent().hasExtra(EXTRA_URL) &&
+                getIntent().hasExtra(EXTRA_PROGRESS_CUR) &&
+                getIntent().hasExtra(EXTRA_PROGRESS_MAX) &&
+                getIntent().hasExtra(EXTRA_WORD)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
 
-        Bundle intentData = getIntent().getExtras();
-
         setupActivity();
-        loadImage(intentData.getString(EXTRA_URL));
-        setupProgress(intentData.getInt(EXTRA_PROGRESS_CUR), intentData.getInt(EXTRA_PROGRESS_MAX));
-        answerWord.setText(intentData.getString(EXTRA_WORD));
+
+        if (checkExtras()) {
+            Bundle intentData = getIntent().getExtras();
+            loadImage(intentData.getString(EXTRA_URL));
+            setupProgress(intentData.getInt(EXTRA_PROGRESS_CUR), intentData.getInt(EXTRA_PROGRESS_MAX));
+            answerWord.setText(intentData.getString(EXTRA_WORD));
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+
         answerMessage.setText(getMessage());
         image.setBackgroundColor(ContextCompat.getColor(this, getColor()));
     }
