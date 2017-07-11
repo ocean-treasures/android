@@ -22,15 +22,12 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
     private oceantreasur.es.android_project.CustomTextView answerWord;
     private ProgressBar progressBar;
 
-    public boolean checkExtras() {
-        if     (getIntent().hasExtra(EXTRA_URL) &&
+    public void checkExtras() throws IllegalArgumentException {
+        if (!(getIntent().hasExtra(EXTRA_URL) &&
                 getIntent().hasExtra(EXTRA_PROGRESS_CUR) &&
                 getIntent().hasExtra(EXTRA_PROGRESS_MAX) &&
-                getIntent().hasExtra(EXTRA_WORD)) {
-            return true;
-        }
-        else {
-            return false;
+                getIntent().hasExtra(EXTRA_WORD))) {
+            throw new IllegalArgumentException("Missing extra");
         }
     }
 
@@ -39,17 +36,13 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
 
         setupActivity();
+        checkExtras();
 
-        if (checkExtras()) {
-            Bundle intentData = getIntent().getExtras();
-            loadImage(intentData.getString(EXTRA_URL));
-            setupProgress(intentData.getInt(EXTRA_PROGRESS_CUR), intentData.getInt(EXTRA_PROGRESS_MAX));
-            answerWord.setText(intentData.getString(EXTRA_WORD));
-        }
-        else {
-            throw new IllegalArgumentException();
-        }
-
+        Bundle intentData = getIntent().getExtras();
+        loadImage(intentData.getString(EXTRA_URL));
+        setupProgress(intentData.getInt(EXTRA_PROGRESS_CUR), intentData.getInt(EXTRA_PROGRESS_MAX));
+        answerWord.setText(intentData.getString(EXTRA_WORD));
+        
         answerMessage.setText(getMessage());
         image.setBackgroundColor(ContextCompat.getColor(this, getColor()));
     }

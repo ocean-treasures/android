@@ -102,8 +102,6 @@ public class GameActivity extends AppCompatActivity {
         progressBar.setProgress(cur * STEP_SIZE);
     }
 
-
-
     public void loadImages(final NextWordResponse nextWord) {
         View.OnClickListener imageOnClickListener = new View.OnClickListener() {
             @Override
