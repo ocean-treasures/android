@@ -76,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    public void sendRequest(int wordId, int picId) {
+    public void checkAnswer(int wordId, int picId) {
         CheckAnswerRequest req = new CheckAnswerRequest(wordId, picId);
         Call<CheckAnswerResponse> call = OceanTreasuresApplication.getApi().checkAnswer(req);
 
@@ -110,7 +110,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Picture pic = (Picture) v.getTag();
                 selectedPictureUrl = pic.getResolvedUrl();
-                sendRequest(nextWord.getWord().getId(), pic.getId());
+                checkAnswer(nextWord.getWord().getId(), pic.getId());
             }
         };
 
