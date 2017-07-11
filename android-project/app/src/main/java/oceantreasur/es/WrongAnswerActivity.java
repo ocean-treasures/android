@@ -1,14 +1,14 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 public class WrongAnswerActivity extends BaseAnswerActivity {
 
     @Override
     public String getMessage() {
-        return getString(R.string.wrong_answer);
+        return getString(oceantreasur.es.R.string.wrong_answer);
     }
 
     @Override
     public int getColor() {
-        return R.color.red;
+        return oceantreasur.es.R.color.red;
     }
 }

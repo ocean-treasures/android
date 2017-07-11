@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 public class OceanTreasuresConstants {
     // 192.168.3.18:8000/game/

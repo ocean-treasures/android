@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class CustomPOJOInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("oceantreasur.es.android_project", appContext.getPackageName());
+        assertEquals("oceantreasur.es", appContext.getPackageName());
     }
 }

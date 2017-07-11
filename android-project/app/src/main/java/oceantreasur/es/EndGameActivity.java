@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,23 +11,26 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import oceantreasur.es.R;
+import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.es.view.CustomButton;
+import oceantreasur.es.view.FontManager;
+
 public class EndGameActivity extends AppCompatActivity {
 
     private ImageView image;
-    private Button button;
+    private CustomButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
 
-        Typeface buttonTypeFace = FontManager.getInstance().getFont("fonts/CoolCrayon.ttf");
 
         this.image = (ImageView) findViewById(R.id.iv_end_game);
-        this.button = (Button) findViewById(R.id.btn_play_again);
+        this.button = (CustomButton) findViewById(R.id.btn_play_again);
 
         button.setBackgroundColor(Color.TRANSPARENT);
-        button.setTypeface(buttonTypeFace);
 
         Glide.with(OceanTreasuresApplication.getStaticContext())
                 .load(R.drawable.treasure)
@@ -40,7 +43,6 @@ public class EndGameActivity extends AppCompatActivity {
                    getBackToPlayActivity();
             }
         });
-
     }
 
     private void getBackToPlayActivity() {

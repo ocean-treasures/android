@@ -1,6 +1,6 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es.network.model;
 
-class CheckAnswerResponse {
+public class CheckAnswerResponse {
     private String word;
     private boolean correct;
     private Progress progress;

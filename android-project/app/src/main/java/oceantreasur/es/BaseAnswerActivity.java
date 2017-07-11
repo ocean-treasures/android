@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +10,9 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
+import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.es.view.CustomTextView;
+
 public abstract class BaseAnswerActivity extends AppCompatActivity {
 
     public static final String EXTRA_URL = "oceantreasur.es.EXTRA_URL";
@@ -18,8 +21,8 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
     public static final String EXTRA_PROGRESS_MAX = "oceantreasur.es.EXTRA_PROGRESS_MAX";
 
     private ImageView image;
-    private oceantreasur.es.android_project.CustomTextView answerMessage;
-    private oceantreasur.es.android_project.CustomTextView answerWord;
+    private CustomTextView answerMessage;
+    private CustomTextView answerWord;
     private ProgressBar progressBar;
 
     public void checkExtras() throws IllegalArgumentException {
@@ -33,7 +36,7 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_answer);
+        setContentView(oceantreasur.es.R.layout.activity_answer);
 
         setupActivity();
         checkExtras();
@@ -52,10 +55,10 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
     public abstract int getColor();
 
     public void setupActivity() {
-        image = (ImageView) findViewById(R.id.iv_answer_pic);
-        answerMessage = (oceantreasur.es.android_project.CustomTextView) findViewById(R.id.tv_answer_msg);
-        answerWord = (oceantreasur.es.android_project.CustomTextView) findViewById(R.id.tv_answer_word);
-        progressBar = (ProgressBar) findViewById(R.id.pb_answer);
+        image = (ImageView) findViewById(oceantreasur.es.R.id.iv_answer_pic);
+        answerMessage = (CustomTextView) findViewById(oceantreasur.es.R.id.tv_answer_msg);
+        answerWord = (CustomTextView) findViewById(oceantreasur.es.R.id.tv_answer_word);
+        progressBar = (ProgressBar) findViewById(oceantreasur.es.R.id.pb_answer);
     }
 
     public void setupProgress(int cur, int max) {

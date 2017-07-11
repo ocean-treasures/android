@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es.network.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ public class CheckAnswerRequest {
     @SerializedName("pic_id")
     private int picId;
 
-    CheckAnswerRequest(int wordId, int picId) {
+    public CheckAnswerRequest(int wordId, int picId) {
         this.wordId = wordId;
         this.picId = picId;
     }
@@ -27,5 +27,13 @@ public class CheckAnswerRequest {
 
     public void setPicId(int picId) {
         this.picId = picId;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckAnswerRequest{" +
+                "wordId=" + wordId +
+                ", picId=" + picId +
+                '}';
     }
 }
