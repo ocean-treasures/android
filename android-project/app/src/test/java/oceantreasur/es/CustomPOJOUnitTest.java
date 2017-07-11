@@ -1,4 +1,4 @@
-package oceantreasur.es.android_project;
+package oceantreasur.es;
 
 import org.junit.Test;
 

@@ -1,8 +1,8 @@
 package oceantreasur.es;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,18 +23,18 @@ import retrofit2.Response;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static final int PROGRESS_MAX = 100;
+    private static final int STEP_SIZE = 10;
 
     private String selectedPictureUrl;
 
     private ProgressBar progressBar;
 
-    private Progress responseProgress;
+    private int[] ids = {R.id.iv_1,
+                         R.id.iv_2,
+                         R.id.iv_3,
+                         R.id.iv_4};
 
-    private ImageView topLeft;
-    private ImageView topRight;
-    private ImageView bottomLeft;
-    private ImageView bottomRight;
+    private ImageView[] imageViews = new ImageView[ids.length];
 
     private NextWordResponse nextWord;
 
@@ -45,18 +45,20 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        this.word = (TextView) findViewById(R.id.tv_word);
-        this.topLeft = (ImageView) findViewById(R.id.iv_1);
-        this.topRight = (ImageView) findViewById(R.id.iv_2);
-        this.bottomLeft = (ImageView) findViewById(R.id.iv_3);
-        this.bottomRight = (ImageView) findViewById(R.id.iv_4);
-
-        getResponse();
-//        sendRequest();
+        setupActivity();
+        getNextWord();
     }
 
-    public void getResponse() {
+    public void setupActivity() {
+        this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        this.word = (TextView) findViewById(R.id.tv_word);
+
+        for (int i = 0; i < imageViews.length; i++) {
+            imageViews[i] = (ImageView) findViewById(ids[i]);
+        }
+    }
+
+    public void getNextWord() {
         Call<NextWordResponse> call = OceanTreasuresApplication.getApi().getNextWord();
 
         call.enqueue(new Callback<NextWordResponse>() {
@@ -66,7 +68,8 @@ public class GameActivity extends AppCompatActivity {
 
                 setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
                 loadImages(nextWord);
-                loadText(nextWord);
+
+                word.setText(nextWord.getWord().getWord().toString());
 
                 Log.d("ZAX", nextWord.toString());
             }
@@ -78,7 +81,7 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    public void sendRequest(int wordId, int picId) {
+    public void checkAnswer(int wordId, int picId) {
         CheckAnswerRequest req = new CheckAnswerRequest(wordId, picId);
         Call<CheckAnswerResponse> call = OceanTreasuresApplication.getApi().checkAnswer(req);
 
@@ -87,9 +90,7 @@ public class GameActivity extends AppCompatActivity {
             public void onResponse(Call<CheckAnswerResponse> call, Response<CheckAnswerResponse> response) {
                 CheckAnswerResponse serverResponse = response.body();
 
-                responseProgress = serverResponse.getProgress();
-
-                chooseNextActivity(serverResponse.isCorrect(), serverResponse.getWord());
+                chooseNextActivity(serverResponse);
 
                 Log.d("ZAX", serverResponse.toString());
             }
@@ -102,63 +103,46 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void setupProgressBar(int cur, int max) {
-        progressBar.setMax(max * 10); // 50
-        progressBar.setProgress(cur * 10);
+        progressBar.setMax(max * STEP_SIZE);
+        progressBar.setProgress(cur * STEP_SIZE);
     }
 
-    public void loadImages(NextWordResponse nextWord) {
+    public void loadImages(final NextWordResponse nextWord) {
+        View.OnClickListener imageOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Picture pic = (Picture) v.getTag();
+                selectedPictureUrl = pic.getResolvedUrl();
+                checkAnswer(nextWord.getWord().getId(), pic.getId());
+            }
+        };
 
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[0].getResolvedUrl())
-                .fitCenter()
-                .into(topLeft);
-        topLeft.setTag(nextWord.getPictures()[0]);
 
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[1].getResolvedUrl())
-                .fitCenter()
-                .into(topRight);
-        topRight.setTag(nextWord.getPictures()[1]);
+        for (int i = 0; i < imageViews.length; i++) {
+            Glide.with(this)
+                    .load(nextWord.getPictures()[i].getResolvedUrl())
+                    .fitCenter()
+                    .into(imageViews[i]);
 
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[2].getResolvedUrl())
-                .fitCenter()
-                .into(bottomLeft);
-        bottomLeft.setTag(nextWord.getPictures()[2]);
-
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(nextWord.getPictures()[3].getResolvedUrl())
-                .fitCenter()
-                .into(bottomRight);
-        bottomRight.setTag(nextWord.getPictures()[3]);
+            imageViews[i].setTag(nextWord.getPictures()[i]);
+            imageViews[i].setOnClickListener(imageOnClickListener);
+        }
     }
 
-    public void loadText(NextWordResponse nextWord) {
-        word.setText(nextWord.getWord().getWord().toString());
-    }
-
-    public void onClick(View v) {
-        Picture pic = (Picture) v.getTag();
-        this.selectedPictureUrl = pic.getResolvedUrl();
-        sendRequest(nextWord.getWord().getId(), pic.getId());
-    }
-
-    private void chooseNextActivity(boolean choice, String word) {
+    private void chooseNextActivity(CheckAnswerResponse response) {
         Intent intent;
-        String msgToDisplay;
-        boolean isCorrect = false;
 
-        intent = new Intent(GameActivity.this, AnswerActivity.class);
-
-        if(choice) {
-            isCorrect = true;
+        if(response.isCorrect()) {
+            intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
+        }
+        else {
+            intent = new Intent(GameActivity.this, WrongAnswerActivity.class);
         }
 
-        intent.putExtra("IS_CORRECT", isCorrect);
-        intent.putExtra("WORD", word);
-        intent.putExtra("URL", selectedPictureUrl);
-        intent.putExtra("PROGRESS_CUR", responseProgress.getCurrent());
-        intent.putExtra("PROGRESS_MAX", responseProgress.getMax());
+        intent.putExtra(BaseAnswerActivity.EXTRA_WORD, response.getWord());
+        intent.putExtra(BaseAnswerActivity.EXTRA_URL, selectedPictureUrl);
+        intent.putExtra(BaseAnswerActivity.EXTRA_PROGRESS_CUR, response.getProgress().getCurrent());
+        intent.putExtra(BaseAnswerActivity.EXTRA_PROGRESS_MAX, response.getProgress().getMax());
 
         startActivity(intent);
         finish();

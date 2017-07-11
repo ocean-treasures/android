@@ -23,8 +23,10 @@
         <activity
             android:name="oceantreasur.es.GameActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="oceantreasur.es.AnswerActivity" />
-        <activity android:name="oceantreasur.es.EndGameActivity"></activity>
+        <activity android:name=".BaseAnswerActivity" />
+        <activity android:name=".CorrectAnswerActivity" />
+        <activity android:name=".WrongAnswerActivity" />
+        <activity android:name=".EndGameActivity"></activity>
     </application>
 
 </manifest>

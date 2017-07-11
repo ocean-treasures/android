@@ -39,7 +39,6 @@
 
             <ImageView
                 android:id="@+id/iv_1"
-                android:onClick="onClick"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="#FF0000"
@@ -49,7 +48,6 @@
                 android:layout_marginBottom="2.5dp"/>
             <ImageView
                 android:id="@+id/iv_2"
-                android:onClick="onClick"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="#00FF00"
@@ -68,7 +66,6 @@
 
             <ImageView
                 android:id="@+id/iv_3"
-                android:onClick="onClick"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="#0000FF"
@@ -79,7 +76,6 @@
 
             <ImageView
                 android:id="@+id/iv_4"
-                android:onClick="onClick"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="#FFFF00"
@@ -91,8 +87,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 
     <oceantreasur.es.view.CustomTextView
         android:id="@+id/tv_word"
