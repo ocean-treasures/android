@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5adcee">
+    
+    <ImageView
+        android:layout_width="270dp"
+        android:layout_height="326dp"
+        android:layout_marginLeft="51dp"
+        android:src="@drawable/ic_seaweed"
+        android:layout_marginTop="260dp"
+     />
+    
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="235dp"
+        android:src="@drawable/ic_end_game_chest"/>
+    
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="100dp"
+        android:src="@drawable/ic_end_game_fish"/>
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="240dp"
+        android:src="@drawable/ic_end_game_fish"/>
+    
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="320dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_end_game_quote"/>
+
+    <oceantreasur.es.view.CustomButton
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="350dp"
+        android:layout_marginRight="180dp"
+        android:background="#31b8ca"
+        android:text="Play Again!"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:typefaceButtonAsset="fonts/CoolCrayon.ttf"/>
+
+</RelativeLayout>
