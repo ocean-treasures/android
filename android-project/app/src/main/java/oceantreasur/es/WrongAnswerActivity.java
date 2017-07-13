@@ -11,4 +11,9 @@ public class WrongAnswerActivity extends BaseAnswerActivity {
     public int getColor() {
         return oceantreasur.es.R.color.red;
     }
+
+    @Override
+    public int getIndicatorImage() {
+        return R.drawable.ic_sea_urchin;
+    }
 }

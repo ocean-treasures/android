@@ -11,14 +11,14 @@ import oceantreasur.es.R;
 import oceantreasur.es.view.CustomButton;
 import oceantreasur.es.view.FontManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CustomButton playButton = (CustomButton) findViewById(R.id.test1);
+        CustomButton playButton = (CustomButton) findViewById(R.id.btn_start);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

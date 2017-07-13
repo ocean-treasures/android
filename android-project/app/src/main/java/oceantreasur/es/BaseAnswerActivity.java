@@ -11,9 +11,10 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 
 import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.es.view.CustomButton;
 import oceantreasur.es.view.CustomTextView;
 
-public abstract class BaseAnswerActivity extends AppCompatActivity {
+public abstract class BaseAnswerActivity extends BaseActivity {
 
     public static final String EXTRA_URL = "oceantreasur.es.EXTRA_URL";
     public static final String EXTRA_WORD = "oceantreasur.es.EXTRA_WORD";
@@ -21,9 +22,11 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
     public static final String EXTRA_PROGRESS_MAX = "oceantreasur.es.EXTRA_PROGRESS_MAX";
 
     private ImageView image;
+    private ImageView indicator;
     private CustomTextView answerMessage;
     private CustomTextView answerWord;
     private ProgressBar progressBar;
+    private CustomButton nextButton;
 
     public void checkExtras() throws IllegalArgumentException {
         if (!(getIntent().hasExtra(EXTRA_URL) &&
@@ -47,18 +50,49 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
         answerWord.setText(intentData.getString(EXTRA_WORD));
         
         answerMessage.setText(getMessage());
-        image.setBackgroundColor(ContextCompat.getColor(this, getColor()));
+
+        if (!ViewUtils.isTablet(this)) {
+            image.setBackgroundColor(ContextCompat.getColor(this, getColor()));
+        }
     }
 
     public abstract String getMessage();
 
     public abstract int getColor();
 
+    public abstract int getIndicatorImage();
+
+    View.OnClickListener nextClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent;
+            if (progressBar.getProgress() != progressBar.getMax()) {
+                intent = new Intent(BaseAnswerActivity.this, GameActivity.class);
+            }
+            else {
+                intent = new Intent(BaseAnswerActivity.this, EndGameActivity.class);
+            }
+
+            startActivity(intent);
+            finish();
+        }
+    };
+
     public void setupActivity() {
-        image = (ImageView) findViewById(oceantreasur.es.R.id.iv_answer_pic);
-        answerMessage = (CustomTextView) findViewById(oceantreasur.es.R.id.tv_answer_msg);
-        answerWord = (CustomTextView) findViewById(oceantreasur.es.R.id.tv_answer_word);
-        progressBar = (ProgressBar) findViewById(oceantreasur.es.R.id.pb_answer);
+        image = (ImageView) findViewById(R.id.iv_answer_pic);
+        answerMessage = (CustomTextView) findViewById(R.id.tv_answer_msg);
+        answerWord = (CustomTextView) findViewById(R.id.tv_answer_word);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+
+        if (ViewUtils.isTablet(this)) {
+            indicator = (ImageView) findViewById(R.id.iv_indicator);
+            nextButton = (CustomButton) findViewById(R.id.btn_next);
+
+            nextButton.setOnClickListener(nextClick);
+
+            indicator.setImageResource(getIndicatorImage());
+        }
     }
 
     public void setupProgress(int cur, int max) {
@@ -66,26 +100,14 @@ public abstract class BaseAnswerActivity extends AppCompatActivity {
         progressBar.setProgress(cur);
     }
 
+
+
     public void loadImage(String url) {
         Glide.with(OceanTreasuresApplication.getStaticContext())
                 .load(url)
                 .fitCenter()
                 .into(image);
 
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                if (progressBar.getProgress() != progressBar.getMax()) {
-                    intent = new Intent(BaseAnswerActivity.this, GameActivity.class);
-                }
-                else {
-                    intent = new Intent(BaseAnswerActivity.this, EndGameActivity.class);
-                }
-
-                startActivity(intent);
-                finish();
-            }
-        });
+        image.setOnClickListener(nextClick);
     }
 }

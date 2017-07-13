@@ -11,7 +11,8 @@
         android:layout_height="358dp"
         android:src="@drawable/ic_seaweed_1"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="13.5dp" />
+        android:layout_marginStart="13.5dp"
+        android:layout_marginLeft="13.5dp"/>
 
     <ImageView
         android:id="@+id/iv_seaweed_2"
@@ -20,7 +21,9 @@
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_seaweed_2"
         android:layout_alignLeft="@id/iv_seaweed_1"
-        android:layout_marginLeft="80.1dp"/>
+        android:layout_alignStart="@id/iv_seaweed_1"
+        android:layout_marginLeft="80.1dp"
+        android:layout_marginStart="80.1dp"/>
 
     <ImageView
         android:id="@+id/iv_chest"
@@ -29,7 +32,9 @@
         android:src="@drawable/ic_chest"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@id/iv_seaweed_2"
-        android:layout_marginLeft="120dp"/>
+        android:layout_alignStart="@id/iv_seaweed_2"
+        android:layout_marginLeft="120dp"
+        android:layout_marginStart="120dp"/>
 
     <ImageView
         android:layout_width="300dp"
@@ -47,9 +52,11 @@
         android:text="START"
         android:textSize="17sp"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="130dp"
         android:layout_marginRight="121dp"
+        android:layout_marginEnd="121dp"
         android:textColor="@color/white"
         app:typefaceButtonAsset="fonts/FuturaMedium.ttf"/>
 

@@ -16,7 +16,7 @@ import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.view.CustomButton;
 import oceantreasur.es.view.FontManager;
 
-public class EndGameActivity extends AppCompatActivity {
+public class EndGameActivity extends BaseActivity {
 
     private ImageView image;
     private CustomButton button;
@@ -32,11 +32,12 @@ public class EndGameActivity extends AppCompatActivity {
 
         button.setBackgroundColor(Color.TRANSPARENT);
 
-        Glide.with(OceanTreasuresApplication.getStaticContext())
-                .load(R.drawable.treasure)
-                .centerCrop()
-                .into(image);
-
+        if(image != null) {
+            Glide.with(OceanTreasuresApplication.getStaticContext())
+                    .load(R.drawable.treasure)
+                    .centerCrop()
+                    .into(image);
+        }
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

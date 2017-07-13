@@ -24,60 +24,69 @@
         android:id="@+id/iv_answer_pic"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_alignTop="@id/progressBar"
         android:layout_marginTop="85dp"
         android:layout_marginLeft="55dp"
+        android:layout_marginStart="55dp"
         android:background="#d8d8d8"/>
 
     <oceantreasur.es.view.CustomTextView
         android:id="@+id/tv_answer_word"
         android:layout_width="340dp"
-        android:layout_height="43dp"
-        android:text="SEA CUCUMBER"
+        android:layout_height="55sp"
+        android:text=""
         android:textAlignment="textStart"
+        android:gravity="start"
         android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="45sp"
         android:layout_marginLeft="55dp"
+        android:layout_marginStart="55dp"
         android:layout_marginBottom="75dp"
         android:layout_alignParentBottom="true"
+        app:typefaceButtonAsset="fonts/CoolCrayon.ttf"
         />
 
     <ImageView
+        android:id="@+id/iv_indicator"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignBottom="@id/tv_answer_msg"
         android:layout_marginBottom="70dp"
         android:layout_marginRight="140dp"
-        android:src="@drawable/ic_sea_urchin"/>
+        android:layout_marginEnd="140dp"/>
 
     <oceantreasur.es.view.CustomTextView
         android:id="@+id/tv_answer_msg"
         android:layout_width="320dp"
-        android:layout_height="70dp"
+        android:layout_height="95sp"
         android:layout_alignParentEnd="true"
-        android:text="WRONG"
+        android:layout_alignParentRight="true"
+        android:text=""
         android:textAlignment="center"
         android:textSize="72sp"
         android:textColor="@color/white"
-        android:layout_alignBottom="@id/btn_start"
+        android:layout_alignBottom="@+id/btn_next"
         android:layout_marginBottom="70dp"
         android:layout_marginRight="60dp"
-        app:typefaceAsset="fonts/FuturaMedium.ttf"/>
+        android:layout_marginEnd="60dp"
+        app:typefaceButtonAsset="fonts/CoolCrayon.ttf"/>
 
     <oceantreasur.es.view.CustomButton
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_next"
         android:background="@drawable/custombutton"
         android:layout_width="98dp"
         android:layout_height="43dp"
-        android:text="START"
+        android:text="Next"
         android:textSize="17sp"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="130dp"
         android:layout_marginRight="121dp"
+        android:layout_marginEnd="121dp"
         android:textColor="@color/white"
-        app:typefaceButtonAsset="fonts/FuturaMedium.ttf"/>
+        app:typefaceButtonAsset="fonts/CoolCrayon.ttf"/>
 
 </RelativeLayout>

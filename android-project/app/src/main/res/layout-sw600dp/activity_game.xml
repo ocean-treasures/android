@@ -33,15 +33,16 @@
         android:layout_marginStart="60dp"/>
     
     <oceantreasur.es.view.CustomTextView
+        android:id="@+id/tv_word"
         android:layout_width="330dp"
         android:layout_height="200dp"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="50dp"
         android:layout_marginStart="50dp"
         android:maxLines="2"
-        android:text="WORD"
+        android:text=""
         android:textColor="@color/white"
-        android:textSize="100sp"
+        android:textSize="60sp"
         android:textAlignment="center"
         app:typefaceAsset="fonts/CoolCrayon.ttf"
     />

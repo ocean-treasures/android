@@ -21,9 +21,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends BaseActivity {
 
     private static final int STEP_SIZE = 10;
+    private boolean isActivityAlive = true;
 
     private String selectedPictureUrl;
 
@@ -44,9 +45,16 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        isActivityAlive = true;
 
         setupActivity();
         getNextWord();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isActivityAlive = false;
     }
 
     public void setupActivity() {
@@ -66,12 +74,14 @@ public class GameActivity extends AppCompatActivity {
             public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
                 nextWord = response.body();
 
-                setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
-                loadImages(nextWord);
+                if(isActivityAlive) {
+                    setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
+                    loadImages(nextWord);
 
-                word.setText(nextWord.getWord().getWord().toString());
+                    word.setText(nextWord.getWord().getWord().toString());
 
-                Log.d("ZAX", nextWord.toString());
+                    Log.d("ZAX", nextWord.toString());
+                }
             }
 
             @Override
