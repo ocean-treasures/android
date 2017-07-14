@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#5adcee">
+
+    <ImageView
+        android:id="@+id/iv_seaweed_1"
+        android:layout_width="302dp"
+        android:layout_height="358dp"
+        android:src="@drawable/ic_seaweed_1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="13.5dp"
+        android:layout_marginLeft="13.5dp"/>
+
+    <ImageView
+        android:id="@+id/iv_seaweed_2"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_seaweed_2"
+        android:layout_alignLeft="@id/iv_seaweed_1"
+        android:layout_alignStart="@id/iv_seaweed_1"
+        android:layout_marginLeft="90dp"
+        android:layout_marginStart="90dp"/>
+
+    <ImageView
+        android:id="@+id/iv_chest"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:src="@drawable/ic_chest"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@id/iv_seaweed_2"
+        android:layout_alignStart="@id/iv_seaweed_2"
+        android:layout_marginLeft="150dp"
+        android:layout_marginStart="150dp"/>
+
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_main_activity_quote"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="280dp"
+        android:layout_marginEnd="280dp"/>
+
+    <oceantreasur.es.view.CustomButton
+        android:id="@+id/btn_start"
+        android:background="@drawable/custombutton"
+        android:layout_width="200dp"
+        android:layout_height="85dp"
+        android:text="@string/start"
+        android:textSize="45sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="130dp"
+        android:layout_marginRight="121dp"
+        android:layout_marginEnd="121dp"
+        android:textColor="@color/white"
+        app:typefaceButtonAsset="fonts/CoolCrayon.ttf"/>
+
+</RelativeLayout>

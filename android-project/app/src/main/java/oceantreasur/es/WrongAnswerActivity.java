@@ -1,5 +1,7 @@
 package oceantreasur.es;
 
+import android.media.MediaPlayer;
+
 public class WrongAnswerActivity extends BaseAnswerActivity {
 
     @Override
@@ -10,5 +12,16 @@ public class WrongAnswerActivity extends BaseAnswerActivity {
     @Override
     public int getColor() {
         return oceantreasur.es.R.color.red;
+    }
+
+    @Override
+    public int getIndicatorImage() {
+        return R.drawable.ic_sea_urchin;
+    }
+
+    @Override
+    public void playMusic() {
+        MediaPlayer mPlayer = MediaPlayer.create(WrongAnswerActivity.this, R.raw.superior_fart_sound);
+        mPlayer.start();
     }
 }

@@ -3,6 +3,8 @@ package oceantreasur.es;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.SystemClock;
+import android.support.v7.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -28,9 +30,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends BaseActivity {
 
     private static final int STEP_SIZE = 10;
+    private boolean isActivityAlive = true;
+    private long mLastClickTime = 0;
 
     private String selectedPictureUrl;
 
@@ -51,9 +55,16 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        isActivityAlive = true;
 
         setupActivity();
         getNextWord();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isActivityAlive = false;
     }
 
     public void setupActivity() {
@@ -65,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void getNextWord() {
+      public void getNextWord() {
         Call<NextWordResponse> call = OceanTreasuresApplication.getApi().getNextWord();
 
         call.enqueue(new Callback<NextWordResponse>() {
@@ -73,57 +84,19 @@ public class GameActivity extends AppCompatActivity {
             public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
                 nextWord = response.body();
 
-                if (nextWord.getProgress().getCurrent() == nextWord.getProgress().getMax()) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
-
-                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-
-                    final AlertDialog dialog = builder.create();
-                    LayoutInflater inflater = getLayoutInflater();
-                    View dialogLayout = inflater.inflate(R.layout.alert_dialog, null);
-                    dialog.setView(dialogLayout);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-                    dialog.show();
-
-                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface d) {
-                            Context context = OceanTreasuresApplication.getStaticContext();
-                            ImageView image = (ImageView) dialog.findViewById(R.id.iv_dialog);
-
-                            Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
-                                    R.drawable.fish);
-
-                            float imageWidthInPX = (float)image.getWidth();
-
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
-                                    Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
-
-                            image.setLayoutParams(layoutParams);
-                        }
-                    });
-                } else {
-
-                    loadImages(nextWord);
+                if(isActivityAlive) {
                     setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
-                    word.setText(nextWord.getWord().getWord().toString());
-                }
+                    loadImages(nextWord);
 
-                Log.d("ZAX", nextWord.toString());
+                    word.setText(nextWord.getWord().getWord().toString());
+
+                    Log.d("ZAX", nextWord.toString());
+                }
             }
 
             @Override
             public void onFailure(Call<NextWordResponse> call, Throwable t) {
-                Log.d("ZAX", "ERROR GET");
+                Log.d("ZAX", "ERROR");
             }
         });
     }
@@ -158,6 +131,11 @@ public class GameActivity extends AppCompatActivity {
         View.OnClickListener imageOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+
                 Picture pic = (Picture) v.getTag();
                 selectedPictureUrl = pic.getResolvedUrl();
                 checkAnswer(nextWord.getWord().getId(), pic.getId());
