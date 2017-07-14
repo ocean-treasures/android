@@ -1,12 +1,21 @@
 package oceantreasur.es;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,7 +26,6 @@ import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.network.model.CheckAnswerRequest;
 import oceantreasur.es.network.model.NextWordResponse;
 import oceantreasur.es.network.model.Picture;
-import oceantreasur.es.network.model.Progress;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,7 +76,7 @@ public class GameActivity extends BaseActivity {
         }
     }
 
-    public void getNextWord() {
+      public void getNextWord() {
         Call<NextWordResponse> call = OceanTreasuresApplication.getApi().getNextWord();
 
         call.enqueue(new Callback<NextWordResponse>() {
