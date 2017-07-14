@@ -1,29 +1,19 @@
 package oceantreasur.es;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.os.SystemClock;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.network.model.CheckAnswerRequest;
+import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.model.NextWordResponse;
 import oceantreasur.es.network.model.Picture;
 import retrofit2.Call;

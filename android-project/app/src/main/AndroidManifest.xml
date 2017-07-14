@@ -6,6 +6,7 @@
 
     <application
         android:name="oceantreasur.es.network.OceanTreasuresApplication"
+        android:label="Ocean Treasures"
         android:allowBackup="true"
         android:icon="@mipmap/oceantreasureslogo"
         android:roundIcon="@mipmap/ic_launcher_round"
