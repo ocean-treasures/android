@@ -1,5 +1,7 @@
 package oceantreasur.es;
 
+import android.media.MediaPlayer;
+
 public class CorrectAnswerActivity extends BaseAnswerActivity {
     @Override
     public String getMessage() {
@@ -15,4 +17,11 @@ public class CorrectAnswerActivity extends BaseAnswerActivity {
     public int getIndicatorImage() {
         return R.drawable.ic_seahorse;
     }
+
+    @Override
+    void playMusic() {
+        MediaPlayer mPlayer = MediaPlayer.create(CorrectAnswerActivity.this, R.raw.yay);
+        mPlayer.start();
+    }
+
 }
