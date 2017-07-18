@@ -3,6 +3,8 @@ package oceantreasur.es;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.SystemClock;
+import android.support.v7.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ public class GameActivity extends BaseActivity {
 
     private static final int STEP_SIZE = 10;
     private boolean isActivityAlive = true;
+    private long mLastClickTime = 0;
 
     private String selectedPictureUrl;
 
@@ -73,7 +76,7 @@ public class GameActivity extends BaseActivity {
         }
     }
 
-    public void getNextWord() {
+      public void getNextWord() {
         Call<NextWordResponse> call = OceanTreasuresApplication.getApi().getNextWord();
 
         call.enqueue(new Callback<NextWordResponse>() {
@@ -130,7 +133,7 @@ public class GameActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<NextWordResponse> call, Throwable t) {
-                Log.d("ZAX", "ERROR GET");
+                Log.d("ZAX", "ERROR");
             }
         });
     }
@@ -165,6 +168,11 @@ public class GameActivity extends BaseActivity {
         View.OnClickListener imageOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+
                 Picture pic = (Picture) v.getTag();
                 selectedPictureUrl = pic.getResolvedUrl();
                 checkAnswer(nextWord.getWord().getId(), pic.getId());

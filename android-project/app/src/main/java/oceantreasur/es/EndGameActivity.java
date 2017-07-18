@@ -30,7 +30,7 @@ public class EndGameActivity extends BaseActivity {
         this.image = (ImageView) findViewById(R.id.iv_end_game);
         this.button = (CustomButton) findViewById(R.id.btn_play_again);
 
-        button.setBackgroundColor(Color.TRANSPARENT);
+        //button.setBackgroundColor(Color.TRANSPARENT);
 
         if(image != null) {
             Glide.with(OceanTreasuresApplication.getStaticContext())
