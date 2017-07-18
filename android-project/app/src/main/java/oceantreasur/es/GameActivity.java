@@ -3,6 +3,7 @@ package oceantreasur.es;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -56,6 +58,17 @@ public class GameActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         isActivityAlive = true;
+
+//        RelativeLayout view = (RelativeLayout) findViewById(R.id.rl_game);
+//        View v = (View) findViewById(R.id.v_test);
+//        view.setDrawingCacheEnabled(true);
+//        view.buildDrawingCache();
+//        Bitmap bm = view.getDrawingCache();
+//        BitmapDrawable bd = new BitmapDrawable(view.getContext().getResources(), bm);
+//
+//        Bitmap.createScaledBitmap(bm, 10, 10, true);
+//        v.setVisibility(View.VISIBLE);
+//        v.setBackground(bd);
 
         setupActivity();
         getNextWord();
