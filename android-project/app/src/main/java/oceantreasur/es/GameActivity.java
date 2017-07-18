@@ -1,11 +1,19 @@
 package oceantreasur.es;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -16,7 +24,6 @@ import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.network.model.CheckAnswerRequest;
 import oceantreasur.es.network.model.NextWordResponse;
 import oceantreasur.es.network.model.Picture;
-import oceantreasur.es.network.model.Progress;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,19 +81,56 @@ public class GameActivity extends BaseActivity {
             public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
                 nextWord = response.body();
 
-                if(isActivityAlive) {
-                    setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
-                    loadImages(nextWord);
+                if (nextWord.getProgress().getCurrent() == nextWord.getProgress().getMax()) {
 
-                    word.setText(nextWord.getWord().getWord().toString());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
 
-                    Log.d("ZAX", nextWord.toString());
+                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+
+                    final AlertDialog dialog = builder.create();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogLayout = inflater.inflate(R.layout.alert_dialog, null);
+                    dialog.setView(dialogLayout);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                    dialog.show();
+
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface d) {
+                            Context context = OceanTreasuresApplication.getStaticContext();
+                            ImageView image = (ImageView) dialog.findViewById(R.id.iv_dialog);
+
+                            Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                                    R.drawable.fish);
+
+                            float imageWidthInPX = (float)image.getWidth();
+
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
+                                    Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
+
+                            image.setLayoutParams(layoutParams);
+                        }
+                    });
+                } else {
+                    if(isActivityAlive) {
+                        loadImages(nextWord);
+                        setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
+                        word.setText(nextWord.getWord().getWord().toString());
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<NextWordResponse> call, Throwable t) {
-                Log.d("ZAX", "ERROR");
+                Log.d("ZAX", "ERROR GET");
             }
         });
     }
