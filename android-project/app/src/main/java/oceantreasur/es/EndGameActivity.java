@@ -1,11 +1,15 @@
 package oceantreasur.es;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -18,6 +22,7 @@ import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.view.CustomButton;
 import oceantreasur.es.view.ViewUtils;
 
+import static oceantreasur.es.R.dimen.fish_width;
 import static oceantreasur.es.R.layout.fish;
 import static oceantreasur.es.view.AnimationConstants.*;
 import static oceantreasur.es.view.ScreenUtils.*;
@@ -28,11 +33,14 @@ public class EndGameActivity extends BaseActivity {
     private ImageView image;
     private CustomButton button;
     private ArrayList<View> fishViews = new ArrayList<>();
+    private int fishBeginOffset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
+
+        fishBeginOffset = getWidthOfFish();
 
         this.image = (ImageView) findViewById(R.id.iv_end_game);
         this.button = (CustomButton) findViewById(R.id.btn_play_again);
@@ -58,13 +66,16 @@ public class EndGameActivity extends BaseActivity {
     }
 
     private void inflateFishViews() {
-        RelativeLayout mainlayout = (RelativeLayout) findViewById(R.id.rl_end);
+        RelativeLayout background = (RelativeLayout) findViewById(R.id.background);
+        RelativeLayout foreground = (RelativeLayout) findViewById(R.id.foreground);
+
+        RelativeLayout [] relativeLayouts = {background, foreground};
 
         LayoutInflater Li = LayoutInflater.from(getApplicationContext());
 
         for(int i = 0; i < MAX_FISH; i++) {
             fishViews.add(Li.inflate(fish,null));
-            mainlayout.addView(fishViews.get(i));
+            relativeLayouts[generateRandomIntegerInRange(0,2)].addView(fishViews.get(i));
         }
     }
 
@@ -94,7 +105,7 @@ public class EndGameActivity extends BaseActivity {
         int width = getScreenWidth();
         int height = choseRandomYPosition();
 
-        Animation anim = new TranslateAnimation(-300, width + 400, height, height);
+        Animation anim = new TranslateAnimation(-fishBeginOffset, width + fishBeginOffset, height, height);
         anim.setDuration(durationTime);
         anim.setStartOffset(generateRandomIntegerInRange(MIN_TIME_OFFSET, MAX_TIME_OFFSET));
         anim.setFillAfter(true);
@@ -115,7 +126,6 @@ public class EndGameActivity extends BaseActivity {
 
         fish.startAnimation(anim);
     }
-
 
     private int generateRandomIntegerInRange(int min, int max) {
         Random rand = new Random();
