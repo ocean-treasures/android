@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fish_width">120dp</dimen>
+    <dimen name="fish_height">85dp</dimen>
+    <dimen name="text_size">55sp</dimen>
+    <dimen name="seaweed_offset_bottom">-20dp</dimen>
+    <dimen name="seaweed_offset_bottom_end">-30dp</dimen>
+</resources>

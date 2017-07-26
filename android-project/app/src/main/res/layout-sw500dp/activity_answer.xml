@@ -1,90 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#5adcee">
+<android.support.percent.PercentRelativeLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    android:background = "#5adcee">
 
     <android.support.percent.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content">
 
         <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            app:layout_widthPercent="80%"
-            android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
-            android:progressDrawable="@drawable/customprogressbar"/>
+            android:id = "@+id/progressBar"
+            style = "?android:attr/progressBarStyleHorizontal"
+            app:layout_widthPercent = "80%"
+            app:layout_heightPercent = "4%"
+
+            app:layout_marginTopPercent = "3%"
+            android:layout_centerHorizontal = "true"
+            android:progressDrawable = "@drawable/customprogressbar"
+            />
 
     </android.support.percent.PercentRelativeLayout>
 
     <ImageView
         android:id="@+id/iv_answer_pic"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginStart="55dp"
-        android:background="#d8d8d8"/>
+        app:layout_widthPercent = "33%"
+        app:layout_heightPercent = "58%"
+
+        app:layout_marginTopPercent = "16%"
+        app:layout_marginLeftPercent ="7%"
+        app:layout_marginStartPercent ="7%"
+        android:background = "#d8d8d8"/>
 
     <oceantreasur.es.view.CustomTextView
-        android:id="@+id/tv_answer_word"
-        android:layout_width="340dp"
-        android:layout_height="62sp"
-        android:gravity="center_horizontal"
-        android:maxLines="1"
-        android:textColor="@color/white"
-        android:textSize="50sp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginBottom="70dp"
-        android:layout_alignParentBottom="true"
-        app:typefaceAsset="fonts/CoolCrayon.ttf"
+        android:id = "@+id/tv_answer_word"
+        app:layout_widthPercent = "40%"
+        app:layout_heightPercent = "15%"
+
+        app:layout_marginLeftPercent = "3%"
+        app:layout_marginStartPercent = "3%"
+        app:layout_marginTopPercent = "6%"
+        android:layout_below = "@id/iv_answer_pic"
+
+        app:typefaceAsset = "fonts/CoolCrayon.ttf"
+        android:gravity = "center_horizontal"
+        android:maxLines = "1"
+        android:textColor = "@color/white"
+        android:textSize = "@dimen/text_size"
         />
 
     <ImageView
-        android:id="@+id/iv_indicator"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/tv_answer_msg"
-        android:layout_marginBottom="100dp"
-        android:layout_marginRight="140dp"
-        android:layout_marginEnd="140dp"/>
+        android:id = "@+id/iv_indicator"
+        app:layout_widthPercent = "18%"
+        app:layout_heightPercent = "32%"
+
+        android:layout_alignParentRight = "true"
+        android:layout_alignParentEnd = "true"
+
+        app:layout_marginRightPercent = "16%"
+        app:layout_marginEndPercent = "16%"
+        app:layout_marginTopPercent = "18%"
+        />
 
     <oceantreasur.es.view.CustomTextView
-        android:id="@+id/tv_answer_msg"
-        android:layout_width="320dp"
-        android:layout_height="95sp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text=""
-        android:textAlignment="center"
-        android:textSize="72sp"
-        android:textColor="@color/white"
-        android:layout_alignBottom="@+id/btn_next"
-        android:layout_marginBottom="105dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginEnd="60dp"
-        app:typefaceAsset="fonts/CoolCrayon.ttf"/>
+        android:id = "@+id/tv_answer_msg"
+        app:layout_widthPercent = "40%"
+        app:layout_heightPercent = "14%"
+
+        android:layout_alignParentRight = "true"
+        android:layout_alignParentEnd = "true"
+
+        app:layout_marginRightPercent = "5%"
+        app:layout_marginEndPercent = "5%"
+        app:layout_marginTopPercent = "6%"
+        android:layout_below = "@id/iv_indicator"
+
+        app:typefaceAsset = "fonts/CoolCrayon.ttf"
+        android:textAlignment = "center"
+        android:textSize = "@dimen/text_size"
+        android:maxLines="1"
+        android:textColor = "@color/white"
+        />
 
     <oceantreasur.es.view.CustomButton
-        android:id="@+id/btn_next"
-        android:background="@drawable/custombutton"
-        android:layout_width="200dp"
-        android:layout_height="85dp"
-        android:text="Next"
-        android:textSize="50sp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginRight="121dp"
-        android:layout_marginEnd="121dp"
-        android:textColor="@color/white"
-        app:typefaceButtonAsset="fonts/CoolCrayon.ttf"/>
+        android:id = "@+id/btn_next"
+        app:layout_widthPercent = "25%"
+        app:layout_heightPercent = "15%"
+        android:background = "@drawable/custombutton"
+        android:layout_below = "@id/tv_answer_msg"
 
-</RelativeLayout>
+        android:layout_alignParentRight = "true"
+        android:layout_alignParentEnd = "true"
+
+        app:layout_marginTopPercent = "3%"
+        app:layout_marginRightPercent = "12%"
+        app:layout_marginEndPercent = "12%"
+
+        android:text = "@string/next"
+        android:textSize = "50sp"
+        android:textColor = "@color/white"
+        app:typefaceButtonAsset = "fonts/CoolCrayon.ttf"
+        />
+
+</android.support.percent.PercentRelativeLayout>
