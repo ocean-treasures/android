@@ -1,15 +1,11 @@
 package oceantreasur.es;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -22,8 +18,10 @@ import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.view.CustomButton;
 import oceantreasur.es.view.ViewUtils;
 
-import static oceantreasur.es.R.dimen.fish_width;
-import static oceantreasur.es.R.layout.fish;
+import static oceantreasur.es.R.dimen.small_fish_height;
+import static oceantreasur.es.R.dimen.small_fish_width;
+import static oceantreasur.es.R.layout.big_fish;
+import static oceantreasur.es.R.layout.small_fish;
 import static oceantreasur.es.view.AnimationConstants.*;
 import static oceantreasur.es.view.ScreenUtils.*;
 
@@ -32,15 +30,19 @@ public class EndGameActivity extends BaseActivity {
 
     private ImageView image;
     private CustomButton button;
-    private ArrayList<View> fishViews = new ArrayList<>();
-    private int fishBeginOffset;
+    private ArrayList<View> smallFishViews = new ArrayList<>();
+    private ArrayList<View> bigFishViews = new ArrayList<>();
+    private int smallFishBeginOffset;
+    private int bigFishBeginOffset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
 
-        fishBeginOffset = getWidthOfFish();
+        smallFishBeginOffset = getDimensionOfFishInPx(small_fish_width);
+        bigFishBeginOffset = getDimensionOfFishInPx(R.dimen.big_fish_width);
+
 
         this.image = (ImageView) findViewById(R.id.iv_end_game);
         this.button = (CustomButton) findViewById(R.id.btn_play_again);
@@ -73,15 +75,25 @@ public class EndGameActivity extends BaseActivity {
 
         LayoutInflater Li = LayoutInflater.from(getApplicationContext());
 
-        for(int i = 0; i < MAX_FISH; i++) {
-            fishViews.add(Li.inflate(fish,null));
-            relativeLayouts[generateRandomIntegerInRange(0,2)].addView(fishViews.get(i));
+        for(int i = 0; i < MAX_SMALL_FISH; i++) {
+            smallFishViews.add(Li.inflate(small_fish, null));
+            relativeLayouts[generateRandomIntegerInRange(0,relativeLayouts.length)].addView(smallFishViews.get(i));
+        }
+
+        for(int i = 0; i < MAX_BIG_FISHES; i++) {
+            bigFishViews.add(Li.inflate(big_fish, null));
+            relativeLayouts[0].addView(bigFishViews.get(i));
         }
     }
 
     private void moveAnimation() {
-        for(int i = 0; i < fishViews.size(); i++) {
-            setupAnimation(fishViews.get(i), generateRandomIntegerInRange(MIN_DURATION, MAX_DURATION));
+        setupAnimation(smallFishViews, smallFishBeginOffset);
+        setupAnimation(bigFishViews, bigFishBeginOffset);
+    }
+
+    private void setupAnimation(ArrayList<View> views, int offset) {
+        for(int i = 0; i < views.size(); i++) {
+            startAnimation(views.get(i), generateRandomIntegerInRange(MIN_DURATION, MAX_DURATION), offset);
         }
     }
 
@@ -90,26 +102,37 @@ public class EndGameActivity extends BaseActivity {
 
         int yPosition = generateRandomIntegerInRange(1, height);
 
-        if(yPosition < height * MIN_SPAWNING_POINT_IN_PERCENTS) {
-            yPosition += FISH_MARGIN_BOTTOM;
+        if(yPosition > height * MAX_SPAWNING_POINT_IN_PERCENTS) {
+            yPosition -= (getDimensionOfFishInPx(small_fish_height) + FISH_MARGIN_BOTTOM);
         } else {
-            if(yPosition > height * MAX_SPAWNING_POINT_IN_PERCENTS) {
-                yPosition -= FISH_MARGIN_TOP;
+            if(yPosition < height * MIN_SPAWNING_POINT_IN_PERCENTS) {
+                yPosition += (getDimensionOfFishInPx(small_fish_height) - FISH_MARGIN_TOP);
             }
         }
 
         return yPosition;
     }
 
-    private void setupAnimation(final View fish, final int durationTime) {
+    private void startAnimation(final View fish, final int durationTime, final int beginOffset) {
         int width = getScreenWidth();
-        int height = choseRandomYPosition();
+        int height = 0;
+        boolean isSmallFish = true;
 
-        Animation anim = new TranslateAnimation(-fishBeginOffset, width + fishBeginOffset, height, height);
+        if(smallFishBeginOffset ==  beginOffset) {
+            height = choseRandomYPosition();
+        } else {
+            isSmallFish = false;
+        }
+
+        Animation anim = new TranslateAnimation(-beginOffset, width + beginOffset, height, height);
         anim.setDuration(durationTime);
-        anim.setStartOffset(generateRandomIntegerInRange(MIN_TIME_OFFSET, MAX_TIME_OFFSET));
         anim.setFillAfter(true);
 
+        if(isSmallFish) {
+            anim.setStartOffset(generateRandomIntegerInRange(MIN_TIME_OFFSET_SMALL_FISH, MAX_TIME_OFFSET_SMALL_FISH));
+        } else {
+            anim.setStartOffset(generateRandomIntegerInRange(MIN_TIME_OFFSET_BIG_FISH, MAX_TIME_OFFSET_BIG_FISH));
+        }
 
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -117,7 +140,7 @@ public class EndGameActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                setupAnimation(fish, durationTime);
+                startAnimation(fish, durationTime, beginOffset);
             }
 
             @Override

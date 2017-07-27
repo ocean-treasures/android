@@ -22,12 +22,13 @@ public class ScreenUtils {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
-    public static int getWidthOfFish () {
+    public static int getDimensionOfFishInPx(int fishId) {
 
         Resources res = OceanTreasuresApplication.getStaticContext().getResources();
 
-        int widthOfFish = (int) (res.getDimension(R.dimen.fish_width) / res.getDisplayMetrics().density);
+        int widthOfFish = (int) (res.getDimension(fishId) / res.getDisplayMetrics().density);
 
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthOfFish, res.getDisplayMetrics())) + 10;
     }
+
 }
