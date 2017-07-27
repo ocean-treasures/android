@@ -23,6 +23,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.net.SocketTimeoutException;
+
 import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.network.model.CheckAnswerRequest;
@@ -95,9 +97,8 @@ public class GameActivity extends BaseActivity {
         call.enqueue(new Callback<NextWordResponse>() {
             @Override
             public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
-                nextWord = response.body();
 
-                if (nextWord.getProgress().getCurrent() == nextWord.getProgress().getMax()) {
+                if (response.code() == 404) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
 
@@ -135,7 +136,10 @@ public class GameActivity extends BaseActivity {
                             image.setLayoutParams(layoutParams);
                         }
                     });
+
                 } else {
+                    nextWord = response.body();
+
                     if(isActivityAlive) {
                         loadImages(nextWord);
                         setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
@@ -147,6 +151,12 @@ public class GameActivity extends BaseActivity {
             @Override
             public void onFailure(Call<NextWordResponse> call, Throwable t) {
                 Log.d("ZAX", "ERROR");
+
+                if(t instanceof SocketTimeoutException){
+                    Log.d("ZAX", "Server Timeout!");
+                    getNextWord();
+                }
+
             }
         });
     }
