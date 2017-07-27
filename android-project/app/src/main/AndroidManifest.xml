@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="oceantreasur.es.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,11 +23,19 @@
         </activity>
         <activity
             android:name="oceantreasur.es.GameActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
+
         <activity android:name=".BaseAnswerActivity" />
-        <activity android:name=".CorrectAnswerActivity" />
-        <activity android:name=".WrongAnswerActivity" />
-        <activity android:name=".EndGameActivity"></activity>
+
+        <activity android:name=".CorrectAnswerActivity"
+            android:screenOrientation="landscape" />
+
+        <activity android:name=".WrongAnswerActivity"
+            android:screenOrientation="landscape" />
+
+        <activity android:name=".EndGameActivity"
+            android:screenOrientation="landscape"/>
+
     </application>
 
 </manifest>
