@@ -42,10 +42,10 @@
 
         app:typefaceAsset="fonts/CoolCrayon.ttf"
         android:gravity="center_horizontal"
-        android:maxLines="1"
+        android:maxLines="2"
         android:textColor="@color/white"
-        android:textSize="50sp"
-        />
+
+        android:textSize="48sp"/>
 
     <ImageView
         android:id="@+id/iv_indicator"
