@@ -5,15 +5,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="oceantreasur.es.network.OceanTreasuresApplication"
-        android:label="Ocean Treasures"
+        android:name=".network.OceanTreasuresApplication"
         android:allowBackup="true"
         android:icon="@mipmap/oceantreasureslogo"
+        android:label="Ocean Treasures"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="oceantreasur.es.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,20 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="oceantreasur.es.GameActivity"
+            android:name=".GameActivity"
             android:screenOrientation="landscape" />
-
         <activity android:name=".BaseAnswerActivity" />
-
-        <activity android:name=".CorrectAnswerActivity"
+        <activity
+            android:name=".CorrectAnswerActivity"
             android:screenOrientation="landscape" />
-
-        <activity android:name=".WrongAnswerActivity"
+        <activity
+            android:name=".WrongAnswerActivity"
             android:screenOrientation="landscape" />
-
-        <activity android:name=".EndGameActivity"
-            android:screenOrientation="landscape"/>
-
+        <activity
+            android:name=".EndGameActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".fragments.ActivityMain"></activity>
     </application>
 
 </manifest>

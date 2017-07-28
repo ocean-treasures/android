@@ -1,22 +1,20 @@
-package oceantreasur.es;
+package oceantreasur.es.fragments;
 
-import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import oceantreasur.es.network.OceanTreasuresApplication;
-import oceantreasur.es.view.CustomButton;
-import oceantreasur.es.view.ViewUtils;
+import oceantreasur.es.R;
 
 import static oceantreasur.es.R.dimen.small_fish_height;
 import static oceantreasur.es.R.dimen.small_fish_width;
@@ -25,10 +23,10 @@ import static oceantreasur.es.R.layout.small_fish;
 import static oceantreasur.es.view.AnimationConstants.*;
 import static oceantreasur.es.view.ScreenUtils.*;
 
+public class ActivityMain extends AppCompatActivity {
 
-public class EndGameActivity extends BaseActivity {
-
-    private CustomButton button;
+    android.app.FragmentManager fragmentManager;
+    android.app.FragmentTransaction fragmentTransaction;
     private ArrayList<View> smallFishViews = new ArrayList<>();
     private ArrayList<View> bigFishViews = new ArrayList<>();
     private int smallFishBeginOffset;
@@ -37,24 +35,21 @@ public class EndGameActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_end_game);
+        setContentView(R.layout.activity_main_fragments);
 
         smallFishBeginOffset = getDimensionOfFishInPx(small_fish_width);
         bigFishBeginOffset = getDimensionOfFishInPx(R.dimen.big_fish_width);
 
-        this.button = (CustomButton) findViewById(R.id.btn_play_again);
+        fragmentManager= getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                   getBackToPlayActivity();
-            }
-        });
+        inflateFishViews();
+        moveAnimation();
 
-        if (ViewUtils.isTablet(this)) {
-            inflateFishViews();
-            moveAnimation();
-        }
+    }
+
+    public void attachFragment() {
+
     }
 
     private void inflateFishViews() {
@@ -146,11 +141,4 @@ public class EndGameActivity extends BaseActivity {
         Random rand = new Random();
         return rand.nextInt(max - min) + min;
     }
-
-    private void getBackToPlayActivity() {
-        Intent intent = new Intent(EndGameActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
 }

@@ -9,5 +9,5 @@
     <dimen name="seaweed_offset_bottom_end">0dp</dimen>
 
     <dimen name="big_fish_width">600dp</dimen>
-    <dimen name="big_fish_height">300dp</dimen>
+    <dimen name="big_fish_height">250dp</dimen>
 </resources>

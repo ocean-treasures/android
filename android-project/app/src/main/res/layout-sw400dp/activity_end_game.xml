@@ -32,8 +32,8 @@
 
         android:layout_alignParentBottom = "true"
 
-        android:layout_marginLeft = "235dp"
-        android:layout_marginStart = "235dp"
+        app:layout_marginLeftPercent = "25%"
+        app:layout_marginStartPercent = "25%"
         />
 
     <ImageView
