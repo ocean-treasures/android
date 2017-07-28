@@ -8,6 +8,6 @@
     <dimen name="seaweed_offset_bottom">0dp</dimen>
     <dimen name="seaweed_offset_bottom_end">0dp</dimen>
 
-    <dimen name="big_fish_width">900dp</dimen>
-    <dimen name="big_fish_height">550dp</dimen>
+    <dimen name="big_fish_width">600dp</dimen>
+    <dimen name="big_fish_height">300dp</dimen>
 </resources>

@@ -53,3 +53,6 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+android-project/app/src/main/res/drawable/ic_end_game_big_fish.xml
+android-project/app/src/main/java/oceantreasur/es/fragments/SectionsStatePagerAdapter.java
+android-project/app/src/main/java/oceantreasur/es/fragments/HomeFragment.java

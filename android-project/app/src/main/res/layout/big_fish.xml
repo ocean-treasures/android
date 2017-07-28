@@ -4,8 +4,9 @@
         android:id = "@+id/bigFish"
         android:layout_width = "@dimen/big_fish_width"
         android:layout_height = "@dimen/big_fish_height"
-               android:src = "@drawable/ic_end_game_big_fish"
-               android:scaleType="fitXY"
+        android:src = "@drawable/ic_end_game_big_fish"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
         android:layout_marginStart = "0dp"
         android:layout_marginLeft  =  "0dp"
         />

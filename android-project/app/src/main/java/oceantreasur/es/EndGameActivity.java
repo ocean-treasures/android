@@ -47,13 +47,6 @@ public class EndGameActivity extends BaseActivity {
         this.image = (ImageView) findViewById(R.id.iv_end_game);
         this.button = (CustomButton) findViewById(R.id.btn_play_again);
 
-        if(image != null) {
-            Glide.with(OceanTreasuresApplication.getStaticContext())
-                    .load(R.drawable.treasure)
-                    .centerCrop()
-                    .into(image);
-        }
-
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -115,23 +108,25 @@ public class EndGameActivity extends BaseActivity {
 
     private void startAnimation(final View fish, final int durationTime, final int beginOffset) {
         int width = getScreenWidth();
-        int height = 0;
+        int height;
         boolean isSmallFish = true;
 
         if(smallFishBeginOffset ==  beginOffset) {
             height = choseRandomYPosition();
         } else {
             isSmallFish = false;
+            height = SPAWNING_POINT_OF_BIG_FISH;
         }
 
         Animation anim = new TranslateAnimation(-beginOffset, width + beginOffset, height, height);
-        anim.setDuration(durationTime);
         anim.setFillAfter(true);
 
         if(isSmallFish) {
             anim.setStartOffset(generateRandomIntegerInRange(MIN_TIME_OFFSET_SMALL_FISH, MAX_TIME_OFFSET_SMALL_FISH));
+            anim.setDuration(durationTime);
         } else {
             anim.setStartOffset(generateRandomIntegerInRange(MIN_TIME_OFFSET_BIG_FISH, MAX_TIME_OFFSET_BIG_FISH));
+            anim.setDuration(DURATION_OF_BIG_FISH_ANIMATION);
         }
 
         anim.setAnimationListener(new Animation.AnimationListener() {

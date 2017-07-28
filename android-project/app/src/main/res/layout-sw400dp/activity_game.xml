@@ -50,7 +50,7 @@
         app:typefaceAsset = "fonts/CoolCrayon.ttf"
         android:textColor = "@color/white"
         android:textSize = "@dimen/text_size"
-        android:maxLines = "2"
+        android:maxLines = "1"
         android:textAlignment = "center"
     />
 
