@@ -3,14 +3,11 @@ package oceantreasur.es;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +15,6 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -38,7 +34,6 @@ public class GameActivity extends BaseActivity {
 
     private static final int STEP_SIZE = 10;
     private boolean isActivityAlive = true;
-    private long mLastClickTime = 0;
 
     private String selectedPictureUrl;
 
@@ -191,11 +186,7 @@ public class GameActivity extends BaseActivity {
         View.OnClickListener imageOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
-                    return;
-                }
-                mLastClickTime = SystemClock.elapsedRealtime();
-
+                disableImageClicks();
                 Picture pic = (Picture) v.getTag();
                 selectedPictureUrl = pic.getResolvedUrl();
                 checkAnswer(nextWord.getWord().getId(), pic.getId());
@@ -231,6 +222,13 @@ public class GameActivity extends BaseActivity {
 
         startActivity(intent);
         finish();
+    }
+
+    private void disableImageClicks(){
+        for(ImageView iv : imageViews){
+            iv.setClickable(false);
+            iv.setEnabled(false);
+        }
     }
 }
 

@@ -66,6 +66,7 @@ public abstract class BaseAnswerActivity extends BaseActivity {
     View.OnClickListener nextClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            disableNextClick();
             Intent intent;
             if (progressBar.getProgress() != progressBar.getMax()) {
                 intent = new Intent(BaseAnswerActivity.this, GameActivity.class);
@@ -80,6 +81,13 @@ public abstract class BaseAnswerActivity extends BaseActivity {
             finish();
         }
     };
+
+    public void disableNextClick(){
+        nextButton.setClickable(false);
+        nextButton.setEnabled(false);
+        image.setClickable(false);
+        image.setEnabled(false);
+    }
 
     public void setupActivity() {
         image = (ImageView) findViewById(R.id.iv_answer_pic);
