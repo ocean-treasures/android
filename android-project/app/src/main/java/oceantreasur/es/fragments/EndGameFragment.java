@@ -1,8 +1,8 @@
 package oceantreasur.es.fragments;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +10,7 @@ import android.view.ViewGroup;
 import oceantreasur.es.R;
 import oceantreasur.es.view.CustomButton;
 
-import static oceantreasur.es.fragments.FragmentConstants.MAIN_FRAGMENT;
-
-/**
- * Created by Student on 7/28/2017.
- */
-
-public class EndGameFragment extends Fragment{
+public class EndGameFragment extends Fragment {
 
     @Nullable
     @Override
@@ -28,6 +22,8 @@ public class EndGameFragment extends Fragment{
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainFragment mainFragment = new MainFragment();
+                ((ActivityMain) getActivity()).attachFragment(mainFragment, "MAIN_FRAGMENT");
             }
         });
 

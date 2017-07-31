@@ -7,6 +7,6 @@ public class OceanTreasuresConstants {
     // http://192.168.3.18:8000/game/
     // http://swapi.co/api/
 
-    public static final String BASE_URL = urls[0];
-    public static final boolean IS_MOCK = false;
+    public static final String BASE_URL = urls[1];
+    public static final boolean IS_MOCK = true;
 }

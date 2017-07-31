@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".fragments.ActivityMain"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,6 @@
         <activity
             android:name=".GameActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".BaseAnswerActivity" />
         <activity
             android:name=".CorrectAnswerActivity"
             android:screenOrientation="landscape" />
@@ -34,7 +33,7 @@
         <activity
             android:name=".EndGameActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".fragments.ActivityMain"></activity>
+
     </application>
 
 </manifest>

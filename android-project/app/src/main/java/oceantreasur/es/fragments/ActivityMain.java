@@ -1,144 +1,152 @@
 package oceantreasur.es.fragments;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
+
+import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.net.SocketTimeoutException;
 
 import oceantreasur.es.R;
-
-import static oceantreasur.es.R.dimen.small_fish_height;
-import static oceantreasur.es.R.dimen.small_fish_width;
-import static oceantreasur.es.R.layout.big_fish;
-import static oceantreasur.es.R.layout.small_fish;
-import static oceantreasur.es.view.AnimationConstants.*;
-import static oceantreasur.es.view.ScreenUtils.*;
+import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.es.network.model.CheckAnswerRequest;
+import oceantreasur.es.network.model.CheckAnswerResponse;
+import oceantreasur.es.network.model.NextWordResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivityMain extends AppCompatActivity {
 
-    android.app.FragmentManager fragmentManager;
+    android.app.FragmentManager fragmentManagaer;
     android.app.FragmentTransaction fragmentTransaction;
-    private ArrayList<View> smallFishViews = new ArrayList<>();
-    private ArrayList<View> bigFishViews = new ArrayList<>();
-    private int smallFishBeginOffset;
-    private int bigFishBeginOffset;
+    private NextWordResponse nextWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragments);
 
-        smallFishBeginOffset = getDimensionOfFishInPx(small_fish_width);
-        bigFishBeginOffset = getDimensionOfFishInPx(R.dimen.big_fish_width);
+        fragmentManagaer = getFragmentManager();
 
-        fragmentManager= getFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        RelativeLayout background = (RelativeLayout) findViewById(R.id.fish_background);
+        AnimationController animationController = new AnimationController(background);
 
-        inflateFishViews();
-        moveAnimation();
-
-    }
-
-    public void attachFragment() {
+        MainFragment mainFragment = new MainFragment();
+        attachFragment(mainFragment, "MAIN_FRAGMENT");
 
     }
 
-    private void inflateFishViews() {
-        RelativeLayout background = (RelativeLayout) findViewById(R.id.background);
-        RelativeLayout foreground = (RelativeLayout) findViewById(R.id.foreground);
-
-        RelativeLayout [] relativeLayouts = {background, foreground};
-
-        LayoutInflater Li = LayoutInflater.from(getApplicationContext());
-
-        for(int i = 0; i < MAX_SMALL_FISH; i++) {
-            smallFishViews.add(Li.inflate(small_fish, null));
-            relativeLayouts[generateRandomIntegerInRange(0,relativeLayouts.length)].addView(smallFishViews.get(i));
-        }
-
-        for(int i = 0; i < MAX_BIG_FISHES; i++) {
-            bigFishViews.add(Li.inflate(big_fish, null));
-            relativeLayouts[0].addView(bigFishViews.get(i));
-        }
+    public void attachFragment(android.app.Fragment fragment, String tag) {
+        fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment, tag)
+                            .commit();
     }
 
-    private void moveAnimation() {
-        setupAnimation(smallFishViews, smallFishBeginOffset);
-        setupAnimation(bigFishViews, bigFishBeginOffset);
-    }
+    public void getNextWord() {
+        Call<NextWordResponse> call = OceanTreasuresApplication.getApi().getNextWord();
 
-    private void setupAnimation(ArrayList<View> views, int offset) {
-        for(int i = 0; i < views.size(); i++) {
-            startAnimation(views.get(i), generateRandomIntegerInRange(MIN_DURATION, MAX_DURATION), offset);
-        }
-    }
-
-    private int choseRandomYPosition() {
-        int height = getScreenHeight();
-
-        int yPosition = generateRandomIntegerInRange(1, height);
-
-        if(yPosition > height * MAX_SPAWNING_POINT_IN_PERCENTS) {
-            yPosition -= (getDimensionOfFishInPx(small_fish_height) + FISH_MARGIN_BOTTOM);
-        } else {
-            if(yPosition < height * MIN_SPAWNING_POINT_IN_PERCENTS) {
-                yPosition += (getDimensionOfFishInPx(small_fish_height) - FISH_MARGIN_TOP);
-            }
-        }
-
-        return yPosition;
-    }
-
-    private void startAnimation(final View fish, final int durationTime, final int beginOffset) {
-        int width = getScreenWidth();
-        int height;
-        boolean isSmallFish = true;
-
-        if(smallFishBeginOffset ==  beginOffset) {
-            height = choseRandomYPosition();
-        } else {
-            isSmallFish = false;
-            height = SPAWNING_POINT_OF_BIG_FISH;
-        }
-
-        Animation anim = new TranslateAnimation(-beginOffset, width + beginOffset, height, height);
-        anim.setFillAfter(true);
-
-        if(isSmallFish) {
-            anim.setStartOffset(generateRandomIntegerInRange(MIN_TIME_OFFSET_SMALL_FISH, MAX_TIME_OFFSET_SMALL_FISH));
-            anim.setDuration(durationTime);
-        } else {
-            anim.setStartOffset(generateRandomIntegerInRange(MIN_TIME_OFFSET_BIG_FISH, MAX_TIME_OFFSET_BIG_FISH));
-            anim.setDuration(DURATION_OF_BIG_FISH_ANIMATION);
-        }
-
-        anim.setAnimationListener(new Animation.AnimationListener() {
+        call.enqueue(new Callback<NextWordResponse>() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                startAnimation(fish, durationTime, beginOffset);
+                if (response.code() == 404) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityMain.this);
+
+                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainFragment mf = new MainFragment();
+                            attachFragment(mf, "MAIN_FRAGMENT");
+                        }
+                    });
+
+                    final AlertDialog dialog = builder.create();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogLayout = inflater.inflate(R.layout.alert_dialog, null);
+                    dialog.setView(dialogLayout);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                    dialog.show();
+
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface d) {
+                            Context context = OceanTreasuresApplication.getStaticContext();
+                            ImageView image = (ImageView) dialog.findViewById(R.id.iv_dialog);
+
+                            Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                                    R.drawable.fish);
+
+                            float imageWidthInPX = (float)image.getWidth();
+
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
+                                    Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
+
+                            image.setLayoutParams(layoutParams);
+                        }
+                    });
+
+                } else {
+                    GameFragment gameFragment =  (GameFragment) fragmentManagaer.findFragmentByTag("GAME_FRAGMENT");
+
+                    nextWord = response.body();
+                    gameFragment.loadImages(nextWord);
+                    gameFragment.setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
+                    gameFragment.setTextToTextView(nextWord.getWord().getWord().toString());
+
+                }
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onFailure(Call<NextWordResponse> call, Throwable t) {
+                Log.d("ZAX", "ERROR");
+
+                if(t instanceof SocketTimeoutException){
+                    Log.d("ZAX", "Server Timeout!");
+                    getNextWord();
+                }
+
+            }
         });
-
-        fish.startAnimation(anim);
     }
 
-    private int generateRandomIntegerInRange(int min, int max) {
-        Random rand = new Random();
-        return rand.nextInt(max - min) + min;
+    public void checkAnswer(int wordId, int picId) {
+        CheckAnswerRequest req = new CheckAnswerRequest(wordId, picId);
+        Call<CheckAnswerResponse> call = OceanTreasuresApplication.getApi().checkAnswer(req);
+
+        call.enqueue(new Callback<CheckAnswerResponse>() {
+            @Override
+            public void onResponse(Call<CheckAnswerResponse> call, Response<CheckAnswerResponse> response) {
+                CheckAnswerResponse serverResponse = response.body();
+
+                GameFragment gameFragment =  (GameFragment) fragmentManagaer.findFragmentByTag("GAME_FRAGMENT");
+
+                gameFragment.chooseNextFragment(serverResponse);
+
+                Log.d("ZAX", serverResponse.toString());
+            }
+
+            @Override
+            public void onFailure(Call<CheckAnswerResponse> call, Throwable t) {
+                Log.d("ZAX", "ERROR");
+            }
+        });
     }
+
+
 }
