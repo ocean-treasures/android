@@ -1,4 +1,4 @@
-package oceantreasur.es.fragments;
+package oceantreasur.es.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,20 +11,20 @@ import oceantreasur.es.MainActivity;
 import oceantreasur.es.R;
 import oceantreasur.es.view.CustomButton;
 
-public class MainFragment extends Fragment {
+public class EndGameFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_end_game, container, false);
 
-        CustomButton playButton = (CustomButton) view.findViewById(R.id.btn_start);
+        CustomButton playAgainButton = (CustomButton) view.findViewById(R.id.btn_play_again);
 
-        playButton.setOnClickListener(new View.OnClickListener() {
+        playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameFragment gameFragment = new GameFragment();
-                ((MainActivity) getActivity()).attachFragment(gameFragment, FragmentTags.GAME_FRAGMENT_TAG);
+                StartGameFragment startGameFragment = new StartGameFragment();
+                ((MainActivity) getActivity()).attachFragment(startGameFragment, FragmentTags.START_GAME_FRAGMENT_TAG);
             }
         });
 

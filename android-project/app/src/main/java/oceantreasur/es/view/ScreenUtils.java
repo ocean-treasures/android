@@ -8,9 +8,6 @@ import android.widget.ImageView;
 import oceantreasur.es.R;
 import oceantreasur.es.network.OceanTreasuresApplication;
 
-/**
- * Created by stoyan-ivanov on 24.07.17.
- */
 
 public class ScreenUtils {
 

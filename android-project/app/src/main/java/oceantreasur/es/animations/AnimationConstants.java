@@ -2,6 +2,8 @@ package oceantreasur.es.animations;
 
 import android.widget.ImageView;
 
+import oceantreasur.es.view.ScreenUtils;
+
 import static oceantreasur.es.view.ScreenUtils.getScreenHeight;
 
 public class AnimationConstants {
@@ -18,7 +20,7 @@ public class AnimationConstants {
     public static final int MIN_TIME_OFFSET_BIG_FISH = 1500;
     public static final int MAX_TIME_OFFSET_BIG_FISH = 2000;
     public static final int DURATION_OF_BIG_FISH_ANIMATION = 22000;
-    public static final int SPAWNING_POINT_OF_BIG_FISH = getScreenHeight() / 9;
+    public static final int SPAWNING_POINT_OF_BIG_FISH = ScreenUtils.getScreenHeight() / 9;
 
     public static final double MIN_SPAWNING_POINT_IN_PERCENTS= 0.05;
     public static final double MAX_SPAWNING_POINT_IN_PERCENTS = 0.90;

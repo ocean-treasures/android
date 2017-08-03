@@ -1,4 +1,4 @@
-package oceantreasur.es.fragments;
+package oceantreasur.es.ui;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -56,7 +56,7 @@ public class GameFragment extends Fragment {
     private android.app.FragmentManager fragmentManagaer;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_game, container, false);
+        View view = inflater.inflate(R.layout.fragment_game, container, false);
 
         fragmentManagaer = getFragmentManager();
 
@@ -89,8 +89,8 @@ public class GameFragment extends Fragment {
                     builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            MainFragment mf = new MainFragment();
-                            ((MainActivity)getActivity()).attachFragment(mf, FragmentTags.MAIN_FRAGMENT_TAG);
+                            StartGameFragment mf = new StartGameFragment();
+                            ((MainActivity)getActivity()).attachFragment(mf, FragmentTags.START_GAME_FRAGMENT_TAG);
                         }
                     });
 

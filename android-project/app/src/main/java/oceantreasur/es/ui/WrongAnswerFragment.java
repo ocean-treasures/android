@@ -1,4 +1,4 @@
-package oceantreasur.es.fragments;
+package oceantreasur.es.ui;
 
 import android.media.MediaPlayer;
 

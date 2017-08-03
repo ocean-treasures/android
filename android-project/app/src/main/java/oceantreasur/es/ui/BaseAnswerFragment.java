@@ -1,4 +1,4 @@
-package oceantreasur.es.fragments;
+package oceantreasur.es.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -34,7 +34,7 @@ public abstract class BaseAnswerFragment extends Fragment {
     private CustomButton nextButton;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_answer, container, false);
+        View view = inflater.inflate(R.layout.fragment_answer, container, false);
 
         setupActivity(view);
         playMusic();
