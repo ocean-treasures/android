@@ -42,7 +42,7 @@ public class AnimationController {
     private int smallFishBeginOffset = getDimensionOfFishInPx(small_fish_width);
     private int bigFishBeginOffset = getDimensionOfFishInPx(R.dimen.big_fish_width);
 
-    AnimationController(RelativeLayout background) {
+    public AnimationController(RelativeLayout background) {
         inflateFishViews(background);
         moveAnimation();
     }

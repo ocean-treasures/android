@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import oceantreasur.es.MainActivity;
 import oceantreasur.es.R;
 import oceantreasur.es.view.CustomButton;
 
@@ -23,7 +24,7 @@ public class EndGameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainFragment mainFragment = new MainFragment();
-                ((ActivityMain) getActivity()).attachFragment(mainFragment, FragmentTags.MAIN_FRAGMENT_TAG);
+                ((MainActivity) getActivity()).attachFragment(mainFragment, FragmentTags.MAIN_FRAGMENT_TAG);
             }
         });
 

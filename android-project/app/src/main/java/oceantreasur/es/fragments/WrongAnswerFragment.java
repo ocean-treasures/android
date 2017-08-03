@@ -3,7 +3,6 @@ package oceantreasur.es.fragments;
 import android.media.MediaPlayer;
 
 import oceantreasur.es.R;
-import oceantreasur.es.WrongAnswerActivity;
 
 
 public class WrongAnswerFragment extends BaseAnswerFragment {

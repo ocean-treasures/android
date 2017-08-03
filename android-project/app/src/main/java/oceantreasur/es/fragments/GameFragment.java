@@ -1,7 +1,6 @@
 package oceantreasur.es.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -23,6 +22,7 @@ import com.bumptech.glide.Glide;
 
 import java.net.SocketTimeoutException;
 
+import oceantreasur.es.MainActivity;
 import oceantreasur.es.R;
 import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.network.model.CheckAnswerRequest;
@@ -90,7 +90,7 @@ public class GameFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             MainFragment mf = new MainFragment();
-                            ((ActivityMain)getActivity()).attachFragment(mf, FragmentTags.MAIN_FRAGMENT_TAG);
+                            ((MainActivity)getActivity()).attachFragment(mf, FragmentTags.MAIN_FRAGMENT_TAG);
                         }
                     });
 
@@ -201,12 +201,12 @@ public class GameFragment extends Fragment {
         if(response.isCorrect()) {
             CorrectAnswerFragment correctAnswerFragment = new CorrectAnswerFragment();
             correctAnswerFragment.setArguments(data);
-            ((ActivityMain) getActivity()).attachFragment(correctAnswerFragment, FragmentTags.CORRECT_ANSWER_FRAGMENT_TAG);
+            ((MainActivity) getActivity()).attachFragment(correctAnswerFragment, FragmentTags.CORRECT_ANSWER_FRAGMENT_TAG);
         }
         else {
             WrongAnswerFragment wrongAnswerFragment = new WrongAnswerFragment();
             wrongAnswerFragment.setArguments(data);
-            ((ActivityMain) getActivity()).attachFragment(wrongAnswerFragment, FragmentTags.WRONG_ANSWER_FRAGMENT_TAG);
+            ((MainActivity) getActivity()).attachFragment(wrongAnswerFragment, FragmentTags.WRONG_ANSWER_FRAGMENT_TAG);
         }
     }
 

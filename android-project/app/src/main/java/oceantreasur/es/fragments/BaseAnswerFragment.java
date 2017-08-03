@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
+import oceantreasur.es.MainActivity;
 import oceantreasur.es.R;
 import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.view.CustomButton;
@@ -61,11 +62,11 @@ public abstract class BaseAnswerFragment extends Fragment {
 
             if (progressBar.getProgress() != progressBar.getMax()) {
                 GameFragment gameFragment = new GameFragment();
-                ((ActivityMain) getActivity()).attachFragment(gameFragment, FragmentTags.GAME_FRAGMENT_TAG);
+                ((MainActivity) getActivity()).attachFragment(gameFragment, FragmentTags.GAME_FRAGMENT_TAG);
             }
             else {
                 EndGameFragment endGameFragment = new EndGameFragment();
-                ((ActivityMain) getActivity()).attachFragment(endGameFragment, FragmentTags.END_GAME_FRAGMENT_TAG);
+                ((MainActivity) getActivity()).attachFragment(endGameFragment, FragmentTags.END_GAME_FRAGMENT_TAG);
             }
         }
     };

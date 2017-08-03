@@ -1,13 +1,13 @@
 package oceantreasur.es.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import oceantreasur.es.MainActivity;
 import oceantreasur.es.R;
 import oceantreasur.es.view.CustomButton;
 
@@ -24,7 +24,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 GameFragment gameFragment = new GameFragment();
-                ((ActivityMain) getActivity()).attachFragment(gameFragment, FragmentTags.GAME_FRAGMENT_TAG);
+                ((MainActivity) getActivity()).attachFragment(gameFragment, FragmentTags.GAME_FRAGMENT_TAG);
             }
         });
 
