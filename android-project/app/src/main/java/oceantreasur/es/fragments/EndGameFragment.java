@@ -23,7 +23,7 @@ public class EndGameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainFragment mainFragment = new MainFragment();
-                ((ActivityMain) getActivity()).attachFragment(mainFragment, "MAIN_FRAGMENT");
+                ((ActivityMain) getActivity()).attachFragment(mainFragment, FragmentTags.MAIN_FRAGMENT_TAG);
             }
         });
 

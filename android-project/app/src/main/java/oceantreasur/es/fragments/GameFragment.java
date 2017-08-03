@@ -1,28 +1,42 @@
 package oceantreasur.es.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.net.SocketTimeoutException;
+
 import oceantreasur.es.R;
+import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.es.network.model.CheckAnswerRequest;
 import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.model.NextWordResponse;
 import oceantreasur.es.network.model.Picture;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class GameFragment extends Fragment {
 
     private static final int STEP_SIZE = 10;
-    private long mLastClickTime = 0;
 
     private String selectedPictureUrl;
 
@@ -39,12 +53,15 @@ public class GameFragment extends Fragment {
 
     private TextView word;
 
+    private android.app.FragmentManager fragmentManagaer;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_game, container, false);
 
+        fragmentManagaer = getFragmentManager();
+
         setupActivity(view);
-        ((ActivityMain) getActivity()).getNextWord();
+        getNextWord();
 
         return view;
     }
@@ -56,6 +73,98 @@ public class GameFragment extends Fragment {
         for (int i = 0; i < imageViews.length; i++) {
             imageViews[i] = (ImageView) view.findViewById(ids[i]);
         }
+    }
+
+    public void getNextWord() {
+        Call<NextWordResponse> call = OceanTreasuresApplication.getApi().getNextWord();
+
+        call.enqueue(new Callback<NextWordResponse>() {
+            @Override
+            public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
+
+                if (response.code() == 404) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainFragment mf = new MainFragment();
+                            ((ActivityMain)getActivity()).attachFragment(mf, FragmentTags.MAIN_FRAGMENT_TAG);
+                        }
+                    });
+
+                    final AlertDialog dialog = builder.create();
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    View dialogLayout = inflater.inflate(R.layout.alert_dialog, null);
+                    dialog.setView(dialogLayout);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                    dialog.show();
+
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface d) {
+                            Context context = OceanTreasuresApplication.getStaticContext();
+                            ImageView image = (ImageView) dialog.findViewById(R.id.iv_dialog);
+
+                            Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                                    R.drawable.fish);
+
+                            float imageWidthInPX = (float)image.getWidth();
+
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
+                                    Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
+
+                            image.setLayoutParams(layoutParams);
+                        }
+                    });
+
+                } else {
+                    GameFragment gameFragment =  (GameFragment) fragmentManagaer.findFragmentByTag(FragmentTags.GAME_FRAGMENT_TAG);
+
+                    nextWord = response.body();
+                    gameFragment.loadImages(nextWord);
+                    gameFragment.setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
+                    gameFragment.setTextToTextView(nextWord.getWord().getWord().toString());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NextWordResponse> call, Throwable t) {
+                Log.d("ZAX", "ERROR");
+
+                if(t instanceof SocketTimeoutException){
+                    Log.d("ZAX", "Server Timeout!");
+                    getNextWord();
+                }
+
+            }
+        });
+    }
+
+    public void checkAnswer(int wordId, int picId) {
+        CheckAnswerRequest req = new CheckAnswerRequest(wordId, picId);
+        Call<CheckAnswerResponse> call = OceanTreasuresApplication.getApi().checkAnswer(req);
+
+        call.enqueue(new Callback<CheckAnswerResponse>() {
+            @Override
+            public void onResponse(Call<CheckAnswerResponse> call, Response<CheckAnswerResponse> response) {
+                CheckAnswerResponse serverResponse = response.body();
+
+                GameFragment gameFragment =  (GameFragment) fragmentManagaer.findFragmentByTag(FragmentTags.GAME_FRAGMENT_TAG);
+
+                gameFragment.chooseNextFragment(serverResponse);
+
+                Log.d("ZAX", serverResponse.toString());
+            }
+
+            @Override
+            public void onFailure(Call<CheckAnswerResponse> call, Throwable t) {
+                Log.d("ZAX", "ERROR");
+            }
+        });
     }
 
     public void setupProgressBar(int cur, int max) {
@@ -70,7 +179,7 @@ public class GameFragment extends Fragment {
                 disableImageClicks();
                 Picture pic = (Picture) v.getTag();
                 selectedPictureUrl = pic.getResolvedUrl();
-                ((ActivityMain) getActivity()).checkAnswer(nextWord.getWord().getId(), pic.getId());
+                checkAnswer(nextWord.getWord().getId(), pic.getId());
             }
         };
 
@@ -87,22 +196,28 @@ public class GameFragment extends Fragment {
     }
 
     public void chooseNextFragment(CheckAnswerResponse response) {
-        Bundle data = new Bundle();
-        data.putString("EXTRA_WORD", response.getWord());
-        data.putString("EXTRA_URL", selectedPictureUrl);
-        data.putInt("EXTRA_PROGRESS_CURR", response.getProgress().getCurrent());
-        data.putInt("EXTRA_PROGRESS_MAX", response.getProgress().getMax());
+        Bundle data = bundleExtras(response);
 
         if(response.isCorrect()) {
             CorrectAnswerFragment correctAnswerFragment = new CorrectAnswerFragment();
             correctAnswerFragment.setArguments(data);
-            ((ActivityMain) getActivity()).attachFragment(correctAnswerFragment, "CORRECT_ANSWER_FRAGMENT");
+            ((ActivityMain) getActivity()).attachFragment(correctAnswerFragment, FragmentTags.CORRECT_ANSWER_FRAGMENT_TAG);
         }
         else {
             WrongAnswerFragment wrongAnswerFragment = new WrongAnswerFragment();
             wrongAnswerFragment.setArguments(data);
-            ((ActivityMain) getActivity()).attachFragment(wrongAnswerFragment, "WRONG_ANSWER_FRAGMENT");
+            ((ActivityMain) getActivity()).attachFragment(wrongAnswerFragment, FragmentTags.WRONG_ANSWER_FRAGMENT_TAG);
         }
+    }
+
+    private Bundle bundleExtras(CheckAnswerResponse response) {
+        Bundle data = new Bundle();
+        data.putString(BaseAnswerFragment.EXTRA_WORD, response.getWord());
+        data.putString(BaseAnswerFragment.EXTRA_URL, selectedPictureUrl);
+        data.putInt(BaseAnswerFragment.EXTRA_PROGRESS_CUR, response.getProgress().getCurrent());
+        data.putInt(BaseAnswerFragment.EXTRA_PROGRESS_MAX, response.getProgress().getMax());
+
+        return data;
     }
 
     public void setTextToTextView(String stringToBeVisualized) {

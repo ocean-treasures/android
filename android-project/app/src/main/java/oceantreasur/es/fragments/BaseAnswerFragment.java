@@ -61,11 +61,11 @@ public abstract class BaseAnswerFragment extends Fragment {
 
             if (progressBar.getProgress() != progressBar.getMax()) {
                 GameFragment gameFragment = new GameFragment();
-                ((ActivityMain) getActivity()).attachFragment(gameFragment, "GAME_FRAGMENT");
+                ((ActivityMain) getActivity()).attachFragment(gameFragment, FragmentTags.GAME_FRAGMENT_TAG);
             }
             else {
                 EndGameFragment endGameFragment = new EndGameFragment();
-                ((ActivityMain) getActivity()).attachFragment(endGameFragment, "END_GAME_FRAGMENT");
+                ((ActivityMain) getActivity()).attachFragment(endGameFragment, FragmentTags.END_GAME_FRAGMENT_TAG);
             }
         }
     };

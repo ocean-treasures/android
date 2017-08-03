@@ -1,12 +1,8 @@
-package oceantreasur.es.view;
+package oceantreasur.es.animations;
 
 import android.widget.ImageView;
 
 import static oceantreasur.es.view.ScreenUtils.getScreenHeight;
-
-/**
- * Created by stoyan-ivanov on 24.07.17.
- */
 
 public class AnimationConstants {
 

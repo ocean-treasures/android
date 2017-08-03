@@ -24,7 +24,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 GameFragment gameFragment = new GameFragment();
-                ((ActivityMain) getActivity()).attachFragment(gameFragment, "GAME_FRAGMENT");
+                ((ActivityMain) getActivity()).attachFragment(gameFragment, FragmentTags.GAME_FRAGMENT_TAG);
             }
         });
 

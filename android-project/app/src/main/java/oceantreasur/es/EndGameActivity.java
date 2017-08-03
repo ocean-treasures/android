@@ -6,15 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.view.CustomButton;
 import oceantreasur.es.view.ViewUtils;
 
@@ -22,7 +18,7 @@ import static oceantreasur.es.R.dimen.small_fish_height;
 import static oceantreasur.es.R.dimen.small_fish_width;
 import static oceantreasur.es.R.layout.big_fish;
 import static oceantreasur.es.R.layout.small_fish;
-import static oceantreasur.es.view.AnimationConstants.*;
+import static oceantreasur.es.animations.AnimationConstants.*;
 import static oceantreasur.es.view.ScreenUtils.*;
 
 
