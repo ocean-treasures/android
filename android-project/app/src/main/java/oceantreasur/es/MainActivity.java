@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManagaer = getFragmentManager();
 
         RelativeLayout background = (RelativeLayout) findViewById(R.id.fish_background);
+
         AnimationController animationController = new AnimationController(background);
 
         StartGameFragment startGameFragment = new StartGameFragment();

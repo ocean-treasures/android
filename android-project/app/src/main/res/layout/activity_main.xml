@@ -14,4 +14,10 @@
         android:id="@+id/container"
         android:layout_height="match_parent"
         android:layout_width="match_parent"></RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/fish_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
+
 </RelativeLayout>
