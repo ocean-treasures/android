@@ -198,16 +198,11 @@ public class GameFragment extends Fragment {
     public void chooseNextFragment(CheckAnswerResponse response) {
         Bundle data = bundleExtras(response);
 
-        if(response.isCorrect()) {
-            CorrectAnswerFragment correctAnswerFragment = new CorrectAnswerFragment();
-            correctAnswerFragment.setArguments(data);
-            ((MainActivity) getActivity()).attachFragment(correctAnswerFragment, FragmentTags.CORRECT_ANSWER_FRAGMENT_TAG);
-        }
-        else {
-            WrongAnswerFragment wrongAnswerFragment = new WrongAnswerFragment();
-            wrongAnswerFragment.setArguments(data);
-            ((MainActivity) getActivity()).attachFragment(wrongAnswerFragment, FragmentTags.WRONG_ANSWER_FRAGMENT_TAG);
-        }
+        Fragment nextFragmentToDisplay = response.isCorrect() ? new CorrectAnswerFragment() : new WrongAnswerFragment();
+        String tag = response.isCorrect() ? FragmentTags.CORRECT_ANSWER_FRAGMENT_TAG : FragmentTags.WRONG_ANSWER_FRAGMENT_TAG;
+
+        nextFragmentToDisplay.setArguments(data);
+        ((MainActivity) getActivity()).attachFragment(nextFragmentToDisplay, tag);
     }
 
     private Bundle bundleExtras(CheckAnswerResponse response) {
