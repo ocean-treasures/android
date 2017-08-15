@@ -90,8 +90,6 @@ public class GameFragment extends Fragment {
                     android.app.AlertDialog dialog = DialogUtil.getNeutralImageAlertDialog(R
                             .string.neutral_button_text, R.drawable.fish, new DialogInterface
                             .OnClickListener() {
-
-
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             ((MainActivity) getActivity()).attachFragment(new StartGameFragment());

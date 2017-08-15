@@ -1,4 +1,4 @@
-package oceantreasur.es.view;
+package oceantreasur.es.util;
 
 import android.content.Context;
 import android.content.res.Resources;
