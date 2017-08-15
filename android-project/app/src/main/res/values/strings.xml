@@ -3,7 +3,7 @@
     <string name="word">Word</string>
     <string name="correct_answer">Correct</string>
     <string name="wrong_answer">Wrong</string>
-    <string name="play_again">Play Again!</string>
+    <string name="play_again">PlayAgain!</string>
     <string name="start">START</string>
     <string name="next">Next</string>
 </resources>

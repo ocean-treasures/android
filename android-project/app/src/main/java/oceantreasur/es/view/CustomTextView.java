@@ -20,11 +20,12 @@ import android.widget.TextView;
 
 import oceantreasur.es.R;
 
+import static oceantreasur.es.R.dimen.text_size;
 import static oceantreasur.es.view.FontManager.applyCustomFont;
 
 public class CustomTextView extends android.support.v7.widget.AppCompatTextView {
 
-    private interface SizeTester {
+    interface SizeTester {
         /**
          *
          * @param suggestedSize
@@ -52,7 +53,7 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
 
     private float mSpacingAdd = 0.0f;
 
-    private float mMinTextSize = 50;
+    private float mMinTextSize = 40;
 
     private int mWidthLimit;
 

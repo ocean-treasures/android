@@ -1,28 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="oceantreasur.es.EndGameActivity">
+<?xml version = "1.0" encoding = "utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    android:id = "@+id/rl_end"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:id  =  "@+id/background">
+    </RelativeLayout>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/iv_end_game"/>
+        app:layout_widthPercent = "30%"
+        app:layout_heightPercent = "55%"
+        android:src = "@drawable/ic_seaweed"
+
+        android:layout_alignParentBottom = "true"
+
+        app:layout_marginLeftPercent = "1%"
+        android:layout_marginBottom = "@dimen/seaweed_offset_bottom_end"
+        />
+
+    <ImageView
+        android:id = "@+id/chest_end"
+        app:layout_widthPercent = "25%"
+        app:layout_heightPercent = "36%"
+        android:src = "@drawable/ic_end_game_gold_chest"
+
+        android:layout_alignParentBottom = "true"
+
+        app:layout_marginLeftPercent = "25%"
+        app:layout_marginStartPercent = "25%"
+        />
 
     <oceantreasur.es.view.CustomButton
-        android:id="@+id/btn_play_again"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerInParent="true"
-        android:text="@string/play_again"
-        android:textColor="@color/white"
-        app:typefaceButtonAsset="fonts/CoolCrayon.ttf"
-        android:background="@drawable/button_bg_round"
-        android:textSize="40sp"
-    />
+        android:id = "@+id/btn_play_again"
+        android:background = "@drawable/custombutton"
+        app:layout_widthPercent = "30%"
+        app:layout_heightPercent = "20%"
 
+        android:layout_alignParentRight = "true"
+        android:layout_alignParentEnd = "true"
+        android:layout_alignParentBottom="true"
 
-</RelativeLayout>
+        app:layout_marginBottomPercent = "18%"
+        app:layout_marginRightPercent = "10%"
+        app:layout_marginEndPercent = "10%"
+
+        android:text = "@string/play_again"
+        android:textColor = "@color/white"
+        android:textSize = "40sp"
+        android:maxLines="1"
+        app:typefaceButtonAsset = "fonts/CoolCrayon.ttf"/>
+
+    <ImageView
+        android:id = "@+id/iv_logo_end"
+        app:layout_widthPercent = "45%"
+        app:layout_heightPercent = "65%"
+        android:src = "@drawable/ic_end_game_quote"
+
+        android:layout_alignParentRight = "true"
+        android:layout_alignParentEnd = "true"
+        android:layout_above="@id/btn_play_again"
+
+        app:layout_marginRightPercent = "8%"
+        app:layout_marginEndPercent = "8%"
+        />
+
+</android.support.percent.PercentRelativeLayout>
