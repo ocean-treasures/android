@@ -4,7 +4,7 @@
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
     xmlns:app = "http://schemas.android.com/apk/res-auto"
-    android:background = "#5adcee">
+    >
 
     <ImageView
         android:id = "@+id/iv_seaweed_1"
@@ -78,7 +78,6 @@
         app:typefaceButtonAsset = "fonts/CoolCrayon.ttf"
         android:textColor = "@color/white"
         android:text = "@string/start"
-        android:textSize = "60sp"
         />
 
 </android.support.percent.PercentRelativeLayout>

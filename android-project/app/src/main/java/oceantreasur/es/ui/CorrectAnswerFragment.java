@@ -1,8 +1,12 @@
-package oceantreasur.es;
+package oceantreasur.es.ui;
 
 import android.media.MediaPlayer;
 
-public class CorrectAnswerActivity extends BaseAnswerActivity {
+import oceantreasur.es.R;
+
+
+
+public class CorrectAnswerFragment extends BaseAnswerFragment {
     @Override
     public String getMessage() {
         return getString(oceantreasur.es.R.string.correct_answer);
@@ -20,8 +24,7 @@ public class CorrectAnswerActivity extends BaseAnswerActivity {
 
     @Override
     void playMusic() {
-        MediaPlayer mPlayer = MediaPlayer.create(CorrectAnswerActivity.this, R.raw.yay);
+        MediaPlayer mPlayer = MediaPlayer.create(getActivity(), R.raw.yay);
         mPlayer.start();
     }
-
 }

@@ -20,11 +20,12 @@ import android.widget.TextView;
 
 import oceantreasur.es.R;
 
+import static oceantreasur.es.R.dimen.text_size;
 import static oceantreasur.es.view.FontManager.applyCustomFont;
 
 public class CustomTextView extends android.support.v7.widget.AppCompatTextView {
 
-    private interface SizeTester {
+    interface SizeTester {
         /**
          *
          * @param suggestedSize
@@ -52,7 +53,7 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
 
     private float mSpacingAdd = 0.0f;
 
-    private float mMinTextSize = 50;
+    private float mMinTextSize = 40;
 
     private int mWidthLimit;
 
@@ -84,7 +85,6 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
 
     private void initialize() {
         mPaint = new TextPaint(getPaint());
-        mMaxTextSize = getTextSize();
         mAvailableSpaceRect = new RectF();
         mTextCachedSizes = new SparseIntArray();
         if (mMaxLines == 0) {
@@ -184,10 +184,10 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
             return;
         }
         int startSize = (int) mMinTextSize;
-        int heightLimit = getMeasuredHeight() - getCompoundPaddingBottom()
-                - getCompoundPaddingTop();
-        mWidthLimit = getMeasuredWidth() - getCompoundPaddingLeft()
-                - getCompoundPaddingRight();
+        int heightLimit = (int) (getMeasuredHeight() - getCompoundPaddingBottom()
+                - getCompoundPaddingTop() - (0.15 * getMeasuredHeight()));
+        mWidthLimit = (int) (getMeasuredWidth() - getCompoundPaddingLeft()
+                - getCompoundPaddingRight() - (0.1 * getMeasuredWidth()));
         mAvailableSpaceRect.right = mWidthLimit;
         mAvailableSpaceRect.bottom = heightLimit;
         super.setTextSize(

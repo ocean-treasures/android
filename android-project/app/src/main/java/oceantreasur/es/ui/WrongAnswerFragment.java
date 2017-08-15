@@ -1,9 +1,11 @@
-package oceantreasur.es;
+package oceantreasur.es.ui;
 
 import android.media.MediaPlayer;
 
-public class WrongAnswerActivity extends BaseAnswerActivity {
+import oceantreasur.es.R;
 
+
+public class WrongAnswerFragment extends BaseAnswerFragment {
     @Override
     public String getMessage() {
         return getString(oceantreasur.es.R.string.wrong_answer);
@@ -21,7 +23,7 @@ public class WrongAnswerActivity extends BaseAnswerActivity {
 
     @Override
     public void playMusic() {
-        MediaPlayer mPlayer = MediaPlayer.create(WrongAnswerActivity.this, R.raw.superior_fart_sound);
+        MediaPlayer mPlayer = MediaPlayer.create(getActivity(), R.raw.superior_fart_sound);
         mPlayer.start();
     }
 }

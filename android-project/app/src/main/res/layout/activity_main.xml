@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="oceantreasur.es.MainActivity">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background = "#5adcee">
 
     <RelativeLayout
+        android:id="@+id/fish_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"></RelativeLayout>
 
-        <oceantreasur.es.view.CustomButton
-            android:id="@+id/btn_start"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            android:text="Play"
-            android:textSize="45sp"
-            app:typefaceButtonAsset="fonts/CoolCrayon.ttf"
-            android:background="@drawable/button_bg_round"
-            />
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"></RelativeLayout>
 
-    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/fish_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
 
 </RelativeLayout>

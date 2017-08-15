@@ -1,16 +1,17 @@
-package oceantreasur.es;
+package oceantreasur.es.ui;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.SystemClock;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,28 +22,32 @@ import com.bumptech.glide.Glide;
 
 import java.net.SocketTimeoutException;
 
-import oceantreasur.es.network.model.CheckAnswerResponse;
+import oceantreasur.es.MainActivity;
+import oceantreasur.es.R;
 import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.network.model.CheckAnswerRequest;
+import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.model.NextWordResponse;
 import oceantreasur.es.network.model.Picture;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GameActivity extends BaseActivity {
+import static oceantreasur.es.R.id.container;
+
+
+public class GameFragment extends Fragment {
 
     private static final int STEP_SIZE = 10;
-    private boolean isActivityAlive = true;
 
     private String selectedPictureUrl;
 
     private ProgressBar progressBar;
 
     private int[] ids = {R.id.iv_1,
-                         R.id.iv_2,
-                         R.id.iv_3,
-                         R.id.iv_4};
+            R.id.iv_2,
+            R.id.iv_3,
+            R.id.iv_4};
 
     private ImageView[] imageViews = new ImageView[ids.length];
 
@@ -50,43 +55,29 @@ public class GameActivity extends BaseActivity {
 
     private TextView word;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-        isActivityAlive = true;
+    private android.app.FragmentManager fragmentManagaer;
 
-//        RelativeLayout view = (RelativeLayout) findViewById(R.id.rl_game);
-//        View v = (View) findViewById(R.id.v_test);
-//        view.setDrawingCacheEnabled(true);
-//        view.buildDrawingCache();
-//        Bitmap bm = view.getDrawingCache();
-//        BitmapDrawable bd = new BitmapDrawable(view.getContext().getResources(), bm);
-//
-//        Bitmap.createScaledBitmap(bm, 10, 10, true);
-//        v.setVisibility(View.VISIBLE);
-//        v.setBackground(bd);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_game, container, false);
 
-        setupActivity();
+        fragmentManagaer = getFragmentManager();
+
+        setupFragment(view);
         getNextWord();
+
+        return view;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        isActivityAlive = false;
-    }
-
-    public void setupActivity() {
-        this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        this.word = (TextView) findViewById(R.id.tv_word);
+    public void setupFragment(View view) {
+        this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        this.word = (TextView) view.findViewById(R.id.tv_word);
 
         for (int i = 0; i < imageViews.length; i++) {
-            imageViews[i] = (ImageView) findViewById(ids[i]);
+            imageViews[i] = (ImageView) view.findViewById(ids[i]);
         }
     }
 
-      public void getNextWord() {
+    public void getNextWord() {
         Call<NextWordResponse> call = OceanTreasuresApplication.getApi().getNextWord();
 
         call.enqueue(new Callback<NextWordResponse>() {
@@ -95,19 +86,17 @@ public class GameActivity extends BaseActivity {
 
                 if (response.code() == 404) {
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
                     builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            ((MainActivity)getActivity()).attachFragment(new StartGameFragment());
                         }
                     });
 
                     final AlertDialog dialog = builder.create();
-                    LayoutInflater inflater = getLayoutInflater();
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
                     View dialogLayout = inflater.inflate(R.layout.alert_dialog, null);
                     dialog.setView(dialogLayout);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -133,12 +122,15 @@ public class GameActivity extends BaseActivity {
                     });
 
                 } else {
-                    nextWord = response.body();
+                    Fragment fragment = fragmentManagaer.findFragmentById(container);
 
-                    if(isActivityAlive) {
-                        loadImages(nextWord);
-                        setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
-                        word.setText(nextWord.getWord().getWord().toString());
+                    if(fragment instanceof GameFragment) {
+                        GameFragment gameFragment = (GameFragment) fragment;
+
+                        nextWord = response.body();
+                        gameFragment.loadImages(nextWord);
+                        gameFragment.setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
+                        gameFragment.setTextToTextView(nextWord.getWord().getWord().toString());
                     }
                 }
             }
@@ -165,7 +157,13 @@ public class GameActivity extends BaseActivity {
             public void onResponse(Call<CheckAnswerResponse> call, Response<CheckAnswerResponse> response) {
                 CheckAnswerResponse serverResponse = response.body();
 
-                chooseNextActivity(serverResponse);
+                Fragment fragment = fragmentManagaer.findFragmentById(container);
+
+                if(fragment instanceof GameFragment) {
+                    GameFragment gameFragment = (GameFragment) fragment;
+
+                    gameFragment.chooseNextFragment(serverResponse);
+                }
 
                 Log.d("ZAX", serverResponse.toString());
             }
@@ -205,23 +203,27 @@ public class GameActivity extends BaseActivity {
         }
     }
 
-    private void chooseNextActivity(CheckAnswerResponse response) {
-        Intent intent;
+    public void chooseNextFragment(CheckAnswerResponse response) {
+        Bundle data = bundleExtras(response);
 
-        if(response.isCorrect()) {
-            intent = new Intent(GameActivity.this, CorrectAnswerActivity.class);
-        }
-        else {
-            intent = new Intent(GameActivity.this, WrongAnswerActivity.class);
-        }
+        Fragment nextFragmentToDisplay = response.isCorrect() ? new CorrectAnswerFragment() : new WrongAnswerFragment();
 
-        intent.putExtra(BaseAnswerActivity.EXTRA_WORD, response.getWord());
-        intent.putExtra(BaseAnswerActivity.EXTRA_URL, selectedPictureUrl);
-        intent.putExtra(BaseAnswerActivity.EXTRA_PROGRESS_CUR, response.getProgress().getCurrent());
-        intent.putExtra(BaseAnswerActivity.EXTRA_PROGRESS_MAX, response.getProgress().getMax());
+        nextFragmentToDisplay.setArguments(data);
+        ((MainActivity) getActivity()).attachFragment(nextFragmentToDisplay);
+    }
 
-        startActivity(intent);
-        finish();
+    private Bundle bundleExtras(CheckAnswerResponse response) {
+        Bundle data = new Bundle();
+        data.putString(BaseAnswerFragment.EXTRA_WORD, response.getWord());
+        data.putString(BaseAnswerFragment.EXTRA_URL, selectedPictureUrl);
+        data.putInt(BaseAnswerFragment.EXTRA_PROGRESS_CUR, response.getProgress().getCurrent());
+        data.putInt(BaseAnswerFragment.EXTRA_PROGRESS_MAX, response.getProgress().getMax());
+
+        return data;
+    }
+
+    public void setTextToTextView(String stringToBeVisualized) {
+        word.setText(stringToBeVisualized);
     }
 
     private void disableImageClicks(){
@@ -231,4 +233,3 @@ public class GameActivity extends BaseActivity {
         }
     }
 }
-

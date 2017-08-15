@@ -21,20 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".GameActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name=".BaseAnswerActivity" />
-        <activity
-            android:name=".CorrectAnswerActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".WrongAnswerActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".EndGameActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name=".fragments.ActivityMain"></activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="b7155b53c9288994ad3b705de5b5acaaa9abd5a7" />
     </application>
 
 </manifest>

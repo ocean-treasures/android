@@ -5,7 +5,7 @@
     android:id = "@+id/rl_end"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
-    android:background = "#5adcee">
+    >
 
     <RelativeLayout
         android:layout_width = "match_parent"
@@ -36,20 +36,6 @@
         app:layout_marginStartPercent = "25%"
         />
 
-    <ImageView
-        android:id = "@+id/iv_logo_end"
-        app:layout_widthPercent = "45%"
-        app:layout_heightPercent = "65%"
-        android:src = "@drawable/ic_end_game_quote"
-
-        android:layout_alignParentRight = "true"
-        android:layout_alignParentEnd = "true"
-        android:layout_above="@id/btn_play_again"
-
-        app:layout_marginRightPercent = "8%"
-        app:layout_marginEndPercent = "8%"
-        />
-
     <oceantreasur.es.view.CustomButton
         android:id = "@+id/btn_play_again"
         android:background = "@drawable/custombutton"
@@ -65,15 +51,23 @@
         app:layout_marginEndPercent = "10%"
 
         android:text = "@string/play_again"
-        android:textColor = "@color/white"
-        android:textSize = "48sp"
         android:maxLines="1"
+        android:textColor = "@color/white"
+
         app:typefaceButtonAsset = "fonts/CoolCrayon.ttf"/>
 
-    <RelativeLayout
-        android:id  =  "@+id/foreground"
-        android:layout_width = "match_parent"
-        android:layout_height = "match_parent">
-    </RelativeLayout>
+    <ImageView
+        android:id = "@+id/iv_logo_end"
+        app:layout_widthPercent = "45%"
+        app:layout_heightPercent = "65%"
+        android:src = "@drawable/ic_end_game_quote"
+
+        android:layout_alignParentRight = "true"
+        android:layout_alignParentEnd = "true"
+        android:layout_above="@id/btn_play_again"
+
+        app:layout_marginRightPercent = "8%"
+        app:layout_marginEndPercent = "8%"
+        />
 
 </android.support.percent.PercentRelativeLayout>
