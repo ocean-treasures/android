@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import oceantreasur.es.R;
-import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.OceanTreasuresApplication;
 import oceantreasur.es.util.ScreenUtils;
 
 import static oceantreasur.es.R.dimen.small_fish_width;

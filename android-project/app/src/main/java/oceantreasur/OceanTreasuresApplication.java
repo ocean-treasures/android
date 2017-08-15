@@ -1,10 +1,13 @@
-package oceantreasur.es.network;
+package oceantreasur;
 
 import android.app.Application;
 import android.content.Context;
 
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
+import oceantreasur.es.network.MockOceanTreasuresAPI;
+import oceantreasur.es.network.OceanTreasuresAPI;
+import oceantreasur.es.network.OceanTreasuresConstants;
 import oceantreasur.es.view.FontManager;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

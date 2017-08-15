@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 
 import oceantreasur.es.MainActivity;
 import oceantreasur.es.R;
-import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.OceanTreasuresApplication;
 import oceantreasur.es.view.CustomButton;
 import oceantreasur.es.view.CustomTextView;
 

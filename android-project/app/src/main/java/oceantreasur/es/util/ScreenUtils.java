@@ -1,12 +1,9 @@
 package oceantreasur.es.util;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.util.TypedValue;
-import android.widget.ImageView;
 
-import oceantreasur.es.R;
-import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.OceanTreasuresApplication;
 
 
 public class ScreenUtils {

@@ -1,20 +1,14 @@
 package oceantreasur.es.ui;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,7 +18,7 @@ import java.net.SocketTimeoutException;
 
 import oceantreasur.es.MainActivity;
 import oceantreasur.es.R;
-import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.OceanTreasuresApplication;
 import oceantreasur.es.network.model.CheckAnswerRequest;
 import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.model.NextWordResponse;
