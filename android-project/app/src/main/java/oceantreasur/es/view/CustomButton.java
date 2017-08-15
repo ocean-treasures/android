@@ -50,7 +50,7 @@ public class CustomButton extends android.support.v7.widget.AppCompatButton {
 
     private float mSpacingAdd = 0.0f;
 
-    private float mMinTextSize = 40;
+    private float mMinTextSize = 30;
 
     private int mWidthLimit;
 
@@ -89,7 +89,6 @@ public class CustomButton extends android.support.v7.widget.AppCompatButton {
 
     private void initialize() {
         mPaint = new TextPaint(getPaint());
-        mMaxTextSize = getTextSize();
         mAvailableSpaceRect = new RectF();
         mTextCachedSizes = new SparseIntArray();
         if (mMaxLines == 0) {
@@ -189,10 +188,10 @@ public class CustomButton extends android.support.v7.widget.AppCompatButton {
             return;
         }
         int startSize = (int) mMinTextSize;
-        int heightLimit = getMeasuredHeight() - getCompoundPaddingBottom()
-                - getCompoundPaddingTop();
-        mWidthLimit = getMeasuredWidth() - getCompoundPaddingLeft()
-                - getCompoundPaddingRight();
+        int heightLimit = (int) (getMeasuredHeight() - getCompoundPaddingBottom()
+                        - getCompoundPaddingTop() - (0.2 * getMeasuredHeight()));
+        mWidthLimit = (int) (getMeasuredWidth() - getCompoundPaddingLeft()
+                        - getCompoundPaddingRight() - (0.2 * getMeasuredWidth()));
         mAvailableSpaceRect.right = mWidthLimit;
         mAvailableSpaceRect.bottom = heightLimit;
         super.setTextSize(

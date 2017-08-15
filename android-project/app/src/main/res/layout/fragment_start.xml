@@ -78,7 +78,6 @@
         app:typefaceButtonAsset = "fonts/CoolCrayon.ttf"
         android:textColor = "@color/white"
         android:text = "@string/start"
-        android:textSize = "60sp"
         />
 
 </android.support.percent.PercentRelativeLayout>

@@ -23,8 +23,7 @@ public class StartGameFragment extends Fragment {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameFragment gameFragment = new GameFragment();
-                ((MainActivity) getActivity()).attachFragment(gameFragment, FragmentTags.GAME_FRAGMENT_TAG);
+                ((MainActivity) getActivity()).attachFragment(new GameFragment());
             }
         });
 

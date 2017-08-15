@@ -8,7 +8,7 @@ import static oceantreasur.es.view.ScreenUtils.getScreenHeight;
 
 public class AnimationConstants {
 
-    public static final int MAX_SMALL_FISH = 5;
+    public static final int MAX_SMALL_FISH = 50;
     public static final int MAX_BIG_FISHES = 1;
 
     public static final int MAX_DURATION = 14000;

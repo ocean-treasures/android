@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 
 import oceantreasur.es.animations.AnimationController;
-import oceantreasur.es.ui.FragmentTags;
+
 import oceantreasur.es.ui.StartGameFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,15 +24,16 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout background = (RelativeLayout) findViewById(R.id.fish_background);
 
         AnimationController animationController = new AnimationController(background);
+        animationController.animateFishes();
 
         StartGameFragment startGameFragment = new StartGameFragment();
-        attachFragment(startGameFragment, FragmentTags.START_GAME_FRAGMENT_TAG);
+        attachFragment(startGameFragment);
 
     }
 
-    public void attachFragment(android.app.Fragment fragment, String tag) {
+    public void attachFragment(android.app.Fragment fragment) {
         fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment, tag)
+        fragmentTransaction.replace(R.id.container, fragment)
                             .commit();
     }
 }

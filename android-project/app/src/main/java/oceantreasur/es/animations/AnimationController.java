@@ -27,21 +27,19 @@ import static oceantreasur.es.animations.AnimationConstants.MAX_TIME_OFFSET_SMAL
 import static oceantreasur.es.animations.AnimationConstants.MIN_DURATION;
 import static oceantreasur.es.animations.AnimationConstants.MIN_TIME_OFFSET_BIG_FISH;
 import static oceantreasur.es.animations.AnimationConstants.MIN_TIME_OFFSET_SMALL_FISH;
-import static oceantreasur.es.view.ScreenUtils.getDimensionOfFishInPx;
-import static oceantreasur.es.view.ScreenUtils.getScreenHeight;
+import static oceantreasur.es.view.ScreenUtils.getPxFromDp;
 
 
 public class AnimationController {
 
     private ArrayList<View> smallFishViews = new ArrayList<>();
     private ArrayList<View> bigFishViews = new ArrayList<>();
-    private int smallFishBeginOffset = getDimensionOfFishInPx(small_fish_width);
-    private int bigFishBeginOffset = getDimensionOfFishInPx(R.dimen.big_fish_width);
+    private int smallFishBeginOffset = getPxFromDp(small_fish_width);
+    private int bigFishBeginOffset = getPxFromDp(R.dimen.big_fish_width);
     private int screenHeight = ScreenUtils.getScreenHeight();
 
     public AnimationController(RelativeLayout background) {
         inflateFishViews(background);
-        animateFishes();
     }
 
     private void inflateFishViews (RelativeLayout background) {
@@ -59,7 +57,7 @@ public class AnimationController {
         }
     }
 
-    private void animateFishes() {
+    public void animateFishes() {
         animateFishArray(smallFishViews,smallFishBeginOffset, true);
         animateFishArray(bigFishViews, bigFishBeginOffset, false);
     }
@@ -82,18 +80,19 @@ public class AnimationController {
         }
     }
 
-    private int chooseRandomYPosition(boolean isSmallFish) {
-
-        if (isSmallFish) {
-            return generateRandomIntegerInRange(getDimensionOfFishInPx(small_fish_height) / 2, screenHeight - getDimensionOfFishInPx(small_fish_height));
-        } else {
-            return (screenHeight / 2  - getDimensionOfFishInPx(big_fish_height) / 2);
-        }
+    private int chooseRandomYPosition() {
+            return generateRandomIntegerInRange(getPxFromDp(small_fish_height) / 2, screenHeight - getPxFromDp(small_fish_height));
     }
 
     private void animateSingleFish(final View fish, final int durationTime, final int positionOffset, final int startTimeOffset, final boolean isSmallFish) {
         int width = ScreenUtils.getScreenWidth();
-        int height = chooseRandomYPosition(isSmallFish);
+        int height;
+
+        if(isSmallFish) {
+            height = chooseRandomYPosition();
+        } else {
+            height = screenHeight / 2  - getPxFromDp(big_fish_height) / 2;
+        }
 
         Animation anim = new TranslateAnimation(-positionOffset, width + positionOffset, height, height);
         anim.setFillAfter(true);

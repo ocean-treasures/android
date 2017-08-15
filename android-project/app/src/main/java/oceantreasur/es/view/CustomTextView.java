@@ -85,7 +85,6 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
 
     private void initialize() {
         mPaint = new TextPaint(getPaint());
-        mMaxTextSize = getTextSize();
         mAvailableSpaceRect = new RectF();
         mTextCachedSizes = new SparseIntArray();
         if (mMaxLines == 0) {
@@ -185,10 +184,10 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
             return;
         }
         int startSize = (int) mMinTextSize;
-        int heightLimit = getMeasuredHeight() - getCompoundPaddingBottom()
-                - getCompoundPaddingTop();
-        mWidthLimit = getMeasuredWidth() - getCompoundPaddingLeft()
-                - getCompoundPaddingRight();
+        int heightLimit = (int) (getMeasuredHeight() - getCompoundPaddingBottom()
+                - getCompoundPaddingTop() - (0.15 * getMeasuredHeight()));
+        mWidthLimit = (int) (getMeasuredWidth() - getCompoundPaddingLeft()
+                - getCompoundPaddingRight() - (0.1 * getMeasuredWidth()));
         mAvailableSpaceRect.right = mWidthLimit;
         mAvailableSpaceRect.bottom = heightLimit;
         super.setTextSize(

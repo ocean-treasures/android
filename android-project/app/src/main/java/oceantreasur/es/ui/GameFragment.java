@@ -33,6 +33,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static oceantreasur.es.R.id.container;
+
 
 public class GameFragment extends Fragment {
 
@@ -89,8 +91,7 @@ public class GameFragment extends Fragment {
                     builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            StartGameFragment startGame = new StartGameFragment();
-                            ((MainActivity)getActivity()).attachFragment(startGame, FragmentTags.START_GAME_FRAGMENT_TAG);
+                            ((MainActivity)getActivity()).attachFragment(new StartGameFragment());
                         }
                     });
 
@@ -121,13 +122,16 @@ public class GameFragment extends Fragment {
                     });
 
                 } else {
-                    GameFragment gameFragment =  (GameFragment) fragmentManagaer.findFragmentByTag(FragmentTags.GAME_FRAGMENT_TAG);
+                    Fragment fragment = fragmentManagaer.findFragmentById(container);
 
-                    nextWord = response.body();
-                    gameFragment.loadImages(nextWord);
-                    gameFragment.setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
-                    gameFragment.setTextToTextView(nextWord.getWord().getWord().toString());
+                    if(fragment instanceof GameFragment) {
+                        GameFragment gameFragment = (GameFragment) fragment;
 
+                        nextWord = response.body();
+                        gameFragment.loadImages(nextWord);
+                        gameFragment.setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
+                        gameFragment.setTextToTextView(nextWord.getWord().getWord().toString());
+                    }
                 }
             }
 
@@ -153,9 +157,13 @@ public class GameFragment extends Fragment {
             public void onResponse(Call<CheckAnswerResponse> call, Response<CheckAnswerResponse> response) {
                 CheckAnswerResponse serverResponse = response.body();
 
-                GameFragment gameFragment =  (GameFragment) fragmentManagaer.findFragmentByTag(FragmentTags.GAME_FRAGMENT_TAG);
+                Fragment fragment = fragmentManagaer.findFragmentById(container);
 
-                gameFragment.chooseNextFragment(serverResponse);
+                if(fragment instanceof GameFragment) {
+                    GameFragment gameFragment = (GameFragment) fragment;
+
+                    gameFragment.chooseNextFragment(serverResponse);
+                }
 
                 Log.d("ZAX", serverResponse.toString());
             }
@@ -199,10 +207,9 @@ public class GameFragment extends Fragment {
         Bundle data = bundleExtras(response);
 
         Fragment nextFragmentToDisplay = response.isCorrect() ? new CorrectAnswerFragment() : new WrongAnswerFragment();
-        String tag = response.isCorrect() ? FragmentTags.CORRECT_ANSWER_FRAGMENT_TAG : FragmentTags.WRONG_ANSWER_FRAGMENT_TAG;
 
         nextFragmentToDisplay.setArguments(data);
-        ((MainActivity) getActivity()).attachFragment(nextFragmentToDisplay, tag);
+        ((MainActivity) getActivity()).attachFragment(nextFragmentToDisplay);
     }
 
     private Bundle bundleExtras(CheckAnswerResponse response) {

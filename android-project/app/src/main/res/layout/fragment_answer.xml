@@ -47,7 +47,6 @@
         android:gravity = "center_horizontal"
         android:maxLines = "1"
         android:textColor = "@color/white"
-        android:textSize = "@dimen/text_size"
         />
 
     <ImageView
@@ -78,7 +77,6 @@
 
         app:typefaceAsset = "fonts/CoolCrayon.ttf"
         android:textAlignment = "center"
-        android:textSize = "@dimen/text_size"
         android:maxLines="1"
         android:textColor = "@color/white"
         />
@@ -98,7 +96,6 @@
         app:layout_marginEndPercent = "12%"
 
         android:text = "@string/next"
-        android:textSize = "50sp"
         android:textColor = "@color/white"
         app:typefaceButtonAsset = "fonts/CoolCrayon.ttf"
         />
