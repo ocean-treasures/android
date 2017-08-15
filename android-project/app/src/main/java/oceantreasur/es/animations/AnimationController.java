@@ -13,18 +13,17 @@ import oceantreasur.es.R;
 import oceantreasur.es.network.OceanTreasuresApplication;
 import oceantreasur.es.view.ScreenUtils;
 
-import static oceantreasur.es.R.dimen.big_fish_height;
-import static oceantreasur.es.R.dimen.small_fish_height;
 import static oceantreasur.es.R.dimen.small_fish_width;
 import static oceantreasur.es.R.layout.big_fish;
 import static oceantreasur.es.R.layout.small_fish;
-import static oceantreasur.es.animations.AnimationConstants.DURATION_OF_BIG_FISH_ANIMATION;
 import static oceantreasur.es.animations.AnimationConstants.MAX_BIG_FISHES;
 import static oceantreasur.es.animations.AnimationConstants.MAX_DURATION;
+import static oceantreasur.es.animations.AnimationConstants.MAX_DURATION_OF_BIG_FISH_ANIMATION;
 import static oceantreasur.es.animations.AnimationConstants.MAX_SMALL_FISH;
 import static oceantreasur.es.animations.AnimationConstants.MAX_TIME_OFFSET_BIG_FISH;
 import static oceantreasur.es.animations.AnimationConstants.MAX_TIME_OFFSET_SMALL_FISH;
 import static oceantreasur.es.animations.AnimationConstants.MIN_DURATION;
+import static oceantreasur.es.animations.AnimationConstants.MIN_DURATION_OF_BIG_FISH_ANIMATION;
 import static oceantreasur.es.animations.AnimationConstants.MIN_TIME_OFFSET_BIG_FISH;
 import static oceantreasur.es.animations.AnimationConstants.MIN_TIME_OFFSET_SMALL_FISH;
 import static oceantreasur.es.view.ScreenUtils.getPxFromDp;
@@ -40,6 +39,36 @@ public class AnimationController {
 
     public AnimationController(RelativeLayout background) {
         inflateFishViews(background);
+    }
+
+    private static class AnimationTiming {
+        private int minDuration;
+        private int maxDuration;
+        private int minTimeOffset;
+        private int maxTimeOffset;
+
+        AnimationTiming(int minDuration, int maxDuration, int minTimeOffset, int maxTimeOffset) {
+            this.minDuration = minDuration;
+            this.maxDuration = maxDuration;
+            this.minTimeOffset = minTimeOffset;
+            this.maxTimeOffset = maxTimeOffset;
+        }
+
+        public int getMinDuration() {
+            return minDuration;
+        }
+
+        public int getMaxDuration() {
+            return maxDuration;
+        }
+
+        public int getMinTimeOffset() {
+            return minTimeOffset;
+        }
+
+        public int getMaxTimeOffset() {
+            return maxTimeOffset;
+        }
     }
 
     private void inflateFishViews (RelativeLayout background) {
@@ -58,41 +87,35 @@ public class AnimationController {
     }
 
     public void animateFishes() {
-        animateFishArray(smallFishViews,smallFishBeginOffset, true);
-        animateFishArray(bigFishViews, bigFishBeginOffset, false);
+        animateFishArray(smallFishViews,smallFishBeginOffset, new AnimationTiming(MIN_DURATION, MAX_DURATION,
+                                                            MIN_TIME_OFFSET_SMALL_FISH, MAX_TIME_OFFSET_SMALL_FISH));
+
+        animateFishArray(bigFishViews, bigFishBeginOffset, new AnimationTiming(MIN_DURATION_OF_BIG_FISH_ANIMATION,
+                                                            MAX_DURATION_OF_BIG_FISH_ANIMATION, MIN_TIME_OFFSET_BIG_FISH, MAX_TIME_OFFSET_BIG_FISH));
     }
 
-    private void animateFishArray(ArrayList<View> views, int positionOffset, boolean isSmallFish) {
+    private void animateFishArray(ArrayList<View> views, int positionOffset, AnimationTiming animTiming) {
         int startTimeOffset;
         int duration;
 
         for(int i = 0; i < views.size(); i++) {
+            duration = generateRandomIntegerInRange(animTiming.getMinDuration(), animTiming.getMaxDuration());
+            startTimeOffset = generateRandomIntegerInRange(animTiming.getMinTimeOffset(), animTiming.getMaxTimeOffset());
 
-            if(isSmallFish) {
-                duration = generateRandomIntegerInRange(MIN_DURATION, MAX_DURATION);
-                startTimeOffset = generateRandomIntegerInRange(MIN_TIME_OFFSET_SMALL_FISH, MAX_TIME_OFFSET_SMALL_FISH);
-            } else {
-                startTimeOffset = generateRandomIntegerInRange(MIN_TIME_OFFSET_BIG_FISH, MAX_TIME_OFFSET_BIG_FISH);
-                duration =  DURATION_OF_BIG_FISH_ANIMATION;
-            }
-
-            animateSingleFish(views.get(i), duration, positionOffset, startTimeOffset, isSmallFish);
+            animateSingleFish(views.get(i), duration, positionOffset, startTimeOffset);
         }
     }
 
-    private int chooseRandomYPosition() {
-            return generateRandomIntegerInRange(getPxFromDp(small_fish_height) / 2, screenHeight - getPxFromDp(small_fish_height));
+    private int chooseRandomYPosition(int heightOfTheFish) {
+            return generateRandomIntegerInRange(1, screenHeight - heightOfTheFish - 50);
     }
 
-    private void animateSingleFish(final View fish, final int durationTime, final int positionOffset, final int startTimeOffset, final boolean isSmallFish) {
+    private void animateSingleFish(final View fish, final int durationTime, final int positionOffset, final int startTimeOffset) {
         int width = ScreenUtils.getScreenWidth();
-        int height;
+        fish.measure( View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 
-        if(isSmallFish) {
-            height = chooseRandomYPosition();
-        } else {
-            height = screenHeight / 2  - getPxFromDp(big_fish_height) / 2;
-        }
+        int height = chooseRandomYPosition(fish.getMeasuredHeight());
 
         Animation anim = new TranslateAnimation(-positionOffset, width + positionOffset, height, height);
         anim.setFillAfter(true);
@@ -105,7 +128,7 @@ public class AnimationController {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                animateSingleFish(fish, durationTime, positionOffset, startTimeOffset, isSmallFish);
+                animateSingleFish(fish, durationTime, positionOffset, startTimeOffset);
             }
 
             @Override
