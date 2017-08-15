@@ -29,6 +29,7 @@ import oceantreasur.es.network.model.CheckAnswerRequest;
 import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.model.NextWordResponse;
 import oceantreasur.es.network.model.Picture;
+import oceantreasur.es.util.DialogUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,41 +87,17 @@ public class GameFragment extends Fragment {
 
                 if (response.code() == 404) {
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    android.app.AlertDialog dialog = DialogUtil.getNeutralImageAlertDialog(R
+                            .string.neutral_button_text, R.drawable.fish, new DialogInterface
+                            .OnClickListener() {
 
-                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ((MainActivity)getActivity()).attachFragment(new StartGameFragment());
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ((MainActivity) getActivity()).attachFragment(new StartGameFragment());
                         }
-                    });
-
-                    final AlertDialog dialog = builder.create();
-                    LayoutInflater inflater = getActivity().getLayoutInflater();
-                    View dialogLayout = inflater.inflate(R.layout.alert_dialog, null);
-                    dialog.setView(dialogLayout);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+                    }, getActivity());
                     dialog.show();
-
-                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface d) {
-                            Context context = OceanTreasuresApplication.getStaticContext();
-                            ImageView image = (ImageView) dialog.findViewById(R.id.iv_dialog);
-
-                            Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
-                                    R.drawable.fish);
-
-                            float imageWidthInPX = (float)image.getWidth();
-
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
-                                    Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
-
-                            image.setLayoutParams(layoutParams);
-                        }
-                    });
-
                 } else {
                     Fragment fragment = fragmentManagaer.findFragmentById(container);
 
@@ -137,7 +114,7 @@ public class GameFragment extends Fragment {
 
             @Override
             public void onFailure(Call<NextWordResponse> call, Throwable t) {
-                Log.d("ZAX", "ERROR");
+                Log.d("ZAX", "ERROR1");
 
                 if(t instanceof SocketTimeoutException){
                     Log.d("ZAX", "Server Timeout!");
@@ -170,7 +147,7 @@ public class GameFragment extends Fragment {
 
             @Override
             public void onFailure(Call<CheckAnswerResponse> call, Throwable t) {
-                Log.d("ZAX", "ERROR");
+                Log.d("ZAX", "ERROR2");
             }
         });
     }
