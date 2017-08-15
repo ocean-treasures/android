@@ -25,9 +25,10 @@ public class DialogUtil {
                                                           DialogInterface.OnClickListener
                                                                   listener, final
                                                          Activity activity) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        builder.setNeutralButton("OK", listener);
+        builder.setNeutralButton(activity.getString(buttonTextId), listener);
 
         final AlertDialog dialog = builder.create();
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -39,8 +40,7 @@ public class DialogUtil {
             @Override
             public void onShow(DialogInterface d) {
                 ImageView image = (ImageView) dialog.findViewById(R.id.iv_dialog);
-                Bitmap icon = BitmapFactory.decodeResource(OceanTreasuresApplication
-                        .getStaticContext().getResources(), R.drawable.fish);
+                Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.fish);
                 float imageWidthInPX = (float) image.getWidth();
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round
                         (imageWidthInPX),
