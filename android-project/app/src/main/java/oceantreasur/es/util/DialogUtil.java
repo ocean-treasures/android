@@ -34,7 +34,7 @@ public class DialogUtil {
         View dialogLayout = inflater.inflate(R.layout.image_alert_dialog_content, null);
         dialog.setView(dialogLayout);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+        dialog.setCancelable(false);
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface d) {
