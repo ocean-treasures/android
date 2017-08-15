@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -20,7 +21,7 @@ import oceantreasur.es.R;
 public class DialogUtil {
 
     public static AlertDialog getNeutralImageAlertDialog(int buttonTextId, int imageId,
-                                                          DialogInterface.OnClickListener
+                                                         final DialogInterface.OnClickListener
                                                                   listener, final
                                                          Activity activity) {
 
@@ -40,11 +41,18 @@ public class DialogUtil {
                 ImageView image = (ImageView) dialog.findViewById(R.id.iv_dialog);
                 Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.fish);
                 float imageWidthInPX = (float) image.getWidth();
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(Math.round
                         (imageWidthInPX),
                         Math.round(imageWidthInPX * (float) icon.getHeight() / (float) icon
                                 .getWidth()));
                 image.setLayoutParams(layoutParams);
+                image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        listener.onClick(null, 0);
+                    }
+                });
             }
         });
 
