@@ -60,13 +60,13 @@ public class GameFragment extends Fragment {
 
         fragmentManagaer = getFragmentManager();
 
-        setupActivity(view);
+        setupFragment(view);
         getNextWord();
 
         return view;
     }
 
-    public void setupActivity(View view) {
+    public void setupFragment(View view) {
         this.progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         this.word = (TextView) view.findViewById(R.id.tv_word);
 
@@ -89,8 +89,8 @@ public class GameFragment extends Fragment {
                     builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            StartGameFragment mf = new StartGameFragment();
-                            ((MainActivity)getActivity()).attachFragment(mf, FragmentTags.START_GAME_FRAGMENT_TAG);
+                            StartGameFragment startGame = new StartGameFragment();
+                            ((MainActivity)getActivity()).attachFragment(startGame, FragmentTags.START_GAME_FRAGMENT_TAG);
                         }
                     });
 

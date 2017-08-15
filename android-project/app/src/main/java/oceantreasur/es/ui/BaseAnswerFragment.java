@@ -36,7 +36,7 @@ public abstract class BaseAnswerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_answer, container, false);
 
-        setupActivity(view);
+        setupFragment(view);
         playMusic();
 
         Bundle intentData = getArguments();
@@ -78,7 +78,7 @@ public abstract class BaseAnswerFragment extends Fragment {
         image.setEnabled(false);
     }
 
-    public void setupActivity(View view) {
+    public void setupFragment(View view) {
         image = (ImageView) view.findViewById(R.id.iv_answer_pic);
         answerMessage = (CustomTextView) view.findViewById(R.id.tv_answer_msg);
         answerWord = (CustomTextView) view.findViewById(R.id.tv_answer_word);
