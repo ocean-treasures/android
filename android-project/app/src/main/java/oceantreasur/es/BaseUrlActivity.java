@@ -1,10 +1,11 @@
-package oceantreasur;
+package oceantreasur.es;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.EditText;
 
+import oceantreasur.OceanTreasuresApplication;
 import oceantreasur.es.R;
 
 /**
@@ -12,6 +13,7 @@ import oceantreasur.es.R;
  */
 
 public class BaseUrlActivity extends Activity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
