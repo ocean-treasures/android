@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import oceantreasur.es.view.BaseUrlActivity;
+import oceantreasur.BaseUrlActivity;
 
 /**
  * Created by Dean Panayotov on 8/16/2017
