@@ -10,6 +10,7 @@ import oceantreasur.es.network.MockOceanTreasuresAPI;
 import oceantreasur.es.network.OceanTreasuresAPI;
 import oceantreasur.es.network.OceanTreasuresConstants;
 import oceantreasur.es.view.FontManager;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -79,7 +80,8 @@ public class OceanTreasuresApplication extends Application {
     }
 
     public static void rebuildRetrofitIntstance(String baseUrl){
-        if(baseUrl != null && baseUrl.length() > 0) {
+        HttpUrl httpUrl = HttpUrl.parse(baseUrl);
+        if(httpUrl != null) {
             setBaseUrl(baseUrl);
             createRetrofitInstance();
         }
