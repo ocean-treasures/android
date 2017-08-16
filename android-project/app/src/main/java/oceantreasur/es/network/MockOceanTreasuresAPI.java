@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Random;
 
+import oceantreasur.OceanTreasuresApplication;
 import oceantreasur.es.network.model.CheckAnswerRequest;
 import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.model.NextWordResponse;

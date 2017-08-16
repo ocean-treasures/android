@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".network.OceanTreasuresApplication"
+        android:name="oceantreasur.OceanTreasuresApplication"
         android:allowBackup="true"
         android:icon="@mipmap/oceantreasureslogo"
         android:label="Ocean Treasures"

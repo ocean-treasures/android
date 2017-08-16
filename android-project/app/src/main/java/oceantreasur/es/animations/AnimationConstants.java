@@ -1,11 +1,5 @@
 package oceantreasur.es.animations;
 
-import android.widget.ImageView;
-
-import oceantreasur.es.view.ScreenUtils;
-
-import static oceantreasur.es.view.ScreenUtils.getScreenHeight;
-
 public class AnimationConstants {
 
     public static final int MAX_SMALL_FISH = 5;
