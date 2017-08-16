@@ -68,7 +68,7 @@ public class OceanTreasuresApplication extends Application {
         }
     }
 
-    private static String getBaseUrl(){
+    public static String getBaseUrl(){
         SharedPreferences sharedPreferences = getStaticContext().getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
         return sharedPreferences.getString(BASE_URL, OceanTreasuresConstants.BASE_URL);
     }

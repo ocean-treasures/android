@@ -18,6 +18,7 @@ public class BaseUrlActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_url);
+        ((EditText)findViewById(R.id.base_url)).setText(OceanTreasuresApplication.getBaseUrl());
     }
 
     @Override
