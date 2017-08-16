@@ -1,12 +1,18 @@
 package oceantreasur.es;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 
+import com.squareup.seismic.ShakeDetector;
+
 import oceantreasur.es.animations.AnimationController;
 
+import oceantreasur.es.network.OceanTreasuresConstants;
 import oceantreasur.es.ui.StartGameFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,5 +41,26 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment)
                             .commit();
+    }
+
+    private ShakeDetector shakeDetector = new ShakeDetector(new ShakeDetector.Listener() {
+        @Override
+        public void hearShake() {
+            if(!OceanTreasuresConstants.IS_MOCK){
+                startActivity(new Intent(MainActivity.this, SecretActivity.class));
+            }
+        }
+    });
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        shakeDetector.start((SensorManager) getSystemService(Context.SENSOR_SERVICE));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        shakeDetector.stop();
     }
 }
