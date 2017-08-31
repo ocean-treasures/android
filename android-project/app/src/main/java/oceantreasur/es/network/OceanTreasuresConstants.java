@@ -10,4 +10,5 @@ public class OceanTreasuresConstants {
     public static final String BASE_URL = urls[0];
     public static final boolean IS_MOCK = false;
     public static final int NUMBER_OF_SHAKES_REQUIRED = 3;
+    public static final String NSD_LOCAL_DOMAIN_NAME = "oceantreasures";
 }
