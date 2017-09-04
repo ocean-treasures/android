@@ -6,14 +6,12 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import oceantreasur.es.R;
-import oceantreasur.es.network.OceanTreasuresApplication;
+import oceantreasur.OceanTreasuresApplication;
 
 public class FontManager {
     private static FontManager instance;
