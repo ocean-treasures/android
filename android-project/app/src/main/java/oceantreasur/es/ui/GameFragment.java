@@ -1,37 +1,24 @@
 package oceantreasur.es.ui;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.net.SocketTimeoutException;
-
 import oceantreasur.es.MainActivity;
 import oceantreasur.es.R;
-import oceantreasur.es.network.OceanTreasuresApplication;
-import oceantreasur.es.network.model.CheckAnswerRequest;
+import oceantreasur.es.network.NetworkManager;
 import oceantreasur.es.network.model.CheckAnswerResponse;
 import oceantreasur.es.network.model.NextWordResponse;
 import oceantreasur.es.network.model.Picture;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static oceantreasur.es.R.id.container;
 
@@ -57,13 +44,28 @@ public class GameFragment extends Fragment {
 
     private android.app.FragmentManager fragmentManagaer;
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
 
         fragmentManagaer = getFragmentManager();
 
         setupFragment(view);
-        getNextWord();
+        NetworkManager.getNextWord(new NetworkManager.SuccessListener<NextWordResponse>() {
+            @Override
+            public void onSuccess(NextWordResponse nextWord) {
+                Fragment fragment = fragmentManagaer.findFragmentById(R.id.container);
+
+                if (fragment instanceof GameFragment) {
+                    GameFragment gameFragment = (GameFragment) fragment;
+
+                    gameFragment.loadImages(nextWord);
+                    gameFragment.setupProgressBar(nextWord.getProgress().getCurrent(), nextWord
+                            .getProgress().getMax());
+                    gameFragment.setTextToTextView(nextWord.getWord().getWord().toString());
+                }
+            }
+        }, getActivity());
 
         return view;
     }
@@ -77,103 +79,6 @@ public class GameFragment extends Fragment {
         }
     }
 
-    public void getNextWord() {
-        Call<NextWordResponse> call = OceanTreasuresApplication.getApi().getNextWord();
-
-        call.enqueue(new Callback<NextWordResponse>() {
-            @Override
-            public void onResponse(Call<NextWordResponse> call, Response<NextWordResponse> response) {
-
-                if (response.code() == 404) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ((MainActivity)getActivity()).attachFragment(new StartGameFragment());
-                        }
-                    });
-
-                    final AlertDialog dialog = builder.create();
-                    LayoutInflater inflater = getActivity().getLayoutInflater();
-                    View dialogLayout = inflater.inflate(R.layout.alert_dialog, null);
-                    dialog.setView(dialogLayout);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-                    dialog.show();
-
-                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface d) {
-                            Context context = OceanTreasuresApplication.getStaticContext();
-                            ImageView image = (ImageView) dialog.findViewById(R.id.iv_dialog);
-
-                            Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
-                                    R.drawable.fish);
-
-                            float imageWidthInPX = (float)image.getWidth();
-
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
-                                    Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
-
-                            image.setLayoutParams(layoutParams);
-                        }
-                    });
-
-                } else {
-                    Fragment fragment = fragmentManagaer.findFragmentById(container);
-
-                    if(fragment instanceof GameFragment) {
-                        GameFragment gameFragment = (GameFragment) fragment;
-
-                        nextWord = response.body();
-                        gameFragment.loadImages(nextWord);
-                        gameFragment.setupProgressBar(nextWord.getProgress().getCurrent(), nextWord.getProgress().getMax());
-                        gameFragment.setTextToTextView(nextWord.getWord().getWord().toString());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NextWordResponse> call, Throwable t) {
-                Log.d("ZAX", "ERROR");
-
-                if(t instanceof SocketTimeoutException){
-                    Log.d("ZAX", "Server Timeout!");
-                    getNextWord();
-                }
-
-            }
-        });
-    }
-
-    public void checkAnswer(int wordId, int picId) {
-        CheckAnswerRequest req = new CheckAnswerRequest(wordId, picId);
-        Call<CheckAnswerResponse> call = OceanTreasuresApplication.getApi().checkAnswer(req);
-
-        call.enqueue(new Callback<CheckAnswerResponse>() {
-            @Override
-            public void onResponse(Call<CheckAnswerResponse> call, Response<CheckAnswerResponse> response) {
-                CheckAnswerResponse serverResponse = response.body();
-
-                Fragment fragment = fragmentManagaer.findFragmentById(container);
-
-                if(fragment instanceof GameFragment) {
-                    GameFragment gameFragment = (GameFragment) fragment;
-
-                    gameFragment.chooseNextFragment(serverResponse);
-                }
-
-                Log.d("ZAX", serverResponse.toString());
-            }
-
-            @Override
-            public void onFailure(Call<CheckAnswerResponse> call, Throwable t) {
-                Log.d("ZAX", "ERROR");
-            }
-        });
-    }
 
     public void setupProgressBar(int cur, int max) {
         progressBar.setMax(max * STEP_SIZE);
@@ -187,7 +92,22 @@ public class GameFragment extends Fragment {
                 disableImageClicks();
                 Picture pic = (Picture) v.getTag();
                 selectedPictureUrl = pic.getResolvedUrl();
-                checkAnswer(nextWord.getWord().getId(), pic.getId());
+
+                NetworkManager.checkAnswer(nextWord.getWord().getId(), pic.getId(), new
+                        NetworkManager.SuccessListener<CheckAnswerResponse>() {
+                    @Override
+                    public void onSuccess(CheckAnswerResponse response) {
+
+                        Fragment fragment = fragmentManagaer.findFragmentById(container);
+                        if (fragment instanceof GameFragment) {
+                            GameFragment gameFragment = (GameFragment) fragment;
+                            gameFragment.chooseNextFragment(response);
+                        }
+
+                        Log.d("ZAX", response.toString());
+
+                    }
+                }, getActivity());
             }
         };
 
@@ -206,7 +126,8 @@ public class GameFragment extends Fragment {
     public void chooseNextFragment(CheckAnswerResponse response) {
         Bundle data = bundleExtras(response);
 
-        Fragment nextFragmentToDisplay = response.isCorrect() ? new CorrectAnswerFragment() : new WrongAnswerFragment();
+        Fragment nextFragmentToDisplay = response.isCorrect() ? new CorrectAnswerFragment() : new
+                WrongAnswerFragment();
 
         nextFragmentToDisplay.setArguments(data);
         ((MainActivity) getActivity()).attachFragment(nextFragmentToDisplay);
@@ -226,8 +147,8 @@ public class GameFragment extends Fragment {
         word.setText(stringToBeVisualized);
     }
 
-    private void disableImageClicks(){
-        for(ImageView iv : imageViews){
+    private void disableImageClicks() {
+        for (ImageView iv : imageViews) {
             iv.setClickable(false);
             iv.setEnabled(false);
         }

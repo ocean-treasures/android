@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import oceantreasur.es.R;
-import oceantreasur.es.network.OceanTreasuresApplication;
-import oceantreasur.es.view.ScreenUtils;
+import oceantreasur.OceanTreasuresApplication;
+import oceantreasur.es.util.ScreenUtils;
 
 import static oceantreasur.es.R.dimen.small_fish_width;
 import static oceantreasur.es.R.layout.big_fish;
@@ -26,7 +26,7 @@ import static oceantreasur.es.animations.AnimationConstants.MIN_DURATION;
 import static oceantreasur.es.animations.AnimationConstants.MIN_DURATION_OF_BIG_FISH_ANIMATION;
 import static oceantreasur.es.animations.AnimationConstants.MIN_TIME_OFFSET_BIG_FISH;
 import static oceantreasur.es.animations.AnimationConstants.MIN_TIME_OFFSET_SMALL_FISH;
-import static oceantreasur.es.view.ScreenUtils.getPxFromDp;
+import static oceantreasur.es.util.ScreenUtils.getPxFromDp;
 
 
 public class AnimationController {
